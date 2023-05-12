@@ -20,8 +20,7 @@ function Input({widthFull, white, className, type, text, value, onChange, Icon}:
             background+
             width +
             " " +
-            className +
-            "font-regular text-sm rounded-xl p-4 focus:shadow-border outline-none " +
+            "font-regular text-sm rounded-lg p-3 focus:shadow-border outline-none " +
             className
           }
           type={type}
@@ -29,9 +28,14 @@ function Input({widthFull, white, className, type, text, value, onChange, Icon}:
           onChange={(e) => onChange(e.target.value)}
           value={value}
         />
-        <div className="absolute top-[5px] right-4 text-gray-400">
+        
+        {Icon && (
+          <div className="absolute top-0 right-0 h-full flex items-center pr-3 text-gray-400">
             <Icon size={19} />
-        </div>
+          </div>      
+        )}
+        
+        
       </div>
     );
 }
