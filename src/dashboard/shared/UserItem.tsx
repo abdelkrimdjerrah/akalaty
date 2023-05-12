@@ -1,15 +1,19 @@
-var Abdelkrim = require('../../assets/Abdelkrim.png');
 
+interface UserItemProps{
+  name: string,
+  text: string,
+  picture: any
+}
 
-function UserItem() {
+function UserItem({name,text, picture}: UserItemProps) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 overflow-hidden">
         <div>
-            <img src={Abdelkrim} className="h-14 rounded-full" alt="" />
+            <img src={picture} className="min-h-[40px] min-w-[40px] max-h-[40px] max-w-[40px] rounded-full" alt="" />
         </div>
         <div>
-            <p className="text-md font-light">Abdelkrim Djerrah</p>
-            <p className="text-sm font-medium text-gray-400">Chief</p>
+            <p className="text-md font-light">{name}</p>
+            <p className="text-xs font-medium text-gray-400">{text}</p>
         </div>
     </div>
   )

@@ -2,6 +2,7 @@ import UserItem from "../shared/UserItem";
 import SidebarItem from "../shared/SidebarItem";
 import { House, Cookie } from "phosphor-react";
 import { useLocation, useNavigate } from "react-router-dom";
+var Abdelkrim = require('../../assets/Abdelkrim.png');
 
 function Sidebar() {
 
@@ -9,9 +10,9 @@ function Sidebar() {
   let location = useLocation();
 
   return (
-    <div className="bg-white w-fit h-fit m-10 p-8 rounded-3xl">
+    <div className="bg-white min-w-[200px] h-fit p-5 rounded-3xl">
       <div className="flex flex-col gap-2">
-        <UserItem />
+        <UserItem name="Abdelkrim" text="Chief" picture={Abdelkrim}/>
         <SidebarItem
           title="Home"
           Icon={House}
