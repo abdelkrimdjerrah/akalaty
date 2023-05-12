@@ -14,36 +14,33 @@ interface NotifProps {
 const notifType:any = {
   'like':{
     message:'Liked your post',
-    color: 'red-500',
-    icon: <Heart size={23}/>
+    color: '#ef4444',
+    icon: <Heart size={23} weight="fill"/>
   },
   'star':{
     message:'stars to your recipe',
-    color: 'yellow-500',
-    icon: <Star size={23}/>
+    color: '#eab308',
+    icon: <Star size={23} weight="fill"/>
   },
   'comment':{
     message:'Commented on your post',
-    color: 'purple-500',
-    icon: <ChatCircleText size={23}/>
+    color: '#8b5cf6',
+    icon: <ChatCircleText size={23} weight="fill"/>
   },
   'feedback':{
     message:'gave feedback to your recipe',
-    color: 'brown-500',
-    icon: <ChatCenteredText size={23}/>
+    color: '#0ea5e9',
+    icon: <ChatCenteredText size={23} weight="fill"/>
   },
   'follow':{
     message:'Has started following you',
-    color: 'green-500',
-    icon: <UserPlus size={23}/>
+    color: '#10b981',
+    icon: <UserPlus size={23} weight="fill"/>
   }
 }
 
 function NotifItem({id,username, type, time, isRead}: NotifProps) {
-  let bgStyle = ' bg-' + notifType[type].color + ' '
-  let txtStyle = ' text-' + notifType[type].color + ' '
-  console.log(bgStyle)
-
+ 
     const [notifIsRead, setNotifIsRead] = useState(isRead);
     return (
       <div
@@ -62,12 +59,12 @@ function NotifItem({id,username, type, time, isRead}: NotifProps) {
                   <p className="text-xs font-medium text-gray-400">{time}</p>
               </div>
           </div>
-          <div className={txtStyle}>
+          <div style={{color:notifType[type].color}}>
             {notifType[type].icon}
           </div>
         </div>
         {!notifIsRead ? (
-          <div className={'h-[6px] w-[6px] rounded-full absolute top-3 right-3' + bgStyle}></div>
+          <div className={'h-[6px] w-[6px] rounded-full absolute top-3 right-3'} style={{backgroundColor:notifType[type].color}}></div>
         ) : null}
       </div>
     );
