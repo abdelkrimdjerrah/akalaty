@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Heart, Star, ChatCircleText, ChatCenteredText, UserPlus } from "phosphor-react";
-var Abdelkrim = require('../../assets/Abdelkrim.png');
+var Abdelkrim = require('../../../assets/Abdelkrim.png');
 
 
 interface NotifProps {
@@ -15,27 +15,27 @@ const notifType:any = {
   'like':{
     message:'Liked your post',
     color: '#ef4444',
-    icon: <Heart size={23} weight="fill"/>
+    icon: <Heart size={21} weight="fill"/>
   },
   'star':{
     message:'stars to your recipe',
     color: '#eab308',
-    icon: <Star size={23} weight="fill"/>
+    icon: <Star size={21} weight="fill"/>
   },
   'comment':{
     message:'Commented on your post',
     color: '#8b5cf6',
-    icon: <ChatCircleText size={23} weight="fill"/>
+    icon: <ChatCircleText size={21} weight="fill"/>
   },
   'feedback':{
     message:'gave feedback to your recipe',
     color: '#0ea5e9',
-    icon: <ChatCenteredText size={23} weight="fill"/>
+    icon: <ChatCenteredText size={21} weight="fill"/>
   },
   'follow':{
     message:'Has started following you',
     color: '#10b981',
-    icon: <UserPlus size={23} weight="fill"/>
+    icon: <UserPlus size={21} weight="fill"/>
   }
 }
 

@@ -12,7 +12,7 @@ function UserItem({name,text, picture}: UserItemProps) {
             <img src={picture} className="min-h-[40px] min-w-[40px] max-h-[40px] max-w-[40px] rounded-full" alt="" />
         </div>
         <div>
-            <p className="text-md font-light">{name}</p>
+            <p className="text-sm ">{name}</p>
             <p className="text-xs font-medium text-gray-400">{text}</p>
         </div>
     </div>

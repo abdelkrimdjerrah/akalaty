@@ -1,5 +1,5 @@
 import { BellRinging } from 'phosphor-react'
-import NotifItem from '../shared/NotifItem'
+import NotifItem from './NotifItem'
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Star, ChatCircleText, ChatCenteredText, UserPlus } from "phosphor-react";
 import { useState } from 'react';
@@ -80,10 +80,10 @@ function Notification() {
 
   return (
     <div className="bg-white min-w-[300px] h-fit p-5 rounded-3xl">
-        <div className="flex flex-col gap-2 items-center">
+        <div className="flex flex-col gap-4 items-center">
 
             <div className='flex gap-1 w-full'>
-                <BellRinging size={23}/>
+                <BellRinging size={21}/>
                 <p className='text-sm font-medium'>Notification</p>
             </div>
 

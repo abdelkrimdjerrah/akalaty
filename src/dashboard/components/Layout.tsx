@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
-import Navbar from "./Navbar"
-import Sidebar from "./Sidebar"
-import Notification from "./Notification"
+import Navbar from "./navbar/Navbar"
+import Sidebar from "./sidebar/Sidebar"
+import Notification from "./notification/Notification"
 
 function Layout() {
   return (
