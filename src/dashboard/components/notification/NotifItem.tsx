@@ -7,6 +7,7 @@ interface NotifProps {
     id: number;
     type: string;
     username: string;
+    rating: number
     time: string;
     isRead: boolean;
 }
@@ -18,7 +19,7 @@ const notifType:any = {
     icon: <Heart size={21} weight="fill"/>
   },
   'star':{
-    message:'stars to your recipe',
+    message:'Rated your recipe by ',
     color: '#eab308',
     icon: <Star size={21} weight="fill"/>
   },
@@ -39,7 +40,7 @@ const notifType:any = {
   }
 }
 
-function NotifItem({id,username, type, time, isRead}: NotifProps) {
+function NotifItem({id,username, type, time, rating, isRead}: NotifProps) {
  
     const [notifIsRead, setNotifIsRead] = useState(isRead);
     return (
@@ -52,10 +53,15 @@ function NotifItem({id,username, type, time, isRead}: NotifProps) {
                   <img src={Abdelkrim} className="min-h-[40px] min-w-[40px] max-h-[40px] max-w-[40px] rounded-full" alt="" />
               </div>
               <div>
-                  <span>
                       <p className="text-xs font-medium">{username}</p>
-                      <p className="text-xs ">{notifType[type].message}</p>
-                  </span>
+                      {type === 'star' ? 
+                      <span>
+                        <span className="text-xs ">{notifType[type].message}</span>
+                        <span className="font-medium">{rating + " stars"}</span>
+                      </span>
+                      :
+                        <p className="text-xs ">{notifType[type].message}</p>
+                      }
                   <p className="text-xs font-medium text-gray-400">{time}</p>
               </div>
           </div>

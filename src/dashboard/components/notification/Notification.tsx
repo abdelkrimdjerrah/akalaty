@@ -10,6 +10,7 @@ const initialNotifications = [
       id: 0,
       username: "Ahmed",
       type: "like",
+      rating: -1,
       time: "10:30 AM",
       isRead: true
     },
@@ -17,6 +18,7 @@ const initialNotifications = [
       id: 1,
       username: "Akram",
       type: "comment",
+      rating: -1,
       time: "2:00 PM",
       isRead: true
     }
@@ -31,7 +33,7 @@ const initialNotifications = [
       icon: <Heart />
     },
     'star':{
-      message:'stars to your recipe',
+      message:'Rated your recipe by ',
       color: 'yellow-500',
       icon: <Star />
     },
@@ -67,6 +69,7 @@ function Notification() {
       id: notifications.length + 1,
       username: "Amjad",
       type: randomKey,
+      rating: (randomKey === 'star' ? 5 : -1),
       time: new Date().toLocaleString(),
       isRead: false
     };
@@ -99,7 +102,7 @@ function Notification() {
                             className="w-full"
                         >
                             {/* Notification element */}
-                            <NotifItem id={notif.id} username={notif.username} type={notif.type} time={notif.time} isRead={notif.isRead} />
+                            <NotifItem id={notif.id} username={notif.username} type={notif.type} rating={notif.rating} time={notif.time} isRead={notif.isRead} />
                         </motion.li>
                         ))}
                     </AnimatePresence>

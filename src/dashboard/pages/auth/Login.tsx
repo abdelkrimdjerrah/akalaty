@@ -9,10 +9,16 @@ function Login() {
 
   const [username,setUsername] = useState('')
   const [password,setPassword] = useState('')
+  const [error,setError] = useState(false)
 
   const handleSignin = () => {
     console.log("username: "+ username)
     console.log("password: "+ password)
+    if( username !== 'a' && password !== 'a' ){
+        setError(true) 
+    }else{
+        navigate('/')
+    }
   }
 
   return (
@@ -24,7 +30,14 @@ function Login() {
                     <SignIn size={34}/>
                     <p className='text-3xl'>Sign In</p>
                 </div>
-                <p className="text-sm">Please fill the information below</p>
+                <p className="text-sm">Please fill the form below</p>
+                {
+                    error && (
+                        <div className="text-red-500 flex justify-center font-medium">
+                            <p>Information are incorrect</p>
+                        </div>
+                    )
+                }
                 <div className="flex flex-col gap-2 mt-3 mb-3">
                     <Input
                         text="Username"
