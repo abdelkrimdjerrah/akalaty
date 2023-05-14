@@ -82,7 +82,7 @@ function Notification() {
 
 
   return (
-    <div className="bg-white min-w-[300px] h-fit p-5 rounded-3xl">
+    <div className="bg-white min-w-[320px] h-fit p-5 rounded-3xl">
         <div className="flex flex-col gap-4 items-center">
 
             <div className='flex gap-1 w-full'>

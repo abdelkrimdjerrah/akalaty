@@ -10,7 +10,7 @@ function Sidebar() {
   let location = useLocation();
 
   return (
-    <div className="bg-white min-w-[200px] h-fit p-5 rounded-3xl">
+    <div className="bg-white min-w-[250px] h-fit p-5 rounded-3xl">
       <div className="flex flex-col gap-4">
         <UserItem name="Abdelkrim" text="Chief" picture={Abdelkrim}/>
         <div className="flex flex-col gap-2">
