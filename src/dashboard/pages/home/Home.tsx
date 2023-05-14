@@ -7,12 +7,12 @@ function Home() {
     <div>
       <div className="flex flex-col gap-4 items-center">
 
-        <div className='flex gap-1 w-full'>
+        {/* <div className='flex gap-1 w-full'>
             <HouseSimple size={21}/>
             <p className='text-sm font-medium'>Home</p>
-        </div>
+        </div> */}
 
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-5">
           <Post />
           <Post with/>
           <Post />

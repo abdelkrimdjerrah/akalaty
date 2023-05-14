@@ -13,7 +13,7 @@ interface propsInterface{
 function Post(props: propsInterface) {
   const [comment, setComment] = useState("");
   return (
-    <div className='w-full border-b-[1px] py-6'>
+    <div className='w-full bg-white rounded-2xl relative p-5 py-6'>
         <div className='flex flex-col gap-2'>
             <div className='flex flex-col gap-2'>
                 <div className='flex w-full justify-between'>

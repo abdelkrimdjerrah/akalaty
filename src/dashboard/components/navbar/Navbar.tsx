@@ -9,7 +9,7 @@ function Navbar() {
     navigate('/signin')
   }
   return (
-    <div className='bg-white w-full  sticky top-0 right-0 left-0 pl-5 pr-5 pt-2 pb-2 flex items-center justify-between'>
+    <div className='bg-white w-full px-16 pt-2 pb-2 flex items-center justify-between'>
         <div>
             <img src={Logo} alt="" className='h-[40px]'/>
         </div>
