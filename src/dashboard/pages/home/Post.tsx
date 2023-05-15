@@ -1,17 +1,34 @@
-import React from 'react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import UserItem from '../../shared/UserItem'
 import { DotsThreeVertical, BookmarkSimple, ChatCircleDots, Heart, PaperPlaneRight } from 'phosphor-react'
 import Input from '../../shared/Input'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, A11y } from 'swiper';
+import { Swiper as SwiperCore } from 'swiper/types';
+import {CaretLeft, CaretRight} from 'phosphor-react';
 
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const Abdelkrim = require('../../../assets/Abdelkrim.png')
+const img1 = require('../../../assets/img1.jpeg')
+const img2 = require('../../../assets/img2.jpeg')
+const img3 = require('../../../assets/img3.jpeg')
+const img4 = require('../../../assets/img4.jpeg')
+const images = [img1,img2,img3,img4]
 
 interface propsInterface{
     with?: boolean
 }
 function Post(props: propsInterface) {
+
+
   const [comment, setComment] = useState("");
+  const swiperRef = useRef<SwiperCore>();  
+
+
   return (
     <div className='w-full bg-white rounded-2xl relative p-5 py-6'>
         <div className='flex flex-col gap-2'>
@@ -29,11 +46,52 @@ function Post(props: propsInterface) {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, a placeat provident cupiditate tenetur at magni! Quisquam nam voluptatem iusto eligendi in aliquam eius, adipisci sed, ipsam saepe, dolores facilis?
                 </p>
 
-            {props.with &&
-                <div className='min-w-[200px] min-h-[200px] max-w-[200px] max-h-[200px] bg-gray-200 rounded-2xl flex items-center justify-center'>
-                    <p className='text-xs text-gray-500'>Image</p>
-            </div>
-            }
+                {props.with && (
+
+                <div className='min-w-full h-[400px] object-fill overflow-hidden relative border rounded-2xl flex justify-center'>
+                <Swiper
+                  modules={[Navigation, Pagination, A11y]}
+                  slidesPerView={1}
+                  onBeforeInit={(swiper) => {
+                    swiperRef.current = swiper;
+                  }}
+                  pagination={{ clickable: true }}
+                  scrollbar={{ draggable: true }}
+                  onSlideChange={() => console.log('slide change')}
+                  onSwiper={(swiper) => console.log(swiper)}
+                >
+                  {images.map((img) => (
+                    <SwiperSlide
+                      className='select-none'
+                      key={img}
+                    >
+                      <div className='flex justify-center items-center h-[400px]'>
+                        <img
+                          src={img}
+                          alt=""
+                          className='max-h-full'
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+
+
+                    <div className='absolute left-4 z-10 h-full flex items-center'>
+                        <div className='navigationBtn' onClick={() => swiperRef.current?.slidePrev()}>
+                            <CaretLeft size={30} />
+                        </div>
+                    </div>
+                    
+                    <div className='absolute right-4 z-10 h-full flex items-center'>
+                        <div className='navigationBtn' onClick={() => swiperRef.current?.slideNext()}>
+                            <CaretRight size={30} />
+                        </div>
+                    </div>
+                    
+                </div>
+                )}
+
                 <div className='text-sm items-center flex gap-3'>
 
                     <div className='flex gap-[2px] items-center'>

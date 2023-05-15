@@ -5,7 +5,7 @@ import { HouseSimple } from "phosphor-react"
 function Home() {
   return (
     <div>
-      <div className="flex flex-col gap-4 items-center">
+      <div className="flex flex-col gap-4">
 
         {/* <div className='flex gap-1 w-full'>
             <HouseSimple size={21}/>
@@ -13,7 +13,7 @@ function Home() {
         </div> */}
 
         <div className="flex flex-col gap-5">
-          <Post />
+          <Post with/>
           <Post with/>
           <Post />
         </div>

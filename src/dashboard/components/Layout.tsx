@@ -2,12 +2,13 @@ import { Outlet } from "react-router-dom"
 import Navbar from "./navbar/Navbar"
 import Sidebar from "./sidebar/Sidebar"
 import Notification from "./notification/Notification"
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 function Layout() {
   return (
     <div>
       <div className=" flex justify-center">
-
           <div className="fixed top-0 right-0 left-0 z-10">
             <div className="sticky top-0 right-0 left-0 z-10">
               <Navbar />
