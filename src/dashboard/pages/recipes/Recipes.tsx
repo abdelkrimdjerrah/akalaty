@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Recipes() {
-  return (
-    <div>Recipes</div>
-  )
+  return <div>Recipes</div>;
 }
 
-export default Recipes
+export default Recipes;

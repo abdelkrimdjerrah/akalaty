@@ -1,15 +1,14 @@
-import Router from './dashboard/components/Router'
-import { BrowserRouter } from 'react-router-dom';
-
+import Router from "./dashboard/components/Router";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-        <Router /> 
+        <Router />
       </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
