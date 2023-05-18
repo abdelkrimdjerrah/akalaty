@@ -1,6 +1,6 @@
 import Router from "./dashboard/components/Router";
 import { BrowserRouter } from "react-router-dom";
-import { store } from "./app/store";
+import { store } from "./redux/store";
 import { Provider } from "react-redux";
 
 function App() {
