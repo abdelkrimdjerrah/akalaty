@@ -41,4 +41,9 @@ body{
   background: #FA7D7D !important;
 }
 
+.modal-style{
+  background: linear-gradient( rgba(57, 130, 194, 0.18) 0%, rgba(254,254,254,0) 100%);
+  backdrop-filter: blur(1px);
+}
+
 

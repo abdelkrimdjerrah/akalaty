@@ -9,20 +9,20 @@ function Layout() {
   return (
     <div>
       <div className=" flex justify-center">
-        <div className="fixed top-0 right-0 left-0 z-10">
-          <div className="sticky top-0 right-0 left-0 z-10">
+        <div className="fixed top-0 right-0 left-0 z-20">
+          <div className="sticky top-0 right-0 left-0 z-20">
             <Navbar />
           </div>
         </div>
 
-        <div className="fixed left-10 top-20 z-10 w-fit">
-          <div className="sticky left-10 top-20 z-10 w-fit">
+        <div className="fixed left-10 top-20 z-20 w-fit">
+          <div className="sticky left-10 top-20 z-20 w-fit">
             <Sidebar />
           </div>
         </div>
 
-        <div className="fixed right-10 top-20 z-10 w-fit">
-          <div className="sticky right-10 top-20 z-10 w-fit">
+        <div className="fixed right-10 top-20 z-20 w-fit">
+          <div className="sticky right-10 top-20 z-20 w-fit">
             <Notification />
           </div>
         </div>
