@@ -18,53 +18,53 @@ export const postsApiSlice = apiSlice.injectEndpoints({
                 },
             }),
             transformResponse: (responseData:any) => {
-                const loadedPosts = responseData.map((user:any) => {
-                    user.id = user._id
-                    return user
+                const loadedPosts = responseData.map((post:any) => {
+                    post.id = post._id
+                    return post
                 });
                 return postsAdapter.setAll(initialState, loadedPosts)
             },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {
                     return [
-                        { type: 'User', id: 'LIST' },
-                        ...result.ids.map((id: any) => ({ type: 'User' as const, id }))
+                        { type: 'Post', id: 'LIST' },
+                        ...result.ids.map((id: any) => ({ type: 'Post' as const, id }))
                     ]
-                } else return [{ type: 'User', id: 'LIST' }]
+                } else return [{ type: 'Post', id: 'LIST' }]
             }
         }),
-        addNewUser: builder.mutation({
-            query: initialUserData => ({
+        addNewPost: builder.mutation({
+            query: initialPostData => ({
                 url: '/posts',
                 method: 'POST',
                 body: {
-                    ...initialUserData,
+                    ...initialPostData,
                 }
             }),
             invalidatesTags: [
-                { type: 'User', id: "LIST" }
+                { type: 'Post', id: "LIST" }
             ]
         }),
-        updateUser: builder.mutation({
-            query: initialUserData => ({
+        updatePost: builder.mutation({
+            query: initialPostData => ({
                 url: '/posts',
                 method: 'PATCH',
                 body: {
-                    ...initialUserData,
+                    ...initialPostData,
                 }
             }),
             invalidatesTags: (result, error, arg) => [
-                { type: 'User', id: arg.id }
+                { type: 'Post', id: arg.id }
             ]
         }),
-        deleteUser: builder.mutation({
+        deletePost: builder.mutation({
             query: ({ id }) => ({
                 url: `/posts`,
                 method: 'DELETE',
                 body: { id }
             }),
             invalidatesTags: (result, error, arg) => [
-                { type: 'User', id: arg.id }
+                { type: 'Post', id: arg.id }
             ]
         }),
     }),
@@ -72,9 +72,9 @@ export const postsApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetPostsQuery,
-    useAddNewUserMutation,
-    useUpdateUserMutation,
-    useDeleteUserMutation,
+    useAddNewPostMutation,
+    useUpdatePostMutation,
+    useDeletePostMutation,
 } = postsApiSlice
 
 
@@ -88,6 +88,6 @@ const selectPostsData = createSelector(
 
 export const {
     selectAll: selectAllPosts,
-    selectById: selectUserById,
-    selectIds: selectUserIds
+    selectById: selectPostById,
+    selectIds: selectPostIds
 } = postsAdapter.getSelectors((state: any) => selectPostsData(state) ?? initialState)
