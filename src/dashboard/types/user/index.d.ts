@@ -1,7 +1,7 @@
 declare namespace Entities {
   export type Userrole = "Admin" | "Moderator" | "User";
 
-  export interface User extends Creatable {
+  export interface UserEntity extends Creatable {
 
     username: string;
 

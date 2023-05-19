@@ -4,15 +4,25 @@ import { DotsThreeVertical, BookmarkSimple } from "phosphor-react";
 
 const Abdelkrim = require("../../../assets/Abdelkrim.png");
 
-function PostHeader() {
+interface PostProps {
+  postID: string;
+  username: string,
+  createdAt: Date, 
+}
+
+
+function PostHeader({postID, username, createdAt}: PostProps) {
+  
+  const created = new Date(createdAt).toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
+
   const [bookmark, setBookmark] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
 
   return (
     <div className="flex w-full justify-between">
       <UserItem
-        name="Abdelkrim Djerrah"
-        text="Sun 14 May 1:19 PM"
+        name={username}
+        text={created}
         picture={Abdelkrim}
       />
       <div className="flex gap-1">

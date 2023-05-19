@@ -27,8 +27,8 @@ function PostSlider({ images }: PostSliderProps) {
         onSlideChange={() => console.log("slide change")}
         onSwiper={(swiper) => console.log(swiper)}
       >
-        {images.map((img: string) => (
-          <SwiperSlide className="select-none" key={img}>
+        {images.map((img: string , key : number) => (
+          <SwiperSlide className="select-none" key={key}>
             <div className="flex justify-center items-center h-[400px]">
               <img src={img} alt="" className="max-h-full" />
             </div>
