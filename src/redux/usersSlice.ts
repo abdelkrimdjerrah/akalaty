@@ -10,6 +10,7 @@ const initialState = usersAdapter.getInitialState()
 
 export const usersApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
+        
         getUsers: builder.query<any, void>({
             query: () => ({
                 url: '/users',
@@ -24,6 +25,30 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 });
                 return usersAdapter.setAll(initialState, loadedUsers)
             },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'User', id: 'LIST' },
+                        ...result.ids.map((id: any) => ({ type: 'User' as const, id }))
+                    ]
+                } else return [{ type: 'User', id: 'LIST' }]
+            }
+        }),
+
+        getOneUser: builder.query<any, void>({
+            query: (id:any) => ({
+                url: `/users/${id}`,
+                validateStatus: (response, result) => {
+                    return response.status === 200 && !result.isError
+                },
+            }),
+            transformResponse: (responseData: any) => {
+                const user = {
+                  ...responseData,
+                  id: responseData._id,
+                };
+                return usersAdapter.upsertOne(initialState, user);
+              },
             providesTags: (result, error, arg) => {
                 if (result?.ids) {
                     return [
@@ -72,6 +97,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetUsersQuery,
+    useGetOneUserQuery,
     useAddNewUserMutation,
     useUpdateUserMutation,
     useDeleteUserMutation,

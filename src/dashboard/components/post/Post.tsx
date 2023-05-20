@@ -3,13 +3,9 @@ import PostEngagement from "./PostEngagement";
 import PostSlider from "./PostSlider";
 import PostText from "./PostText";
 import { useGetPostsQuery } from "../../../redux/postsSlice";
-import { useGetUsersQuery } from "../../../redux/usersSlice";
-
-const img1 = require("../../../assets/img1.jpeg");
-const img2 = require("../../../assets/img2.jpeg");
-const img3 = require("../../../assets/img3.jpeg");
-const img4 = require("../../../assets/img4.jpeg");
-const images: string[] = [img1, img2, img3, img4,'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80'];
+import { useGetOneUserQuery } from "../../../redux/usersSlice";
+import { selectUserById } from "../../../redux/usersSlice";
+import { useSelector } from "react-redux";
 
 interface PostProps {
   postID: string; 
@@ -17,18 +13,21 @@ interface PostProps {
 
 function Post({ postID } : PostProps) {
 
+  
   const {
     data: posts,
-  } = useGetPostsQuery();
-
-  const {
-    data: users
-  } = useGetUsersQuery();
+    isSuccess,
+  } = useGetPostsQuery(); 
   
-
   const { user , text , images , likes , comments } = posts.entities[postID]
-  const createdAt = posts?.entities[postID]?.createdAt
-  const username = users?.entities[user]?.username
+  
+  const {
+    data: USER
+  } = useGetOneUserQuery(user);
+
+    const createdAt = posts?.entities[postID]?.createdAt
+    const username = USER?.entities[user]?.username
+  
 
   return (
     <div className="w-full bg-white rounded-2xl relative p-5 py-6">
