@@ -1,24 +1,21 @@
 import Post from "../../components/post/Post";
 import { HouseSimple } from "phosphor-react";
-import { useGetPostsQuery } from "../../../redux/postsSlice";
+import useGetUser from "../../hooks/useGetUser";
+import { loginUser, selectUser } from "../../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
-  const {
-    data: posts,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetPostsQuery();
+  
+  const getUser = useGetUser();
 
+  const dispatch = useDispatch();
+  dispatch(loginUser({type: 'user', ...getUser}))
+  
+  const loggedInUser = useSelector(selectUser);
+  console.log(getUser)
+  
   return (
     <div>
-      {
-        isLoading ? 
-          <div className="w-full bg-white rounded-2xl relative p-5 py-6">Loading ...</div>
-        : null
-      }
-      { isSuccess &&
         <div className="flex flex-col gap-4">
           {/* <div className='flex gap-1 w-full'>
               <HouseSimple size={21}/>
@@ -27,15 +24,15 @@ function Home() {
 
           <div className="flex flex-col gap-5">
             {
-              posts && (    
-                posts.ids.map((postID:string) => (
-                  <div key={postID}> <Post postID = {postID}/> </div>
-                ))           
-              )
+              // posts && (    
+              //   posts.ids.map((postID:string) => (
+              //     <div key={postID}> <Post postID = {postID}/> </div>
+              //   ))           
+              // )
             }
           </div>
         </div>
-      }
+      
     </div>
   );
 }
