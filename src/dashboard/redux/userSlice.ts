@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, current} from '@reduxjs/toolkit';
 const initialState = {
   user: null,
   token: null,
@@ -6,17 +6,16 @@ const initialState = {
     username: '',
     email: '',
     password: '',
-    divisionId: '',
-    error: {message: '', type: ''},
+    // error: {message: '', type: ''},
   },
   loginData: {
     email: '',
     password: '',
-    error: {message: '', type: ''},
+    // error: {message: '', type: ''},
   },
   forgotPwdData: {
     email: '',
-    error: {message: ''},
+    // error: {message: ''},
   },
 };
 
@@ -31,6 +30,12 @@ export const userSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    setUserData: (state:any, action) => {
+      state.user = action.payload.data;
+    },
+    setAccessToken: (state:any, action) => {
+      state.token = action.payload.data;
+    },
     setRegisterData: (state:any, action) => {
       const type = action.payload.type;
       if (type === 'reset') {
@@ -38,7 +43,7 @@ export const userSlice = createSlice({
           username: '',
           email: '',
           password: '',
-          error: {message: '', type: ''},
+          // error: {message: '', type: ''},
         };
       } else {
         state['registerData'][action.payload.type] = action.payload.data;
@@ -51,9 +56,10 @@ export const userSlice = createSlice({
         state['loginData'] = {
           email: '',
           password: '',
-          error: {message: '', type: ''},
+          // error: {message: '', type: ''},
         };
       } else {
+        
         state['loginData'][action.payload.type] = action.payload.data;
       }
     },
@@ -74,6 +80,8 @@ export const selectForgotPwd = (state: any) => state.user.forgotPwdData;
 export const {
   loginUser,
   logoutUser,
+  setUserData,
+  setAccessToken,
   setRegisterData,
   setLoginData,
   setForgotPwdData,

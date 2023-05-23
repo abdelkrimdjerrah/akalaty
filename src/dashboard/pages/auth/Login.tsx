@@ -1,25 +1,102 @@
 import { SignIn, User, Lock } from "phosphor-react";
 import Input from "../../shared/Input";
 import Button from "../../shared/Button";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectLoginData, selectUser, selectUserData, selectToken, setLoginData, loginUser, setAccessToken,setUserData } from "../../redux/userSlice";
+import axios from "axios";
+
 
 function Login() {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const {email, password} = useSelector(selectLoginData);
+
+  const [loading, setLoading] = useState(false);
+  
+  const dispatch = useDispatch();
+
+  // handle inputs
+  const setValue = useCallback((type:string, data:any) => {
+    dispatch(setLoginData({type, data}));
+  }, []);
+
   const [error, setError] = useState(false);
 
-  const handleSignin = () => {
-    console.log("username: " + username);
-    console.log("password: " + password);
-    if (username !== "a" && password !== "a") {
-      setError(true);
-    } else {
-      navigate("/");
+  // login
+  const handleLogin = async () => {
+    try {
+      
+      // // reset errors
+      // dispatch(
+      //   setLoginData({
+      //     type: 'error',
+      //     data: {message: '', type: ''},
+      //   }),
+      // );
+
+      setLoading(true);
+
+      const userData = {email, password};
+
+      const {data} = await axios.post(`/api/auth/login`, userData);
+
+      if (!data?.success) {
+        console.log('error')
+        console.log(data.message)
+        return;
+      }
+
+      
+
+      // reset data
+      dispatch(
+        setLoginData({
+          type: 'reset'
+        }),
+      );
+      // save the token
+      dispatch(
+        setAccessToken({
+          type: 'token',
+          data: data?.accessToken,
+        }),
+      );
+
+      // save the user data
+      dispatch(
+        setUserData({
+          type: 'user',
+          data: data?.userData,
+        }),
+      );
+
+      navigate('/')
+      
+ 
+
+
+
+
+    } catch (error) {
+      console.log('error')
+      // handleError(error?.response?.data);
+    } finally {
+      setLoading(false);
     }
   };
+  // clean up
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(
+  //       setLoginData({
+  //         type: 'error',
+  //         data: {message: '', type: ''},
+  //       }),
+  //     );
+  //   };
+  // }, []);
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -37,18 +114,18 @@ function Login() {
           )}
           <div className="flex flex-col gap-2 mt-3 mb-3">
             <Input
-              text="Username"
+              text="Email address"
               type="email"
               widthFull
-              onChange={(v) => setUsername(v)}
-              value={username}
+              onChange={(v) => setValue('email',v)}
+              value={email}
               Icon={User}
             />
             <Input
               text="Password"
               type="password"
               widthFull
-              onChange={(v) => setPassword(v)}
+              onChange={(v) => setValue('password',v)}
               value={password}
               Icon={Lock}
             />
@@ -57,7 +134,7 @@ function Login() {
             </p>
           </div>
 
-          <Button widthFull onClick={handleSignin}>
+          <Button widthFull onClick={handleLogin}>
             Sign in
           </Button>
 
