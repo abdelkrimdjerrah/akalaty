@@ -1,18 +1,18 @@
 import Post from "../../components/post/Post";
 import { HouseSimple } from "phosphor-react";
-import useGetUser from "../../hooks/useGetUser";
-import { loginUser, selectUser } from "../../redux/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { selectToken } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
+import axios from "../../api/axios";
+import useGetPost from "../../hooks/useGetPost";
+
 
 function Home() {
-  
-  const getUser = useGetUser();
 
-  const dispatch = useDispatch();
-  dispatch(loginUser({type: 'user', ...getUser}))
-  
-  const loggedInUser = useSelector(selectUser);
-  console.log(getUser)
+  const postsData = useGetPost() 
+
+  console.log("posts")
+  console.log(postsData)
+  console.log("posts")
   
   return (
     <div>

@@ -2,10 +2,16 @@ import Logo from "../../../assets/logo.svg";
 import { SignOut } from "phosphor-react";
 import Searchbar from "./Searchbar";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
+import { selectToken } from "../../redux/userSlice";
+import { useDispatch } from "react-redux";
 
 function Navbar() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
+    dispatch(logoutUser())
     navigate("/signin");
   };
   return (

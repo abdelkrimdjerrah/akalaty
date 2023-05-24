@@ -4,18 +4,20 @@ import Button from "../../shared/Button";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectLoginData, selectUser, selectUserData, selectToken, setLoginData, loginUser, setAccessToken,setUserData } from "../../redux/userSlice";
-import axios from "axios";
+import { logoutUser, selectLoginData, selectUser, selectUserData, selectToken, setLoginData, loginUser, setAccessToken,setUserData } from "../../redux/userSlice";
+import axios from "../../api/axios";
 
 
 function Login() {
+
+  const dispatch = useDispatch();
+ 
   const navigate = useNavigate();
 
   const {email, password} = useSelector(selectLoginData);
 
   const [loading, setLoading] = useState(false);
   
-  const dispatch = useDispatch();
 
   // handle inputs
   const setValue = useCallback((type:string, data:any) => {
@@ -40,15 +42,20 @@ function Login() {
 
       const userData = {email, password};
 
-      const {data} = await axios.post(`/api/auth/login`, userData);
+      const {data} = await axios.post(
+          `/api/auth/login`,
+          userData
+        );
 
       if (!data?.success) {
-        console.log('error')
+        console.log('error?')
         console.log(data.message)
         return;
       }
 
-      
+      console.log("This is data")
+      console.log(data)
+      console.log("This is data")
 
       // reset data
       dispatch(
