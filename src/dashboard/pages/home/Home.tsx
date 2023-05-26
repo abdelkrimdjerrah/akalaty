@@ -4,15 +4,39 @@ import { selectToken } from "../../redux/userSlice";
 import { useSelector } from "react-redux";
 import axios from "../../api/axios";
 import useGetPost from "../../hooks/useGetPost";
+import { useEffect, useState } from "react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 
 function Home() {
+ 
+  const [posts, setPosts] = useState([]);
+  const axiosPrivate = useAxiosPrivate()
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
 
-  const postsData = useGetPost() 
+    const fetchPosts = async () => {
+      try {
+        const response = await axiosPrivate.get("/api/posts", {
+          signal: controller.signal,
+        });
+        if (isMounted) {
+          setPosts(response.data);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  console.log("posts")
-  console.log(postsData)
-  console.log("posts")
+    fetchPosts();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
+
   
   return (
     <div>
