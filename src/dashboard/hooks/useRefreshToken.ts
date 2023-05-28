@@ -7,10 +7,12 @@ const useRefreshToken = () => {
         console.log("useRefreshToken")
         try {
             const response = await axios.get('/api/auth/refresh', {
-                withCredentials: true
+                withCredentials: true,
             });
             console.log("h")
             dispatch(setAccessToken({type:'token', data:response.data.accessToken}));
+            console.log(response.data.accessToken)
+            console.log("useRefreshToken")
             return response.data.accessToken;
             
         } catch (error) {

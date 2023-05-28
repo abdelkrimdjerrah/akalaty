@@ -8,8 +8,9 @@ import { selectToken } from "../redux/userSlice";
 const useAxiosPrivate = () => {
     const token = useSelector(selectToken);
     const refresh = useRefreshToken();
+    console.log('token')
     console.log(token);
-    console.log('dddddfsdfsdfdsffsdf')
+    console.log('token')
   
     // Set up the interceptors
     const requestIntercept = axiosPrivate.interceptors.request.use(
