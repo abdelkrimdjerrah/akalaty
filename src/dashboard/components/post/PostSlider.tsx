@@ -24,8 +24,8 @@ function PostSlider({ images }: PostSliderProps) {
         }}
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => ("slide change")}
+        onSwiper={(swiper) => (swiper)}
       >
         {images.map((img: string , key : number) => (
           <SwiperSlide className="select-none" key={key}>

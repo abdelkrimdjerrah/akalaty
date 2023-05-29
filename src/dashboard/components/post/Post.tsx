@@ -1,42 +1,49 @@
+import { useEffect, useState } from "react";
 import PostHeader from "./PostHeader";
 import PostEngagement from "./PostEngagement";
 import PostSlider from "./PostSlider";
 import PostText from "./PostText";
-// import { useGetPostsQuery } from "../../redux/postsSlice";
-// import { useGetOneUserQuery } from "../../redux/userSlice";
-// import { selectUserById } from "../../redux/userSlice";
-import { useSelector } from "react-redux";
+import useGetUser from "../../hooks/useGetUser";
 
 interface PostProps {
-  postID: string; 
+  postObj: any;
 }
 
-function Post({ postID } : PostProps) {
+function Post({ postObj }: PostProps) {
+  const { _id, user, text, images, likes, comments, createdAt } = postObj;
 
-  
-  // const {
-  //   data: posts,
-  //   isSuccess,
-  // } = useGetPostsQuery(); 
-  
-  // const { user , text , images , likes , comments } = posts.entities[postID]
-  
-  // const {
-  //   data: USER
-  // } = useGetOneUserQuery(user);
+  const [username, setUsername] = useState("");
 
-  //   const createdAt = posts?.entities[postID]?.createdAt
-  //   const username = USER?.entities[user]?.username
-  
+  const response: any = useGetUser(user);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchUsername = () => {
+      try {
+        if (isMounted) {
+          setUsername(response.username);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUsername();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [response]);
 
   return (
     <div className="w-full bg-white rounded-2xl relative p-5 py-6">
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
-          {/* <PostHeader postID={postID} username={username} createdAt={createdAt} />
-          <PostText text={text}/>
-          {images.length && <PostSlider images={images} />}
-          <PostEngagement /> */}
+          <PostHeader postID={_id} username={username} createdAt={createdAt} />
+          <PostText text={text} />
+          {images.length > 0 && <PostSlider images={images} />}
+          <PostEngagement />
         </div>
       </div>
     </div>

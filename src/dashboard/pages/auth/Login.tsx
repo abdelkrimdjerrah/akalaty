@@ -54,14 +54,10 @@ function Login() {
         );
 
       if (!data?.success) {
-        console.log('error?')
-        console.log(data.message)
+        console.log('error')
         return;
       }
 
-      console.log("This is data")
-      console.log(data)
-      console.log("This is data")
 
       // reset data
       dispatch(

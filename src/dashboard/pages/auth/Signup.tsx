@@ -12,13 +12,6 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
 
-  const handleSignup = () => {
-    console.log("username: " + username);
-    console.log("email: " + email);
-    console.log("password: " + password);
-    console.log("password check: " + retypePassword);
-  };
-
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="bg-white h-fit px-5 py-8 rounded-2xl w-1/3">
@@ -66,7 +59,7 @@ function SignUp() {
             </p>
           </div>
 
-          <Button widthFull onClick={handleSignup}>
+          <Button widthFull onClick={()=>{}}>
             Sign in
           </Button>
 

@@ -1,28 +1,47 @@
+import { useEffect, useState } from "react";
 import useAxiosPrivate from './useAxiosPrivate';
-import React, {useEffect} from 'react';
-import {loginUser, logoutUser} from '../redux/userSlice';
-import {useDispatch} from 'react-redux';
 import { useNavigate, useLocation } from "react-router-dom";
 
-// import useNeedAuth from './useNeedAuth';
+function useGetUser(id?: any) {
+  const axiosPrivate = useAxiosPrivate();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [data, setData] = useState("");
 
 
-
-export default async function useGetUser(id?:any) {
-    
-    const axiosPrivate = useAxiosPrivate();
+  useEffect(() => {
     const controller = new AbortController();
-    const location = useLocation();
-    const navigate = useNavigate()
-    
-  try {
-    const response = await axiosPrivate.get(id ? `/api/users/${id}` : '/api/users', {
-        signal: controller.signal
-    });
-    return response.data
-} catch (err) {
-    console.error("err");
-    navigate('/signin', { state: { from: location }, replace: true });
+    let isMounted = true;
+
+    const fetchUser = async () => {
+      try {
+        const response = await axiosPrivate.get(
+          id ? `/api/users/${id}` : '/api/users',
+          {
+            signal: controller.signal
+          }
+        );
+
+        if (isMounted) {
+          // Update state or perform any necessary actions with the fetched user data
+          setData(response.data)
+        }
+      } catch (err) {
+        console.error(err);
+        navigate('/signin', { state: { from: location }, replace: true });
+      }
+    };
+
+    fetchUser();
+
+    return () => {
+      isMounted = false;
+      controller.abort(); // Cancel the request if the component unmounts
+    };
+  }, [axiosPrivate, id, location, navigate]);
+
+  return data
+
 }
- 
-}
+
+export default useGetUser;

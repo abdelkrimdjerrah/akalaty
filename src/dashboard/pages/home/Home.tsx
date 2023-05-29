@@ -10,19 +10,17 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 function Home() {
  
-  const [posts, setPosts] = useState([]);
-  const axiosPrivate = useAxiosPrivate()
+  const [posts, setPosts] = useState([])
+  
+  const response: any = useGetPost();
+
   useEffect(() => {
     let isMounted = true;
-    const controller = new AbortController();
 
-    const fetchPosts = async () => {
+    const fetchPosts = () => {
       try {
-        const response = await axiosPrivate.get("/api/posts", {
-          signal: controller.signal,
-        });
         if (isMounted) {
-          setPosts(response.data);
+          setPosts(response);
         }
       } catch (error) {
         console.error(error);
@@ -33,9 +31,8 @@ function Home() {
 
     return () => {
       isMounted = false;
-      controller.abort();
     };
-  }, []);
+  }, [response]);
 
   
   return (
@@ -48,11 +45,11 @@ function Home() {
 
           <div className="flex flex-col gap-5">
             {
-              // posts && (    
-              //   posts.ids.map((postID:string) => (
-              //     <div key={postID}> <Post postID = {postID}/> </div>
-              //   ))           
-              // )
+              posts && (    
+                posts.map((post:any) => (
+                  <div key={post._id}> <Post postObj = {post}/> </div>
+                ))           
+              )
             }
           </div>
         </div>
