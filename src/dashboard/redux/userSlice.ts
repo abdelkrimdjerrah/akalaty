@@ -1,5 +1,23 @@
 import {createSlice, current} from '@reduxjs/toolkit';
-const initialState = {
+import { RootState } from "./store";
+interface UserState {
+  user: any | null;
+  token: string | null;
+  registerData: {
+    username: string;
+    email: string;
+    password: string;
+  };
+  loginData: {
+    email: string;
+    password: string;
+  };
+  forgotPwdData: {
+    email: string;
+  };
+}
+
+const initialState:UserState = {
   user: null,
   token: null,
   registerData: {
@@ -69,13 +87,13 @@ export const userSlice = createSlice({
   },
 });
 
-export const selectUser = (state: any) => state.user;
-export const selectUserData = (state: any) => state.user.user;
-export const selectToken = (state: any) => state.user.token;
+export const selectUser = (state: RootState) => state.user;
+export const selectUserData = (state: RootState) => state.user.user;
+export const selectToken = (state: RootState) => state.user.token;
 
-export const selectRegisterData = (state: any) => state.user.registerData;
-export const selectLoginData = (state: any) => state.user.loginData;
-export const selectForgotPwd = (state: any) => state.user.forgotPwdData;
+export const selectRegisterData = (state: RootState) => state.user.registerData;
+export const selectLoginData = (state: RootState) => state.user.loginData;
+export const selectForgotPwd = (state: RootState) => state.user.forgotPwdData;
 
 export const {
   loginUser,

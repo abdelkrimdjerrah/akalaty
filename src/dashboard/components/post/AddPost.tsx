@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 function AddPost() {
     const userData = useSelector(selectUserData);
-    const user = userData._id
+    const user = userData?._id
     const [text, setText] = useState("");
     const images:string[] = ['https://images.unsplash.com/photo-1614602638662-c7c1f55c33f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
                     'https://plus.unsplash.com/premium_photo-1674386067478-9b05280a87d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=850&q=80'
@@ -42,9 +42,6 @@ function AddPost() {
             console.log('error')
             return;
           }
- 
-    
-    
         } catch (error) {
           console.log('error')
         } finally {
