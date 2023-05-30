@@ -1,11 +1,12 @@
 import Post from "../../components/post/Post";
-import { HouseSimple } from "phosphor-react";
+import { House } from "phosphor-react";
 import { selectToken } from "../../redux/userSlice";
 import { useSelector } from "react-redux";
 import axios from "../../api/axios";
 import useGetPost from "../../hooks/useGetPost";
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import AddPost from "../../components/post/AddPost";
 
 
 function Home() {
@@ -38,11 +39,7 @@ function Home() {
   return (
     <div>
         <div className="flex flex-col gap-4">
-          {/* <div className='flex gap-1 w-full'>
-              <HouseSimple size={21}/>
-              <p className='text-sm font-medium'>Home</p>
-          </div> */}
-
+          <AddPost />
           <div className="flex flex-col gap-5">
             {
               posts && (    

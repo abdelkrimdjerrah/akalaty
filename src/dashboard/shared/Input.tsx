@@ -20,7 +20,8 @@ function Input({
   onChange,
   Icon,
 }: InputProps) {
-  const width = widthFull ? " w-full" : "";
+  const width = widthFull ? " w-full " : "";
+
   const background = white ? " bg-white " : "bg-gray-100";
   return (
     <div>
@@ -29,6 +30,7 @@ function Input({
           className={
             background +
             width +
+
             " " +
             "font-regular text-sm rounded-lg p-3 focus:shadow-border outline-none " +
             className

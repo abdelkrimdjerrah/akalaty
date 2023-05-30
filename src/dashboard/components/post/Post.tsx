@@ -36,6 +36,7 @@ function Post({ postObj }: PostProps) {
     };
   }, [response]);
 
+
   return (
     <div className="w-full bg-white rounded-2xl relative p-5 py-6">
       <div className="flex flex-col gap-2">
