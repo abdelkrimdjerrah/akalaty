@@ -3,7 +3,7 @@ import { ChatCircleDots, Heart, PaperPlaneRight, X } from "phosphor-react";
 import Input from "../../shared/Input";
 import Modal from "../../shared/Modal";
 
-function PostEngagement() {
+function PostEngagement(postID:any) {
   const [comment, setComment] = useState("");
   const [like, setLike] = useState(false);
   const [showModal, setShowModal] = useState(false);

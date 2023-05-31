@@ -44,7 +44,7 @@ function Post({ postObj }: PostProps) {
           <PostHeader postID={_id} username={username} createdAt={createdAt} />
           <PostText text={text} />
           {images.length > 0 && <PostSlider images={images} />}
-          <PostEngagement />
+          <PostEngagement postID={_id}/>
         </div>
       </div>
     </div>

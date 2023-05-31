@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from './useAxiosPrivate';
 import { useNavigate, useLocation } from "react-router-dom";
 
-function useGetUser(id?: any) {
+function useGetPost(postId?: any) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function useGetUser(id?: any) {
     const fetchUser = async () => {
       try {
         const response = await axiosPrivate.get(
-          id ? `/api/posts/${id}` : '/api/posts',
+          postId ? `/api/posts/${postId}` : '/api/posts',
           {
             signal: controller.signal
           }
@@ -24,7 +24,8 @@ function useGetUser(id?: any) {
 
         if (isMounted) {
           // Update state or perform any necessary actions with the fetched user data
-          setData(response.data)
+          const result = postId ? response.data.post : response.data.posts
+          setData(result)
         }
       } catch (err) {
         console.error(err);
@@ -38,11 +39,11 @@ function useGetUser(id?: any) {
       isMounted = false;
       controller.abort(); // Cancel the request if the component unmounts
     };
-  }, [axiosPrivate, id, location, navigate]);
+  }, [axiosPrivate, postId, location, navigate]);
 
   return data
 
 }
 
-export default useGetUser;
+export default useGetPost;
 

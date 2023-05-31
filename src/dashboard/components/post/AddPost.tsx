@@ -16,8 +16,6 @@ function AddPost() {
                    ]
     const [loading, setLoading] = useState(false);
     const axiosPrivate = useAxiosPrivate();
-
-
     const handleAddPost = async () => {
         try {
           
@@ -29,13 +27,7 @@ function AddPost() {
             }
           const {data} = await axiosPrivate.post(
               `/api/posts`,
-              postDetails,
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'withCredentials': 'true'
-              }
-              }
+              postDetails
             );
     
           if (!data?.success) {
