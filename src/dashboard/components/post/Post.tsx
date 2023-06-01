@@ -41,10 +41,10 @@ function Post({ postObj }: PostProps) {
     <div className="w-full bg-white rounded-2xl relative p-5 py-6">
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
-          <PostHeader postID={_id} username={username} createdAt={createdAt} />
+          <PostHeader postId={_id} username={username} createdAt={createdAt} />
           <PostText text={text} />
           {images.length > 0 && <PostSlider images={images} />}
-          <PostEngagement postID={_id}/>
+          <PostEngagement postId={_id}/>
         </div>
       </div>
     </div>

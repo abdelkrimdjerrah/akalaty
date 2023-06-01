@@ -5,13 +5,13 @@ import { DotsThreeVertical, BookmarkSimple } from "phosphor-react";
 const Abdelkrim = require("../../../assets/Abdelkrim.png");
 
 interface PostProps {
-  postID: string;
+  postId: string;
   username: string,
   createdAt: Date, 
 }
 
 
-function PostHeader({postID, username, createdAt}: PostProps) {
+function PostHeader({postId, username, createdAt}: PostProps) {
   
   const created = new Date(createdAt).toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
 
