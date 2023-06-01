@@ -22,7 +22,7 @@ function PostEngagement({postId}: postIdInterface) {
 
     const handlePostLike = async () => {
         try {
-          
+          setLike(!like)
           setLoading(true)
           const postDetails = { 
              postId
@@ -36,12 +36,7 @@ function PostEngagement({postId}: postIdInterface) {
             console.log('error')
             return;
           }
-          if (data?.action == 'Like') {
-            setLike(true)
-          }
-          if (data?.action == 'Unlike') {
-            setLike(false)
-          }
+         
           
         } catch (error) {
           console.log('error')
@@ -55,7 +50,7 @@ function PostEngagement({postId}: postIdInterface) {
 
       useEffect(() => {
         const controller = new AbortController();
-        let isMounted = true;
+
     
         const checkPostLike = async () => {
           try {
@@ -66,10 +61,9 @@ function PostEngagement({postId}: postIdInterface) {
               }
             );
     
-            if (isMounted) {
               const result = response.data.hasLikedPost // returns either True or False
               setLike(result)
-            }
+
           } catch (err) {
         
           }
@@ -78,7 +72,7 @@ function PostEngagement({postId}: postIdInterface) {
         checkPostLike();
     
         return () => {
-          isMounted = false;
+
           controller.abort(); // Cancel the request if the component unmounts
         };
       }, []);

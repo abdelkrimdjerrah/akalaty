@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 function Router() {
   const user = useSelector(selectUserData)
-   
   return (
     <Routes>
       {
@@ -19,7 +18,7 @@ function Router() {
               <Route path="recipes" element={<Recipes />} />
             </Route> 
             :
-            <Route path="/">
+            <Route path="/" >
               <Route index path="signin" element={<Login />} />
               <Route path="signup" element={<Signup />} />
             </Route> 

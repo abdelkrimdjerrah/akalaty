@@ -17,13 +17,13 @@ function Post({ postObj }: PostProps) {
   const response: any = useGetUser(user);
 
   useEffect(() => {
-    let isMounted = true;
+    
 
     const fetchUsername = () => {
       try {
-        if (isMounted) {
+     
           setUsername(response.username);
-        }
+       
       } catch (error) {
         console.error(error);
       }
@@ -32,7 +32,7 @@ function Post({ postObj }: PostProps) {
     fetchUsername();
 
     return () => {
-      isMounted = false;
+     
     };
   }, [response]);
 

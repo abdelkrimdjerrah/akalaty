@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from './useAxiosPrivate';
 import { useNavigate, useLocation } from "react-router-dom";
+import { setUserData } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 
 function useGetUser(id?: any) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const navigate = useNavigate();
   const [data, setData] = useState("");
+  const dispatch = useDispatch()
 
 
   useEffect(() => {
     const controller = new AbortController();
-    let isMounted = true;
+
 
     const fetchUser = async () => {
       try {
@@ -22,12 +25,17 @@ function useGetUser(id?: any) {
           }
         );
 
-        if (isMounted) {
+     
           // Update state or perform any necessary actions with the fetched user data
           setData(response.data)
-        }
+    
       } catch (err) {
         console.error(err);
+        dispatch(
+          setUserData({
+            type: 'clean'
+          }),
+        );
         navigate('/signin', { state: { from: location }, replace: true });
       }
     };
@@ -35,7 +43,7 @@ function useGetUser(id?: any) {
     fetchUser();
 
     return () => {
-      isMounted = false;
+ 
       controller.abort(); // Cancel the request if the component unmounts
     };
   }, [axiosPrivate, id, location, navigate]);
