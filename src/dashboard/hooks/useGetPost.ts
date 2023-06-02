@@ -15,8 +15,6 @@ function useGetPost(postId?: string) {
 
   useEffect(() => {
     const controller = new AbortController();
-    
-
     const fetchUser = async () => {
       try {
         const response = await axiosPrivate.get(
@@ -26,8 +24,6 @@ function useGetPost(postId?: string) {
           }
         );
 
-      
-          // Update state or perform any necessary actions with the fetched user data
           const result = postId ? response.data.post : response.data.posts
           setData(result)
 
