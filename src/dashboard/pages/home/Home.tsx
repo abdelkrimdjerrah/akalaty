@@ -9,8 +9,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import AddPost from "../../components/post/AddPost";
 
 function Home() {
-  const [posts, setPosts] = useState([]);
-  const response: any = useGetPost();
+  const [posts, setPosts] = useState<Entities.PostEntity[]>();
+  const response:Entities.PostEntity[] = useGetPost() as Entities.PostEntity[];
 
   useEffect(() => {
     const fetchPosts = async () => {

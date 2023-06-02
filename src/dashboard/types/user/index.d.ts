@@ -3,6 +3,8 @@ declare namespace Entities {
 
   export interface UserEntity extends Creatable {
 
+    _id: string
+
     username: string;
 
     email: string;
@@ -10,6 +12,8 @@ declare namespace Entities {
     password: string;
 
     role: Userrole;
+
+    active: boolean
 
     firstName?: string;
 

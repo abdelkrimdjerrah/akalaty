@@ -1,5 +1,8 @@
 declare namespace Entities {
   export interface PostEntity extends Creatable {
+
+    _id: string
+
     user: string;
 
     text: string;
@@ -14,5 +17,9 @@ declare namespace Entities {
         comment: string;
       }
     ];
+
+    createdAt?: Date
+
+    updatedAt?: Date
   }
 }

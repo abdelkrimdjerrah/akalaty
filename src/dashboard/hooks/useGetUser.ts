@@ -3,8 +3,9 @@ import useAxiosPrivate from './useAxiosPrivate';
 import { useNavigate, useLocation } from "react-router-dom";
 import { setUserData } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
+import { logoutUser } from "../redux/userSlice";
 
-function useGetUser(id?: any) {
+function useGetUser(id?: string) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,12 +32,8 @@ function useGetUser(id?: any) {
     
       } catch (err) {
         console.error(err);
-        dispatch(
-          setUserData({
-            type: 'clean'
-          }),
-        );
-        navigate('/signin', { state: { from: location }, replace: true });
+        // dispatch(logoutUser())
+        // navigate('/signin', { state: { from: location }, replace: true });
       }
     };
 

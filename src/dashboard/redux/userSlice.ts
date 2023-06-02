@@ -49,8 +49,7 @@ export const userSlice = createSlice({
       state.token = null;
     },
     setUserData: (state:any, action) => {
-        const data = action.payload.type == 'clean' ? null : action.payload.data
-        state.user = data;
+        state.user = action.payload.data;
     },
     setAccessToken: (state:any, action) => {
       state.token = action.payload.data;

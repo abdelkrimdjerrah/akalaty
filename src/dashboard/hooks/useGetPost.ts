@@ -3,14 +3,15 @@ import useAxiosPrivate from './useAxiosPrivate';
 import { useNavigate, useLocation } from "react-router-dom";
 import { setUserData } from "../redux/userSlice";
 import { useDispatch } from "react-redux";
+import { logoutUser } from "../redux/userSlice";
 
-function useGetPost(postId?: any) {
+function useGetPost(postId?: string) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const navigate = useNavigate();
-  const [data, setData] = useState("");
+  const [data, setData] = useState<Entities.PostEntity[]>();
   const dispatch = useDispatch()
-
+  
 
   useEffect(() => {
     const controller = new AbortController();
@@ -29,15 +30,11 @@ function useGetPost(postId?: any) {
           // Update state or perform any necessary actions with the fetched user data
           const result = postId ? response.data.post : response.data.posts
           setData(result)
-      
+
       } catch (err) {
         console.error(err);
-        dispatch(
-          setUserData({
-            type: 'clean'
-          }),
-        );
-        navigate('/signin', { state: { from: location }, replace: true });
+        // dispatch(logoutUser())
+        // navigate('/signin', { state: { from: location }, replace: true });
       }
     };
 
