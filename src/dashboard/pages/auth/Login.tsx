@@ -65,13 +65,16 @@ function Login() {
           type: 'reset'
         }),
       );
-      // save the token
+      // save the token in redux
       dispatch(
         setAccessToken({
           type: 'token',
           data: data?.accessToken,
         }),
       );
+
+      // save the token in local storage
+      localStorage.setItem('token',data?.accessToken)
 
       // save the user data
       dispatch(

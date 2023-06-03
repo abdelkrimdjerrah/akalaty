@@ -24,7 +24,6 @@ const useGetPostPage = (pageNum = 1) => {
     const fetchData = async () => {
       try {
         const data = await getPostPage(pageNum, { signal });
-        console.log(data)
         setResults((prev) => [...prev, ...data]);
         setHasNextPage(Boolean(data.length));
         setIsLoading(false);

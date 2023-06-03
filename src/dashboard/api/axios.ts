@@ -1,4 +1,8 @@
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { selectToken } from '../redux/userSlice';
+import useRefreshToken from '../hooks/useRefreshToken';
+
 const BASE_URL = 'http://localhost:3500';
 
 export default axios.create({
@@ -13,3 +17,34 @@ export const axiosPrivate = axios.create({
     },
     withCredentials: true
 });
+
+
+    const token: string | null = localStorage.getItem('token') 
+
+    // const token = useSelector(selectToken);
+    // const refresh = useRefreshToken();
+  
+    // Set up the interceptors
+    axiosPrivate.interceptors.request.use(
+      (config) => {
+        if (!config.headers["Authorization"] && token) {
+          config.headers["Authorization"] = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+  
+    // axiosPrivate.interceptors.response.use(
+    //   (response) => response,
+    //   async (error) => {
+    //     const prevRequest = error?.config;
+    //     if (error?.response?.status === 403 && !prevRequest?.sent) {
+    //       prevRequest.sent = true;
+    //       const newAccessToken = await refresh();
+    //       prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+    //       return axiosPrivate(prevRequest);
+    //     }
+    //     return Promise.reject(error);
+    //   }
+    // );
