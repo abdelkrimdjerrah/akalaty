@@ -44,13 +44,13 @@ function Home() {
     const content = results.map((post, i) => {
         if (results.length === i + 1) {
             return(
-              <div key={post._id}>
+              <div key={i}>
                 <Post postObj={post} />
               </div>
             ) 
         }
         return(
-            <div key={post._id} ref={lastPostRef}>
+            <div key={i} ref={lastPostRef}>
               <Post postObj={post} />
             </div> 
         ) 

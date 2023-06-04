@@ -32,7 +32,7 @@ function Input({
             width +
 
             " " +
-            "font-regular text-sm rounded-lg p-3 focus:shadow-border outline-none " +
+            "font-regular text-sm rounded-md p-3 focus:shadow-border outline-none " +
             className
           }
           type={type}

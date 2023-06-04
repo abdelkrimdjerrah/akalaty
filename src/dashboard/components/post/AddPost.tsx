@@ -57,8 +57,11 @@ function AddPost() {
                     className="py-2 text-xs w-[250px]"
                 />
             </div>
-            <ButtonSecondary widthFull onClick={handleAddPost}>
-            Sign in
+            <ButtonSecondary onClick={handleAddPost} color="red">
+            Add post
+            </ButtonSecondary>
+            <ButtonSecondary onClick={()=>{}} color="orange">
+            Upload image
             </ButtonSecondary>
 
           </div>

@@ -3,7 +3,7 @@ import { axiosPrivate } from '../api/axios';
 
 export const getPostPage  = async (pageNum = 1, options = {}) => {
   const response = await axiosPrivate.get(`/api/posts/pages/${pageNum}`, options);
-  return response.data.postPage;
+  return response.data;
 };
 
 const useGetPostPage = (pageNum = 1) => {
@@ -24,8 +24,12 @@ const useGetPostPage = (pageNum = 1) => {
     const fetchData = async () => {
       try {
         const data = await getPostPage(pageNum, { signal });
-        setResults((prev) => [...prev, ...data]);
-        setHasNextPage(Boolean(data.length));
+        console.log(data)
+        if (data.success == false && data.message == 'No post found'){
+          return;
+        }
+        setResults((prev) => [...prev, ...data.postPage]);
+        setHasNextPage(Boolean(data.postPage.length));
         setIsLoading(false);
       } catch (e:any) {
         setIsLoading(false);
