@@ -4,24 +4,31 @@ import Button from "../../shared/Button";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser, selectLoginData, selectUser, selectUserData, selectToken, setLoginData, loginUser, setAccessToken,setUserData } from "../../redux/userSlice";
+import {
+  logoutUser,
+  selectLoginData,
+  selectUser,
+  selectUserData,
+  selectToken,
+  setLoginData,
+  loginUser,
+  setAccessToken,
+  setUserData,
+} from "../../redux/userSlice";
 import axios from "../../api/axios";
 
-
 function Login() {
-
   const dispatch = useDispatch();
- 
+
   const navigate = useNavigate();
 
-  const {email, password} = useSelector(selectLoginData);
+  const { email, password } = useSelector(selectLoginData);
 
   const [loading, setLoading] = useState(false);
-  
 
   // handle inputs
-  const setValue = useCallback((type:string, data:any) => {
-    dispatch(setLoginData({type, data}));
+  const setValue = useCallback((type: string, data: any) => {
+    dispatch(setLoginData({ type, data }));
   }, []);
 
   const [error, setError] = useState(false);
@@ -29,7 +36,6 @@ function Login() {
   // login
   const handleLogin = async () => {
     try {
-      
       // // reset errors
       // dispatch(
       //   setLoginData({
@@ -40,59 +46,44 @@ function Login() {
 
       setLoading(true);
 
-      const userData = {email, password};
+      const userData = { email, password };
 
-      const {data} = await axios.post(
-          `/api/auth/login`,
-          userData,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              'withCredentials': 'true'
-          }
-          }
-        );
+      const { data } = await axios.post(`/api/auth/login`, userData, {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: "true",
+        },
+      });
 
       if (!data?.success) {
-        console.log('error')
+        console.log("error");
         return;
       }
 
-
-      // reset data
       dispatch(
         setLoginData({
-          type: 'reset'
-        }),
+          type: "reset",
+        })
       );
-      // save the token in redux
       dispatch(
         setAccessToken({
-          type: 'token',
+          type: "token",
           data: data?.accessToken,
-        }),
+        })
       );
 
-      // save the token in local storage
-      localStorage.setItem('token',data?.accessToken)
+      localStorage.setItem("token", data?.accessToken);
 
-      // save the user data
       dispatch(
         setUserData({
-          type: 'user',
+          type: "user",
           data: data?.userData,
-        }),
+        })
       );
 
-      navigate('/')
-      
- 
-
-
-
-
+      navigate("/");
     } catch (error) {
-      console.log('error')
+      console.log("error");
       // handleError(error?.response?.data);
     } finally {
       setLoading(false);
@@ -129,7 +120,7 @@ function Login() {
               text="Email address"
               type="email"
               widthFull
-              onChange={(v) => setValue('email',v)}
+              onChange={(v) => setValue("email", v)}
               value={email}
               Icon={User}
             />
@@ -137,7 +128,7 @@ function Login() {
               text="Password"
               type="password"
               widthFull
-              onChange={(v) => setValue('password',v)}
+              onChange={(v) => setValue("password", v)}
               value={password}
               Icon={Lock}
             />

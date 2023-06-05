@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import Input from '../../shared/Input';
-import { MagnifyingGlass } from 'phosphor-react';
+import { useState } from "react";
+import Input from "../../shared/Input";
+import { MagnifyingGlass } from "phosphor-react";
 
 function Searchbar() {
   const [search, setSearch] = useState("");
@@ -19,4 +19,4 @@ function Searchbar() {
   );
 }
 
-export default Searchbar
+export default Searchbar;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 interface Props {
   closeModal: (e: any) => void;
@@ -18,7 +18,7 @@ const Modal: React.FC<Props> = ({ closeModal, children }) => {
       onClick={closeModal}
       className="z-30 modal-style fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center"
     >
-        {children}
+      {children}
     </div>
   );
 };

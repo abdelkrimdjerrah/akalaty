@@ -2,8 +2,7 @@ declare namespace Entities {
   export type Userrole = "Admin" | "Moderator" | "User";
 
   export interface UserEntity extends Creatable {
-
-    _id: string
+    _id: string;
 
     username: string;
 
@@ -13,13 +12,12 @@ declare namespace Entities {
 
     role: Userrole;
 
-    active: boolean
+    active: boolean;
 
     firstName?: string;
 
     lastName?: string;
 
     picture_url?: string;
-
   }
 }

@@ -1,7 +1,7 @@
-import { SignIn, User, Lock, UserCircle, Envelope } from "phosphor-react";
+import { User, Lock, UserCircle, Envelope } from "phosphor-react";
 import Input from "../../shared/Input";
 import Button from "../../shared/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
@@ -59,7 +59,7 @@ function SignUp() {
             </p>
           </div>
 
-          <Button widthFull onClick={()=>{}}>
+          <Button widthFull onClick={() => {}}>
             Sign in
           </Button>
 

@@ -2,8 +2,6 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./navbar/Navbar";
 import Sidebar from "./sidebar/Sidebar";
 import Notification from "./notification/Notification";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
 
 function Layout() {
   return (

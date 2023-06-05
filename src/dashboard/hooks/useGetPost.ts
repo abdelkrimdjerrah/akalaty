@@ -1,50 +1,41 @@
 import { useEffect, useState } from "react";
-import useAxiosPrivate from './useAxiosPrivate';
+import useAxiosPrivate from "./useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import { setUserData } from "../redux/userSlice";
-import { useDispatch } from "react-redux";
-import { logoutUser } from "../redux/userSlice";
 
-function useGetPost(postId?: string) {
+function useGetPost<T extends Entities.PostEntity | Entities.PostEntity[]>(
+  postId?: string
+) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const navigate = useNavigate();
   const [data, setData] = useState<Entities.PostEntity[]>();
-  const dispatch = useDispatch()
-  
 
   useEffect(() => {
     const controller = new AbortController();
     const fetchUser = async () => {
       try {
         const response = await axiosPrivate.get(
-          postId ? `/api/posts/${postId}` : '/api/posts',
+          postId ? `/api/posts/${postId}` : "/api/posts",
           {
-            signal: controller.signal
+            signal: controller.signal,
           }
         );
 
-          const result = postId ? response.data.post : response.data.posts
-          setData(result)
-
+        const result = postId ? response.data.post : response.data.posts;
+        setData(result);
       } catch (err) {
         console.error(err);
-        // dispatch(logoutUser())
-        // navigate('/signin', { state: { from: location }, replace: true });
       }
     };
 
     fetchUser();
 
     return () => {
-    
-      controller.abort(); // Cancel the request if the component unmounts
+      controller.abort();
     };
   }, [axiosPrivate, postId, location, navigate]);
 
-  return data
-
+  return data as T;
 }
 
 export default useGetPost;
-

@@ -4,53 +4,42 @@ import useRefreshToken from "./useRefreshToken";
 import { useSelector } from "react-redux";
 import { selectToken } from "../redux/userSlice";
 
-
 const useAxiosPrivate = () => {
-    const token = useSelector(selectToken);
-    const refresh = useRefreshToken();
-  
-    // Set up the interceptors
-    const requestIntercept = axiosPrivate.interceptors.request.use(
-      (config) => {
-        if (!config.headers["Authorization"]) {
-          config.headers["Authorization"] = `Bearer ${token}`;
-        }
-        return config;
-      },
-      (error) => Promise.reject(error)
-    );
-  
-    const responseIntercept = axiosPrivate.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        const prevRequest = error?.config;
-        if (error?.response?.status === 403 && !prevRequest?.sent) {
-          prevRequest.sent = true;
-          const newAccessToken = await refresh();
-          prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-          return axiosPrivate(prevRequest);
-        }
-        return Promise.reject(error);
+  const token = useSelector(selectToken);
+  // const refresh = useRefreshToken();
+
+  const requestIntercept = axiosPrivate.interceptors.request.use(
+    (config) => {
+      if (!config.headers["Authorization"]) {
+        config.headers["Authorization"] = `Bearer ${token}`;
       }
-    );
-  
-    // Clean up the interceptors
-    useEffect(() => {
-      return () => {
-        axiosPrivate.interceptors.request.eject(requestIntercept);
-        axiosPrivate.interceptors.response.eject(responseIntercept);
-      };
-    }, [requestIntercept, responseIntercept]);
-  
-    return axiosPrivate;
-  };
-  
-  
-  
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+
+  // const responseIntercept = axiosPrivate.interceptors.response.use(
+  //   (response) => response,
+  //   async (error) => {
+  //     const prevRequest = error?.config;
+  //     if (error?.response?.status === 403 && !prevRequest?.sent) {
+  //       prevRequest.sent = true;
+  //       const newAccessToken = await refresh();
+  //       prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+  //       return axiosPrivate(prevRequest);
+  //     }
+  //     return Promise.reject(error);
+  //   }
+  // );
+
+  useEffect(() => {
+    return () => {
+      axiosPrivate.interceptors.request.eject(requestIntercept);
+      // axiosPrivate.interceptors.response.eject(responseIntercept);
+    };
+  }, [requestIntercept]);
+
+  return axiosPrivate;
+};
 
 export default useAxiosPrivate;
-
-
-
-
-

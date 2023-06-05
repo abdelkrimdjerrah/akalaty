@@ -7,7 +7,7 @@ import useGetUser from "../../hooks/useGetUser";
 
 interface PostProps {
   postObj: any;
-  ref?: any
+  ref?: any;
 }
 
 function Post({ postObj, ref }: PostProps) {
@@ -15,16 +15,12 @@ function Post({ postObj, ref }: PostProps) {
 
   const [username, setUsername] = useState("");
 
-  const response: any = useGetUser(user);
+  const response = useGetUser<Entities.UserEntity>(user);
 
   useEffect(() => {
-    
-
     const fetchUsername = () => {
       try {
-     
-          setUsername(response.username);
-       
+        setUsername(response?.username);
       } catch (error) {
         console.error(error);
       }
@@ -32,11 +28,8 @@ function Post({ postObj, ref }: PostProps) {
 
     fetchUsername();
 
-    return () => {
-     
-    };
+    return () => {};
   }, [response]);
-
 
   return (
     <div ref={ref} className="w-full bg-white rounded-2xl relative p-5 py-6">
@@ -45,7 +38,7 @@ function Post({ postObj, ref }: PostProps) {
           <PostHeader postId={_id} username={username} createdAt={createdAt} />
           <PostText text={text} />
           {images.length > 0 && <PostSlider images={images} />}
-          <PostEngagement postId={_id}/>
+          <PostEngagement postId={_id} />
         </div>
       </div>
     </div>

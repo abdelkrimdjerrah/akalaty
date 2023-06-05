@@ -30,7 +30,6 @@ function Input({
           className={
             background +
             width +
-
             " " +
             "font-regular text-sm rounded-md p-3 focus:shadow-border outline-none " +
             className

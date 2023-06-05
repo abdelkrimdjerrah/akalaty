@@ -11,7 +11,6 @@ interface BtnProps {
   outlined?: boolean;
 }
 
-
 export default function Button({
   widthFull,
   color,
@@ -23,15 +22,15 @@ export default function Button({
   outlined,
 }: BtnProps) {
   const width = widthFull ? "w-full flex-1" : "";
-  let btn_style = ''
-  if(color == 'red'){
-    btn_style = ' border-red-600 text-red-800 bg-red-100 '
+  let btn_style = "";
+  if (color == "red") {
+    btn_style = " text-[#FA7D7D] bg-[#FEE7E7]";
   }
-  if(color == 'yellow'){
-    btn_style = ' border-yellow-600 text-yellow-800 bg-yellow-100 '
+  if (color == "yellow") {
+    btn_style = " text-yellow-800 bg-yellow-100 ";
   }
-  if(color == 'orange'){
-    btn_style = ' border-orange-600 text-yellow-800 bg-orange-100 '
+  if (color == "orange") {
+    btn_style = " text-yellow-600 bg-orange-100 ";
   }
   return (
     <button

@@ -24,10 +24,10 @@ function PostSlider({ images }: PostSliderProps) {
         }}
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        onSlideChange={() => ("slide change")}
-        onSwiper={(swiper) => (swiper)}
+        onSlideChange={() => "slide change"}
+        onSwiper={(swiper) => swiper}
       >
-        {images.map((img: string , key : number) => (
+        {images.map((img: string, key: number) => (
           <SwiperSlide className="select-none" key={key}>
             <div className="flex justify-center items-center h-[400px]">
               <img src={img} alt="" className="max-h-full" />
