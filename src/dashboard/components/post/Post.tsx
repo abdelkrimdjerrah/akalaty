@@ -15,6 +15,9 @@ function Post({ postObj, ref }: PostProps) {
 
   const [username, setUsername] = useState("");
 
+  const [deleted, setDeleted] = useState(false);
+
+
   const response = useGetUser<Entities.UserEntity>(user);
 
   useEffect(() => {
@@ -35,10 +38,17 @@ function Post({ postObj, ref }: PostProps) {
     <div ref={ref} className="w-full bg-white rounded-2xl relative p-5 py-6">
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
-          <PostHeader postId={_id} username={username} createdAt={createdAt} />
-          <PostText text={text} />
-          {images.length > 0 && <PostSlider images={images} />}
-          <PostEngagement postId={_id} />
+          {
+            deleted ? <h1>Post has been deleted !</h1> 
+            :
+            <>
+              <PostHeader postId={_id} username={username} createdAt={createdAt} setDeleted={setDeleted}/>
+              <PostText text={text} />
+              {images.length > 0 && <PostSlider images={images} />}
+              <PostEngagement postId={_id} />
+            </>
+          }
+         
         </div>
       </div>
     </div>

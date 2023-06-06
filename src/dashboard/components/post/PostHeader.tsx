@@ -1,6 +1,7 @@
 import { useState } from "react";
 import UserItem from "../../shared/UserItem";
 import { DotsThree, BookmarkSimple } from "phosphor-react";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Abdelkrim = require("../../../assets/Abdelkrim.png");
 
@@ -8,9 +9,16 @@ interface PostProps {
   postId: string;
   username: string;
   createdAt: Date;
+  setDeleted: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function PostHeader({ postId, username, createdAt }: PostProps) {
+function PostHeader({ postId, username, createdAt, setDeleted }: PostProps) {
+  const [bookmark, setBookmark] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const axiosPrivate = useAxiosPrivate();
+  
   const created = new Date(createdAt).toLocaleString("en-US", {
     day: "numeric",
     month: "long",
@@ -20,8 +28,24 @@ function PostHeader({ postId, username, createdAt }: PostProps) {
     second: "numeric",
   });
 
-  const [bookmark, setBookmark] = useState(false);
-  const [showMenu, setShowMenu] = useState(true);
+
+  const handleDeletePost = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axiosPrivate.delete(`/api/posts/${postId}`);
+
+      if (!data?.success) {
+        console.log("error");
+        return;
+      }else{
+        setDeleted(true)
+      }
+    } catch (error) {
+      console.log("error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex w-full justify-between">
@@ -39,9 +63,8 @@ function PostHeader({ postId, username, createdAt }: PostProps) {
           {
             showMenu && (
               <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
-                <p>Edit</p> 
-                <div className="h-[1px] w-full bg-gray-300" />
-                <p className="text-red-600">Delete</p> 
+                <p className="cursor-pointer">Edit</p> 
+                <p className="text-red-600 cursor-pointer"  onClick={handleDeletePost}>Delete</p> 
               </div>
             )
           }
