@@ -1,6 +1,6 @@
 import { useState } from "react";
 import UserItem from "../../shared/UserItem";
-import { DotsThreeVertical, BookmarkSimple } from "phosphor-react";
+import { DotsThree, BookmarkSimple } from "phosphor-react";
 
 const Abdelkrim = require("../../../assets/Abdelkrim.png");
 
@@ -21,7 +21,7 @@ function PostHeader({ postId, username, createdAt }: PostProps) {
   });
 
   const [bookmark, setBookmark] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
 
   return (
     <div className="flex w-full justify-between">
@@ -34,8 +34,18 @@ function PostHeader({ postId, username, createdAt }: PostProps) {
             <BookmarkSimple size={21} />
           )}
         </div>
-
-        <DotsThreeVertical size={21} />
+        <div className="relative">
+          <DotsThree size={21} onClick={()=> setShowMenu(!showMenu)}/>
+          {
+            showMenu && (
+              <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
+                <p>Edit</p> 
+                <div className="h-[1px] w-full bg-gray-300" />
+                <p className="text-red-600">Delete</p> 
+              </div>
+            )
+          }
+        </div>
       </div>
     </div>
   );
