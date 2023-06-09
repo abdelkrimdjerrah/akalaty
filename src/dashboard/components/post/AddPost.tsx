@@ -39,7 +39,6 @@ function AddPost() {
           "Content-Type": "multipart/form-data",
         },
         params: {
-          user: user,
           text: text,
         },
       });

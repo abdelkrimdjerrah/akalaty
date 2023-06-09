@@ -10,14 +10,22 @@ interface postIdInterface {
 
 function PostEngagement({ postId }: postIdInterface) {
   const [comment, setComment] = useState("");
-  const [like, setLike] = useState(false);
+  const [likes, setLikes] = useState([]);
+  const [likesNum, setLikesNum] = useState(0);
+  const [isLike, setIsLike] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
   const handlePostLike = async () => {
     try {
-      setLike(!like);
+      if(isLike){
+        setLikesNum(()=> likesNum - 1)
+      }
+      else{
+        setLikesNum(()=> likesNum + 1)
+      }
+      setIsLike(()=>!isLike);
       setLoading(true);
       const postDetails = {
         postId,
@@ -31,6 +39,7 @@ function PostEngagement({ postId }: postIdInterface) {
         console.log("error");
         return;
       }
+      
     } catch (error) {
       console.log("error");
     } finally {
@@ -49,13 +58,32 @@ function PostEngagement({ postId }: postIdInterface) {
             signal: controller.signal,
           }
         );
-
-        const result = response.data.hasLikedPost; // returns either True or False
-        setLike(result);
+        if(response.data.success){
+          const result = response.data.hasLikedPost; // returns either True or False
+          setIsLike(result);
+        }
       } catch (err) {}
     };
 
     checkPostLike();
+
+    const getPostLikes = async () => {
+      try {
+        const response = await axiosPrivate.get(
+          `/api/posts/${postId}/likes`,
+          {
+            signal: controller.signal,
+          }
+        );
+        if(response.data.success){
+          const result = response.data.postLikes;
+          setLikes(result);
+          setLikesNum(result.length);
+        }
+      } catch (err) {}
+    };
+
+    getPostLikes();
 
     return () => {
       controller.abort(); // Cancel the request if the component unmounts
@@ -72,14 +100,18 @@ function PostEngagement({ postId }: postIdInterface) {
                 handlePostLike();
               }}
             >
-              {like ? (
+              {isLike ? (
                 <Heart size={21} weight="fill" className="text-red-500" />
               ) : (
                 <Heart size={21} />
               )}
             </div>
             <div className="flex gap-1">
-              <p className="font-medium text-xs">650</p>
+              <p className="font-medium text-xs">
+                {
+                  likesNum
+                }
+              </p>
             </div>
           </div>
 
