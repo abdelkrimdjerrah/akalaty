@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function useGetUser<T extends Entities.UserEntity | Entities.UserEntity[]>(
+function useGetUser<UserType extends Entities.UserEntity | Entities.UserEntity[]>(
   id?: string
 ) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const navigate = useNavigate();
-  const [data, setData] = useState<
-    Entities.UserEntity[] | Entities.UserEntity
-  >();
+  const [data, setData] = useState<UserType>();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -37,7 +35,7 @@ function useGetUser<T extends Entities.UserEntity | Entities.UserEntity[]>(
     };
   }, [axiosPrivate, id, location, navigate]);
 
-  return data as T;
+  return data;
 }
 
 export default useGetUser;

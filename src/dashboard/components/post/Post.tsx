@@ -11,19 +11,20 @@ interface PostProps {
 }
 
 function Post({ postObj, ref }: PostProps) {
-  const { _id, user, text, images, likes, comments, createdAt } = postObj;
+  const { _id, userId, text, images, likes, comments, createdAt } = postObj;
 
   const [username, setUsername] = useState("");
 
   const [deleted, setDeleted] = useState(false);
 
-
-  const response = useGetUser<Entities.UserEntity>(user);
+  const response = useGetUser<Entities.UserEntity>(userId);
 
   useEffect(() => {
     const fetchUsername = () => {
       try {
-        setUsername(response?.username);
+        if(response){
+          setUsername(response.username);
+        }
       } catch (error) {
         console.error(error);
       }

@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function useGetPost<T extends Entities.PostEntity | Entities.PostEntity[]>(
+function useGetPost<PostType extends Entities.PostEntity | Entities.PostEntity[]>(
   postId?: string
 ) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
   const navigate = useNavigate();
-  const [data, setData] = useState<Entities.PostEntity[]>();
+  const [data, setData] = useState<PostType>();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -35,7 +35,7 @@ function useGetPost<T extends Entities.PostEntity | Entities.PostEntity[]>(
     };
   }, [axiosPrivate, postId, location, navigate]);
 
-  return data as T;
+  return data;
 }
 
 export default useGetPost;
