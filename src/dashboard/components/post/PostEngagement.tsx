@@ -9,13 +9,41 @@ interface postIdInterface {
 }
 
 function PostEngagement({ postId }: postIdInterface) {
-  const [comment, setComment] = useState("");
+  const [postComment, setPostComment] = useState("");
   const [likes, setLikes] = useState([]);
   const [likesNum, setLikesNum] = useState(0);
   const [isLike, setIsLike] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
+
+  const handlePostComment= async () => {
+    try {
+      setLoading(true);
+      if(!postComment){
+        return;
+      }
+      const commentDetails = {
+        postId,
+        postComment,
+      };
+      const { data } = await axiosPrivate.patch(
+        `/api/posts/${postId}/comments`,
+        commentDetails
+      );
+
+      if (!data?.success) {
+        console.log("error");
+        return;
+      }
+      
+    } catch (error) {
+      console.log("error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   const handlePostLike = async () => {
     try {
@@ -125,16 +153,18 @@ function PostEngagement({ postId }: postIdInterface) {
             </div>
           </div>
         </div>
-        <div>
+        <div className="relative">
           <Input
             text="Write a comment ..."
             type="text"
-            Icon={PaperPlaneRight}
             widthFull
-            onChange={(v) => setComment(v)}
-            value={comment}
+            onChange={(v) => setPostComment(v)}
+            value={postComment}
             className="py-2 text-xs w-[250px]"
           />
+          <div onClick={handlePostComment} className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400">
+            <PaperPlaneRight size={19} />
+          </div>
         </div>
       </div>
 
