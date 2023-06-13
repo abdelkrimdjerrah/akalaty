@@ -17,7 +17,7 @@ function PostEngagement({ postId }: postIdInterface) {
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
-  const handlePostComment= async () => {
+  const handleSetPostComment= async () => {
     try {
       setLoading(true);
       if(!postComment){
@@ -45,7 +45,7 @@ function PostEngagement({ postId }: postIdInterface) {
   };
 
 
-  const handlePostLike = async () => {
+  const handleSetPostLike = async () => {
     try {
       if(isLike){
         setLikesNum(()=> likesNum - 1)
@@ -125,7 +125,7 @@ function PostEngagement({ postId }: postIdInterface) {
           <div className="flex gap-[2px] items-center">
             <div
               onClick={() => {
-                handlePostLike();
+                handleSetPostLike();
               }}
             >
               {isLike ? (
@@ -162,7 +162,7 @@ function PostEngagement({ postId }: postIdInterface) {
             value={postComment}
             className="py-2 text-xs w-[250px]"
           />
-          <div onClick={handlePostComment} className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400">
+          <div onClick={handleSetPostComment} className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400">
             <PaperPlaneRight size={19} />
           </div>
         </div>
