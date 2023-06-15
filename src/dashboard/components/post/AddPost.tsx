@@ -61,7 +61,7 @@ function AddPost() {
           <House size={21} />
           <p className="text-sm font-medium">Add post</p>
         </div>
-        <input type="file" multiple onChange={handleFileChange} />
+
         <Input
           text="Write a text ..."
           type="text"
@@ -72,9 +72,17 @@ function AddPost() {
         />
 
         <div className="flex gap-2">
-          <ButtonSecondary onClick={() => {}} color="orange">
-            Upload image
-          </ButtonSecondary>
+          <div className="relative w-fit">
+            <ButtonSecondary color="orange">Upload image</ButtonSecondary>
+            <label className=" cursor-pointer absolute w-full h-full left-0">
+              <input
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                className=" bg-blue-500"
+              />
+            </label>
+          </div>
           <ButtonSecondary onClick={handleAddPost} color="red">
             Add post
           </ButtonSecondary>

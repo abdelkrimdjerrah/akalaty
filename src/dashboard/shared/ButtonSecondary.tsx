@@ -2,7 +2,7 @@ import Loader from "./Loader";
 
 interface BtnProps {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
   widthFull?: boolean;
   loading?: boolean;
   disabled?: boolean;

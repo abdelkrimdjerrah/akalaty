@@ -14,6 +14,9 @@ body{
     background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
+input[type="file"]{
+  display: none;
+}
 /* For Webkit-based browsers (Chrome, Safari and Opera) */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
