@@ -1,3 +1,5 @@
+import { MouseEventHandler } from "react";
+
 interface InputProps {
   text: string;
   type?: string;
@@ -7,6 +9,7 @@ interface InputProps {
   secure?: boolean;
   white?: boolean;
   onChange: (v: string) => void;
+  onClick?: (e: any) => void;
   className?: string;
 }
 
@@ -18,6 +21,7 @@ function Input({
   text,
   value,
   onChange,
+  onClick,
   Icon,
 }: InputProps) {
   const width = widthFull ? " w-full " : "";
@@ -35,6 +39,7 @@ function Input({
             className
           }
           type={type}
+          onClick={onClick}
           placeholder={text}
           onChange={(e) => onChange(e.target.value)}
           value={value}
