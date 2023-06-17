@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper";
 import { CaretLeft, CaretRight } from "phosphor-react";
@@ -13,7 +13,10 @@ interface PostSliderProps {
 }
 
 function PostSlider({ images }: PostSliderProps) {
+
+  const hasManyImages: boolean = images.length > 1;
   const swiperRef = useRef<SwiperCore>();
+  
   return (
     <div className="min-w-full my-1 h-[400px] object-fill overflow-hidden relative border rounded-2xl flex justify-center">
       <Swiper
@@ -22,8 +25,8 @@ function PostSlider({ images }: PostSliderProps) {
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper;
         }}
-        pagination={{ clickable: true }}
-        scrollbar={{ draggable: true }}
+        pagination={{ clickable: hasManyImages }}
+        scrollbar={{ draggable: hasManyImages }}
         onSlideChange={() => "slide change"}
         onSwiper={(swiper) => swiper}
       >
@@ -36,23 +39,27 @@ function PostSlider({ images }: PostSliderProps) {
         ))}
       </Swiper>
 
-      <div className="absolute left-4 z-10 h-full flex items-center">
-        <div
-          className="navigationBtn"
-          onClick={() => swiperRef.current?.slidePrev()}
-        >
-          <CaretLeft size={30} />
-        </div>
-      </div>
+      {hasManyImages && (
+        <>
+          <div className="absolute left-4 z-10 h-full flex items-center">
+            <div
+              className="navigationBtn"
+              onClick={() => swiperRef.current?.slidePrev()}
+            >
+              <CaretLeft size={30} />
+            </div>
+          </div>
 
-      <div className="absolute right-4 z-10 h-full flex items-center">
-        <div
-          className="navigationBtn"
-          onClick={() => swiperRef.current?.slideNext()}
-        >
-          <CaretRight size={30} />
-        </div>
-      </div>
+          <div className="absolute right-4 z-10 h-full flex items-center">
+            <div
+              className="navigationBtn"
+              onClick={() => swiperRef.current?.slideNext()}
+            >
+              <CaretRight size={30} />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
