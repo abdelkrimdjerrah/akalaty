@@ -31,19 +31,21 @@ axiosPrivate.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    return Promise.resolve(error.response)
+  }
 );
 
-// axiosPrivate.interceptors.response.use(
-//   (response) => response,
-//   async (error) => {
-//     const prevRequest = error?.config;
-//     if (error?.response?.status === 403 && !prevRequest?.sent) {
-//       prevRequest.sent = true;
-//       const newAccessToken = await refresh();
-//       prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-//       return axiosPrivate(prevRequest);
-//     }
-//     return Promise.reject(error);
-//   }
-// );
+axiosPrivate.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    // const prevRequest = error?.config;
+    // if (error?.response?.status === 403 && !prevRequest?.sent) {
+    //   prevRequest.sent = true;
+    //   const newAccessToken = await refresh();
+    //   prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+    //   return axiosPrivate(prevRequest);
+    // }
+    return Promise.resolve(error.response);
+  }
+);
