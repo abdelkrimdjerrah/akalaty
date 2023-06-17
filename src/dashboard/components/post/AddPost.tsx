@@ -3,14 +3,15 @@ import { House } from "phosphor-react";
 import Input from "../../shared/Input";
 import ButtonSecondary from "../../shared/ButtonSecondary";
 import { axiosPrivate } from "../../api/axios";
-import Loader from '../../shared/Loader';
-
+import Loader from "../../shared/Loader";
 
 function AddPost() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState("");
   const [isPosted, setIsPosted] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFiles(e.target.files);
@@ -19,7 +20,16 @@ function AddPost() {
 
   const handleAddPost = async () => {
     try {
+      
       setLoading(true);
+      
+      if(!text){
+        setIsError("Please write something")
+        return
+      }
+
+      setIsError("")
+
 
       if (selectedFiles) {
         for (let i = 0; i < selectedFiles.length; i++) {
@@ -39,10 +49,10 @@ function AddPost() {
       });
 
       if (!data?.success) {
-        console.log("error");
+        setIsError(data?.message)
         return;
       }
-      setIsPosted(true)
+      setIsPosted(true);
     } catch (error) {
       console.log("error");
     } finally {
@@ -57,11 +67,16 @@ function AddPost() {
           <House size={21} />
           <p className="text-sm font-medium">Add post</p>
         </div>
-        {
-          isPosted && <>
+        {isPosted && (
+          <>
             <p className="text-sm text-green-500">Post added successfully!</p>
-          </> 
-        }
+          </>
+        )}
+        {isError && (
+          <>
+            <p className="text-sm text-red-500">{isError}</p>
+          </>
+        )}
         <Input
           text="Write a text ..."
           type="text"
@@ -87,11 +102,11 @@ function AddPost() {
           <ButtonSecondary onClick={handleAddPost} color="red">
             Add post
           </ButtonSecondary>
-          {
-            loading && <>
+          {loading && (
+            <>
               <Loader />
             </>
-          }
+          )}
         </div>
       </div>
     </div>
