@@ -27,7 +27,7 @@ const useGetPostPage = (pageNum = 1) => {
     const fetchData = async () => {
       try {
         const data = await getPostPage(pageNum, { signal });
-        if (!data.success && data.message == "No post found") {
+        if (!data.success) {
           return;
         }
         setResults((prev) => [...prev, ...data.postPage]);
