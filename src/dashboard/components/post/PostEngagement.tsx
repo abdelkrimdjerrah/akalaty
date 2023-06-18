@@ -153,6 +153,9 @@ function PostEngagement({ postId }: postIdInterface) {
             </div>
           </div>
         </div>
+        <div>
+          <p onClick={() => setShowModal(true)} className="text-xs cursor-pointer w-fit font-medium">View comments</p>
+        </div>
         <div className="relative">
           <Input
             text="Write a comment ..."
