@@ -6,13 +6,19 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 interface postIdInterface {
   postId: string;
+  postComments: [any]
+  postLikes: [string]
 }
 
-function PostEngagement({ postId }: postIdInterface) {
+function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
   const [postComment, setPostComment] = useState("");
-  const [likes, setLikes] = useState([]);
-  const [likesNum, setLikesNum] = useState(0);
+  const [comments, setComments] = useState(postComments);
+  const [commentsNum, setCommentsNum] = useState<number>(postComments.length);
+
+  const [likes, setLikes] = useState(postLikes);
+  const [likesNum, setLikesNum] = useState<number>(postLikes.length);
   const [isLike, setIsLike] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
@@ -22,6 +28,9 @@ function PostEngagement({ postId }: postIdInterface) {
       setLoading(true);
       if(!postComment){
         return;
+      }
+      else{
+        setPostComment('')
       }
       const commentDetails = {
         postId,
@@ -36,6 +45,8 @@ function PostEngagement({ postId }: postIdInterface) {
         console.log("error");
         return;
       }
+
+      setCommentsNum(() => commentsNum + 1)
       
     } catch (error) {
       console.log("error");
@@ -43,7 +54,6 @@ function PostEngagement({ postId }: postIdInterface) {
       setLoading(false);
     }
   };
-
 
   const handleSetPostLike = async () => {
     try {
@@ -95,24 +105,6 @@ function PostEngagement({ postId }: postIdInterface) {
 
     checkPostLike();
 
-    const getPostLikes = async () => {
-      try {
-        const response = await axiosPrivate.get(
-          `/api/posts/${postId}/likes`,
-          {
-            signal: controller.signal,
-          }
-        );
-        if(response.data.success){
-          const result = response.data.postLikes;
-          setLikes(result);
-          setLikesNum(result.length);
-        }
-      } catch (err) {}
-    };
-
-    getPostLikes();
-
     return () => {
       controller.abort(); // Cancel the request if the component unmounts
     };
@@ -149,7 +141,7 @@ function PostEngagement({ postId }: postIdInterface) {
           >
             <ChatCircleDots size={21} />
             <div className="flex gap-1">
-              <p className="font-medium text-xs">650</p>
+              <p className="font-medium text-xs">{commentsNum}</p>
             </div>
           </div>
         </div>

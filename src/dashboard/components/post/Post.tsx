@@ -46,7 +46,7 @@ function Post({ postObj, ref }: PostProps) {
               <PostHeader postId={_id} username={username} createdAt={createdAt} setDeleted={setDeleted}/>
               <PostText text={text} />
               {images.length > 0 && <PostSlider images={images} />}
-              <PostEngagement postId={_id} />
+              <PostEngagement postId={_id} postComments={comments} postLikes={likes} />
             </>
           }
          
