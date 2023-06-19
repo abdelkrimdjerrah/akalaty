@@ -12,8 +12,11 @@ declare namespace Entities {
 
     comments?: [
       {
+        _id: string;
         user: string;
-        comment: string;
+        text: string;
+        createdAt?: Date;
+        updatedAt?: Date;
       }
     ];
 
@@ -21,4 +24,13 @@ declare namespace Entities {
 
     updatedAt?: Date;
   }
+
+  export interface PostCommentEntity extends Creatable {
+    _id: string;
+    userId: string;
+    text: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+  }
+  
 }
