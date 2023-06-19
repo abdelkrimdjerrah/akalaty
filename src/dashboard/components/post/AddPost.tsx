@@ -35,7 +35,6 @@ function AddPost() {
         for (let i = 0; i < selectedFiles.length; i++) {
           imagesFormData.append("images", selectedFiles[i]);
         }
-        console.log(imagesFormData.getAll("images"));
       }
 
       const { data } = await axiosPrivate.post(`/api/posts`, imagesFormData, {
