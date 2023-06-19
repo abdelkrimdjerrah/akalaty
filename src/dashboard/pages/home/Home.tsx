@@ -38,7 +38,6 @@ function Home() {
   if (isError) return <p className="center">Error: {error.message}</p>;
 
   const content = results.map((post, i) => {
-    console.log(post)
     if (results.length === i + 1) {
       return (
         <div key={i}>
