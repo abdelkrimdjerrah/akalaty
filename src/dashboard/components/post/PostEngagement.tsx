@@ -3,19 +3,20 @@ import { ChatCircleDots, Heart, PaperPlaneRight, X } from "phosphor-react";
 import Input from "../../shared/Input";
 import Modal from "../../shared/Modal";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import Comment from './Comment';
 
 interface postIdInterface {
   postId: string;
-  postComments: [any]
-  postLikes: [string]
+  postComments: any;
+  postLikes: any;
 }
 
 function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
   const [postComment, setPostComment] = useState("");
-  const [comments, setComments] = useState(postComments);
+  const [comments, setComments] = useState<Entities.PostCommentEntity[]>(postComments);
   const [commentsNum, setCommentsNum] = useState<number>(postComments.length);
 
-  const [likes, setLikes] = useState(postLikes);
+  const [likes, setLikes] = useState<string>(postLikes);
   const [likesNum, setLikesNum] = useState<number>(postLikes.length);
   const [isLike, setIsLike] = useState(false);
 
@@ -23,14 +24,13 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
   const [loading, setLoading] = useState(false);
   const axiosPrivate = useAxiosPrivate();
 
-  const handleSetPostComment= async () => {
+  const handleSetPostComment = async () => {
     try {
       setLoading(true);
-      if(!postComment){
+      if (!postComment) {
         return;
-      }
-      else{
-        setPostComment('')
+      } else {
+        setPostComment("");
       }
       const commentDetails = {
         postId,
@@ -46,8 +46,7 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
         return;
       }
 
-      setCommentsNum(() => commentsNum + 1)
-      
+      setCommentsNum(() => commentsNum + 1);
     } catch (error) {
       console.log("error");
     } finally {
@@ -57,13 +56,12 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
 
   const handleSetPostLike = async () => {
     try {
-      if(isLike){
-        setLikesNum(()=> likesNum - 1)
+      if (isLike) {
+        setLikesNum(() => likesNum - 1);
+      } else {
+        setLikesNum(() => likesNum + 1);
       }
-      else{
-        setLikesNum(()=> likesNum + 1)
-      }
-      setIsLike(()=>!isLike);
+      setIsLike(() => !isLike);
       setLoading(true);
       const postDetails = {
         postId,
@@ -77,7 +75,6 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
         console.log("error");
         return;
       }
-      
     } catch (error) {
       console.log("error");
     } finally {
@@ -96,7 +93,7 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
             signal: controller.signal,
           }
         );
-        if(response.data.success){
+        if (response.data.success) {
           const result = response.data.hasLikedPost; // returns either True or False
           setIsLike(result);
         }
@@ -127,11 +124,7 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
               )}
             </div>
             <div className="flex gap-1">
-              <p className="font-medium text-xs">
-                {
-                  likesNum
-                }
-              </p>
+              <p className="font-medium text-xs">{likesNum}</p>
             </div>
           </div>
 
@@ -146,7 +139,12 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
           </div>
         </div>
         <div>
-          <p onClick={() => setShowModal(true)} className="text-xs cursor-pointer w-fit font-medium">View comments</p>
+          <p
+            onClick={() => setShowModal(true)}
+            className="text-xs cursor-pointer w-fit font-medium"
+          >
+            View comments
+          </p>
         </div>
         <div className="relative">
           <Input
@@ -157,7 +155,10 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
             value={postComment}
             className="py-2 text-xs w-[250px]"
           />
-          <div onClick={handleSetPostComment} className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400">
+          <div
+            onClick={handleSetPostComment}
+            className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400"
+          >
             <PaperPlaneRight size={19} />
           </div>
         </div>
@@ -173,15 +174,27 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
             onClick={(e) => e.stopPropagation()}
             className="max-w-[500px] bg-white min-w-[500px] h-fit p-5 rounded-2xl relative"
           >
-            {showModal && (
-              <div onClick={() => setShowModal(false)}>
-                <X
-                  size={21}
-                  className="text-gray-400 cursor-pointer hover:text-black absolute right-5 top-5"
-                />
+            <div onClick={() => setShowModal(false)}>
+              <X
+                size={21}
+                className="text-gray-400 cursor-pointer hover:text-black absolute right-5 top-5"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="flex gap-1 w-full">
+                <ChatCircleDots size={21} />
+                <p className="text-sm font-medium">Comments</p>
               </div>
-            )}
-            Hello world
+              <div>
+                <div className="flex flex-col gap-2">
+                  {comments.map((comment: Entities.PostCommentEntity) => (
+                    <div key={comment._id}>
+                      <Comment comment={comment} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </Modal>
       )}
