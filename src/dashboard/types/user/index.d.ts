@@ -18,6 +18,6 @@ declare namespace Entities {
 
     lastName?: string;
 
-    picture_url?: string;
+    picture?: string;
   }
 }
