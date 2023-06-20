@@ -76,11 +76,26 @@ function Comment({ comment, postId }: ICommentProps) {
                     <p className='font-medium'>{userData?.username}</p> {/* Assuming user data contains a 'name' property */}
                     <p className='text-xs text-gray-400'>{comment?.createdAt?.toLocaleString()}</p>
                 </div>
-                <p>{comment.text}</p>
-                <div className='w-full flex gap-2 justify-end'>
-                  <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply (${repliesNum})`}</p>
-                  <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
-                </div>
+                <p className=''>{comment.text}</p>
+                {
+                  comment.replies?.length ? 
+                  <div className='flex justify-between w-full'>
+                    <div className='flex gap-1 items-center'>
+                      <div className='h-[1px] w-6 bg-gray-400'></div>
+                      <p className='text-xs text-gray-400 font-medium cursor-pointer'>{`View replies (${repliesNum})`}</p>
+                    </div>
+                    <div className='flex gap-2'>
+                      <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply`}</p>
+                      <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                    </div>
+                  </div>
+
+                  :   <div className='w-full flex gap-2 justify-end'>
+                        <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply`}</p>
+                        <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                      </div>
+                }
+          
             </div>
         </div>
         {
