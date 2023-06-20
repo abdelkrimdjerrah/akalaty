@@ -1,32 +1,109 @@
 import React, { useEffect, useState } from 'react';
 import useGetUser from '../../hooks/useGetUser';
+import { ChatCircleDots, Heart, PaperPlaneRight, X } from "phosphor-react";
+import Input from "../../shared/Input";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 interface ICommentProps {
-  comment: Entities.IComment;
+  comment: Entities.IComment,
+  postId: string
 }
 
-function Comment({ comment }: ICommentProps) {
+function Comment({ comment, postId }: ICommentProps) {
+
+  const commentId = comment._id
 
   const [reply, setReply] = useState('');
   const [replies, setReplies] = useState<Entities.IReply[]>();
+  const [repliesNum, setRepliesNum] = useState<number>(0);
+  const [wantReply, setWantReply] = useState(false);
 
   const [likes, setLikes] = useState<Entities.ILike[]>();
+  const [likesNum, setLikesNum] = useState<number>(0);
   const [isLike, setIsLike] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
+  const axiosPrivate = useAxiosPrivate();
+
   const userData = useGetUser<Entities.UserEntity>(comment.userId);
 
+  useEffect(() => {
+    if (comment.replies) {
+      setReplies(comment.replies);
+      setRepliesNum(comment.replies.length);
+    }
+  }, []);
+
+  const handleSetReply = async () => {
+    try {
+      setLoading(true);
+      if (!reply) {
+        return;
+      } else {
+        setReply("");
+      }
+      const commentDetails = {
+        postId,
+        commentId,
+        reply,
+      };
+      const { data } = await axiosPrivate.patch(
+        `/api/posts/${postId}/comments/${commentId}`,
+        commentDetails
+      );
+
+      if (!data?.success) {
+        console.log("error");
+        return;
+      }
+
+      setRepliesNum(() => repliesNum + 1);
+    } catch (error) {
+      console.log("error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   return (
-    <div className='flex gap-2 items-center bg-gray-100 w-full p-3 rounded-lg'>
-        <img src={userData?.picture} alt="" className='w-10 h-10 object-cover rounded-full'/>
-        <div className='flex flex-col gap-[2px] text-sm w-full'>
-            <div className='flex w-full justify-between items-center'>
-                <p className='font-medium'>{userData?.username}</p> {/* Assuming user data contains a 'name' property */}
-                <p className='text-xs text-gray-400'>{comment?.createdAt?.toLocaleString()}</p>
+    <div className=' bg-gray-100 w-full p-3 rounded-lg'>
+        <div className='flex gap-2 items-center'>
+            <img src={userData?.picture} alt="" className='w-11 h-10 object-cover rounded-full'/>
+            <div className='flex flex-col gap-[2px] text-sm w-full'>
+                <div className='flex w-full justify-between items-center'>
+                    <p className='font-medium'>{userData?.username}</p> {/* Assuming user data contains a 'name' property */}
+                    <p className='text-xs text-gray-400'>{comment?.createdAt?.toLocaleString()}</p>
+                </div>
+                <p>{comment.text}</p>
+                <div className='w-full flex gap-2 justify-end'>
+                  <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply (${repliesNum})`}</p>
+                  <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                </div>
             </div>
-             <p>{comment.text}</p>
         </div>
+        {
+          wantReply && (
+            <div className="relative mt-2">
+              <Input
+                text="Write a comment ..."
+                type="text"
+                widthFull
+                onChange={(v) => setReply(v)}
+                value={reply}
+                className="py-2 text-xs w-[250px] bg-white"
+              />
+              <div
+                onClick={handleSetReply}
+                className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400"
+              >
+                <PaperPlaneRight size={19} />
+              </div>
+            </div>
+          )
+        }
+
     </div>
   );
 }
