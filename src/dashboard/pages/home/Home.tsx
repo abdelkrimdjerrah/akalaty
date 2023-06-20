@@ -7,7 +7,7 @@ interface useGetPostPageInterface {
   isLoading: boolean;
   isError: boolean;
   error: any;
-  results: Entities.PostEntity[];
+  results: Entities.IPost[];
   hasNextPage: boolean;
 }
 

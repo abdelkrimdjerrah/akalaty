@@ -13,7 +13,7 @@ interface postIdInterface {
 
 function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
   const [postComment, setPostComment] = useState("");
-  const [comments, setComments] = useState<Entities.PostCommentEntity[]>(postComments);
+  const [comments, setComments] = useState<Entities.IComment[]>(postComments);
   const [commentsNum, setCommentsNum] = useState<number>(postComments.length);
 
   const [likes, setLikes] = useState<string>(postLikes);
@@ -187,7 +187,7 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
               </div>
               <div>
                 <div className="flex flex-col gap-2">
-                  {comments.map((comment: Entities.PostCommentEntity) => (
+                  {comments.map((comment: Entities.IComment) => (
                     <div key={comment._id}>
                       <Comment comment={comment} />
                     </div>

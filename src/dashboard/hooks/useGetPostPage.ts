@@ -10,7 +10,7 @@ export const getPostPage = async (pageNum = 1, options = {}) => {
 };
 
 const useGetPostPage = (pageNum = 1) => {
-  const [results, setResults] = useState<Entities.PostEntity[]>([]);
+  const [results, setResults] = useState<Entities.IPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState({});

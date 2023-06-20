@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function useGetPost<PostType extends Entities.PostEntity | Entities.PostEntity[]>(
+function useGetPost<PostType extends Entities.IPost | Entities.IPost[]>(
   postId?: string
 ) {
   const axiosPrivate = useAxiosPrivate();
