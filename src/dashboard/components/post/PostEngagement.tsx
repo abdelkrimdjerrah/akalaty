@@ -3,7 +3,7 @@ import { ChatCircleDots, Heart, PaperPlaneRight, X } from "phosphor-react";
 import Input from "../../shared/Input";
 import Modal from "../../shared/Modal";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import Comment from './Comment';
+import Comment from "./Comment";
 
 interface postIdInterface {
   postId: string;
@@ -189,7 +189,7 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
                 <div className="flex flex-col gap-2">
                   {comments.map((comment: Entities.IComment) => (
                     <div key={comment._id}>
-                      <Comment comment={comment} />
+                      <Comment postId={postId} comment={comment} />
                     </div>
                   ))}
                 </div>
