@@ -12,7 +12,7 @@ interface PostProps {
 
 function Post({ postObj, ref }: PostProps) {
   const { _id, userId, text, images, likes, comments, createdAt } = postObj;
-
+  console.log(postObj)
   const [username, setUsername] = useState("");
 
   const [deleted, setDeleted] = useState(false);
@@ -45,7 +45,7 @@ function Post({ postObj, ref }: PostProps) {
             <>
               <PostHeader postId={_id} username={username} createdAt={createdAt} setDeleted={setDeleted}/>
               <PostText text={text} />
-              {images.length > 0 && <PostSlider images={images} />}
+              {images?.length > 0 && <PostSlider images={images} />}
               <PostEngagement postId={_id} postComments={comments} postLikes={likes} />
             </>
           }
