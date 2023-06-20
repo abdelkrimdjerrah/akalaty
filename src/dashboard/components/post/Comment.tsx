@@ -1,11 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import useGetUser from '../../hooks/useGetUser';
 
 interface ICommentProps {
-  comment: Entities.PostCommentEntity;
+  comment: Entities.IComment;
 }
 
 function Comment({ comment }: ICommentProps) {
+
+  const [reply, setReply] = useState('');
+  const [replies, setReplies] = useState<Entities.IReply[]>();
+
+  const [likes, setLikes] = useState<Entities.ILike[]>();
+  const [isLike, setIsLike] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const userData = useGetUser<Entities.UserEntity>(comment.userId);
 
