@@ -29,11 +29,67 @@ function Comment({ comment, postId }: ICommentProps) {
   const userData = useGetUser<Entities.UserEntity>(comment.userId);
 
   useEffect(() => {
+
     if (comment.replies) {
       setReplies(comment.replies);
       setRepliesNum(comment.replies.length);
     }
+
+    const controller = new AbortController();
+
+    const checkCommentLike = async () => {
+      try {
+        const response = await axiosPrivate.get(
+          `/api/posts/${postId}/likes/check`,
+          {
+            signal: controller.signal,
+          }
+        );
+        if (response.data.success) {
+          const result = response.data.hasLikedPost; // returns either True or False
+          setIsLike(result);
+        }
+      } catch (err) {}
+    };
+
+    checkCommentLike();
+
+    return () => {
+      controller.abort(); // Cancel the request if the component unmounts
+    };
+
   }, []);
+
+  const handleSetLike = async () => {
+    try {
+      if (isLike) {
+        setLikesNum(() => likesNum - 1);
+      } else {
+        setLikesNum(() => likesNum + 1);
+      }
+      setIsLike(() => !isLike);
+      setLoading(true);
+
+      const commentDetails = {
+        postId,
+        commentId,
+      };
+      const { data } = await axiosPrivate.patch(
+        `/api/posts/${postId}/comments/${commentId}/likes`,
+        commentDetails
+      );
+
+      if (!data?.success) {
+        console.log("error");
+        return;
+      }
+
+    } catch (error) {
+      console.log("error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSetReply = async () => {
     try {
@@ -49,7 +105,7 @@ function Comment({ comment, postId }: ICommentProps) {
         reply,
       };
       const { data } = await axiosPrivate.patch(
-        `/api/posts/${postId}/comments/${commentId}`,
+        `/api/posts/${postId}/comments/${commentId}/replies`,
         commentDetails
       );
 
@@ -86,13 +142,21 @@ function Comment({ comment, postId }: ICommentProps) {
                     </div>
                     <div className='flex gap-2'>
                       <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply`}</p>
-                      <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                      {
+                        isLike ?
+                           <p onClick={handleSetLike} className='text-xs text-red-500 font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                         : <p onClick={handleSetLike} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                      }
                     </div>
                   </div>
 
                   :   <div className='w-full flex gap-2 justify-end'>
                         <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply`}</p>
-                        <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                        {
+                        isLike ?
+                           <p onClick={handleSetLike} className='text-xs text-red-500 font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                         : <p onClick={handleSetLike} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                        }
                       </div>
                 }
           
