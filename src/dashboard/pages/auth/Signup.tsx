@@ -3,6 +3,7 @@ import Input from "../../shared/Input";
 import Button from "../../shared/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "../../api/axios";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -11,6 +12,36 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
+
+  const handleSignup = async () => {
+    try {
+
+      const userDetails = {
+        username,
+        email,
+        password,
+        retypePassword
+      };
+      const { data } = await axios.post(
+        `/api/users`,
+        userDetails
+      );
+
+      if (!data?.success) {
+        console.log("error");
+        return;
+      }
+      else{
+        console.log('has been registered!')
+      }
+
+    } catch (error) {
+      console.log("error");
+    } finally {
+      // setLoading(false);
+    }
+  };
+
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -59,7 +90,7 @@ function SignUp() {
             </p>
           </div>
 
-          <Button widthFull onClick={() => {}}>
+          <Button widthFull onClick={handleSignup}>
             Sign in
           </Button>
 
