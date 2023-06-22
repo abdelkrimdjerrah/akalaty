@@ -18,7 +18,7 @@ function Comment({ comment, postId }: ICommentProps) {
   const [repliesNum, setRepliesNum] = useState<number>(0);
   const [wantReply, setWantReply] = useState(false);
 
-  const [likes, setLikes] = useState<Entities.ILike[]>();
+  const [likes, setLikes] = useState<any>();
   const [likesNum, setLikesNum] = useState<number>(0);
   const [isLike, setIsLike] = useState(false);
 
@@ -34,19 +34,21 @@ function Comment({ comment, postId }: ICommentProps) {
       setReplies(comment.replies);
       setRepliesNum(comment.replies.length);
     }
+    if (comment.likes) {
+      setLikes(comment.likes);
+      setLikesNum(comment.likes.length);
+    }
 
     const controller = new AbortController();
 
     const checkCommentLike = async () => {
       try {
-        const response = await axiosPrivate.get(
-          `/api/posts/${postId}/likes/check`,
-          {
-            signal: controller.signal,
-          }
+        const { data } = await axiosPrivate.get(
+          `/api/posts/${postId}/comments/${commentId}/likes/check`,
         );
-        if (response.data.success) {
-          const result = response.data.hasLikedPost; // returns either True or False
+  
+        if (data.success) {
+          const result = data.hasLikedPost; // returns either True or False
           setIsLike(result);
         }
       } catch (err) {}
@@ -129,7 +131,7 @@ function Comment({ comment, postId }: ICommentProps) {
             <img src={userData?.picture} alt="" className='w-11 h-10 object-cover rounded-full'/>
             <div className='flex flex-col gap-[2px] text-sm w-full'>
                 <div className='flex w-full justify-between items-center'>
-                    <p className='font-medium'>{userData?.username}</p> {/* Assuming user data contains a 'name' property */}
+                    <p className='font-medium'>{userData?.username}</p>
                     <p className='text-xs text-gray-400'>{comment?.createdAt?.toLocaleString()}</p>
                 </div>
                 <p className=''>{comment.text}</p>
@@ -144,7 +146,7 @@ function Comment({ comment, postId }: ICommentProps) {
                       <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply`}</p>
                       {
                         isLike ?
-                           <p onClick={handleSetLike} className='text-xs text-red-500 font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                           <p onClick={handleSetLike} className='text-xs text-red-500 font-medium cursor-pointer w-fit'>{`Liked (${likesNum})`}</p>
                          : <p onClick={handleSetLike} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
                       }
                     </div>
@@ -154,7 +156,7 @@ function Comment({ comment, postId }: ICommentProps) {
                         <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply`}</p>
                         {
                         isLike ?
-                           <p onClick={handleSetLike} className='text-xs text-red-500 font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
+                           <p onClick={handleSetLike} className='text-xs text-red-500 font-medium cursor-pointer w-fit'>{`Liked (${likesNum})`}</p>
                          : <p onClick={handleSetLike} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
                         }
                       </div>

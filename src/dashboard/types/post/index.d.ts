@@ -5,7 +5,7 @@ declare namespace Entities {
     userId: mongoose.Schema.Types.ObjectId;
     text: string;
     images?: string[];
-    likes?: mongoose.Schema.Types.ObjectId[];
+    likes?: ILike[];
     comments?: IComment[];
     createdAt?: Date;
     updatedAt?: Date;
@@ -14,6 +14,7 @@ declare namespace Entities {
     _id: mongoose.Schema.Types.ObjectId
     userId: mongoose.Schema.Types.ObjectId;
     text: string;
+    likes?: ILike[]
     replies?: IReply[];
     createdAt?: Date;
     updatedAt?: Date;
