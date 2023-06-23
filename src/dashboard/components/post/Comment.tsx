@@ -3,11 +3,13 @@ import useGetUser from '../../hooks/useGetUser';
 import { ChatCircleDots, Heart, PaperPlaneRight, X } from "phosphor-react";
 import Input from "../../shared/Input";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import moment from 'moment';
 
 interface ICommentProps {
   comment: Entities.IComment,
   postId: string
 }
+
 
 function Comment({ comment, postId }: ICommentProps) {
 
@@ -132,7 +134,7 @@ function Comment({ comment, postId }: ICommentProps) {
             <div className='flex flex-col gap-[2px] text-sm w-full'>
                 <div className='flex w-full justify-between items-center'>
                     <p className='font-medium'>{userData?.username}</p>
-                    <p className='text-xs text-gray-400'>{comment?.createdAt?.toLocaleString()}</p>
+                    <p className='text-xs text-gray-400'>{moment(comment?.createdAt?.toLocaleString()).fromNow()}</p>
                 </div>
                 <p className=''>{comment.text}</p>
                 {
