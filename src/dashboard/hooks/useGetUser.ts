@@ -22,7 +22,7 @@ function useGetUser<UserType extends Entities.UserEntity | Entities.UserEntity[]
           }
         );
 
-        setData(response.data);
+        setData(response.data.user);
       } catch (err) {
         console.error(err);
       }
