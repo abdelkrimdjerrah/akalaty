@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import useGetUser from '../../hooks/useGetUser';
-import { ChatCircleDots, Heart, PaperPlaneRight, X } from "phosphor-react";
+import React, { useEffect, useState } from "react";
+import useGetUser from "../../hooks/useGetUser";
+import {
+  ChatCircleDots,
+  DotsThree,
+  Heart,
+  PaperPlaneRight,
+  X,
+} from "phosphor-react";
 import Input from "../../shared/Input";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import moment from 'moment';
+import moment from "moment";
+import Reply from "./Reply";
 
 interface ICommentProps {
-  comment: Entities.IComment,
-  postId: string
+  comment: Entities.IComment;
+  postId: string;
 }
 
-
 function Comment({ comment, postId }: ICommentProps) {
+  const commentId = comment._id;
 
-  const commentId = comment._id
-
-  const [reply, setReply] = useState('');
+  const [text, setText] = useState("");
   const [replies, setReplies] = useState<Entities.IReply[]>();
   const [repliesNum, setRepliesNum] = useState<number>(0);
   const [wantReply, setWantReply] = useState(false);
@@ -26,12 +31,15 @@ function Comment({ comment, postId }: ICommentProps) {
 
   const [loading, setLoading] = useState(false);
 
+  const [showMenu, setShowMenu] = useState(false);
+  const [showReplies, setShowReplies] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+
   const axiosPrivate = useAxiosPrivate();
 
   const userData = useGetUser<Entities.UserEntity>(comment.userId);
 
   useEffect(() => {
-
     if (comment.replies) {
       setReplies(comment.replies);
       setRepliesNum(comment.replies.length);
@@ -46,9 +54,9 @@ function Comment({ comment, postId }: ICommentProps) {
     const checkCommentLike = async () => {
       try {
         const { data } = await axiosPrivate.get(
-          `/api/posts/${postId}/comments/${commentId}/likes/check`,
+          `/api/posts/${postId}/comments/${commentId}/likes/check`
         );
-  
+
         if (data.success) {
           const result = data.hasLikedPost; // returns either True or False
           setIsLike(result);
@@ -61,7 +69,6 @@ function Comment({ comment, postId }: ICommentProps) {
     return () => {
       controller.abort(); // Cancel the request if the component unmounts
     };
-
   }, []);
 
   const handleSetLike = async () => {
@@ -87,7 +94,6 @@ function Comment({ comment, postId }: ICommentProps) {
         console.log("error");
         return;
       }
-
     } catch (error) {
       console.log("error");
     } finally {
@@ -98,15 +104,15 @@ function Comment({ comment, postId }: ICommentProps) {
   const handleSetReply = async () => {
     try {
       setLoading(true);
-      if (!reply) {
+      if (!text) {
         return;
       } else {
-        setReply("");
+        setText("");
       }
       const commentDetails = {
         postId,
         commentId,
-        reply,
+        text,
       };
       const { data } = await axiosPrivate.patch(
         `/api/posts/${postId}/comments/${commentId}/replies`,
@@ -126,69 +132,139 @@ function Comment({ comment, postId }: ICommentProps) {
     }
   };
 
+  const handleDeleteComment = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axiosPrivate.delete(
+        `/api/posts/${postId}/comments/${commentId}`
+      );
 
-  return (
-    <div className=' bg-gray-100 w-full p-3 rounded-lg'>
-        <div className='flex gap-2 items-center'>
-            <img src={userData?.picture} alt="" className='w-11 h-10 object-cover rounded-full'/>
-            <div className='flex flex-col gap-[2px] text-sm w-full'>
-                <div className='flex w-full justify-between items-center'>
-                    <p className='font-medium'>{userData?.username}</p>
-                    <p className='text-xs text-gray-400'>{moment(comment?.createdAt?.toLocaleString()).fromNow()}</p>
-                </div>
-                <p className=''>{comment.text}</p>
-                {
-                  comment.replies?.length ? 
-                  <div className='flex justify-between w-full'>
-                    <div className='flex gap-1 items-center'>
-                      <div className='h-[1px] w-6 bg-gray-400'></div>
-                      <p className='text-xs text-gray-400 font-medium cursor-pointer'>{`View replies (${repliesNum})`}</p>
-                    </div>
-                    <div className='flex gap-2'>
-                      <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply`}</p>
-                      {
-                        isLike ?
-                           <p onClick={handleSetLike} className='text-xs text-red-500 font-medium cursor-pointer w-fit'>{`Liked (${likesNum})`}</p>
-                         : <p onClick={handleSetLike} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
-                      }
-                    </div>
+      if (!data?.success) {
+        console.log("error");
+        return;
+      } else {
+        setDeleted(true);
+      }
+    } catch (error) {
+      console.log("error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const CommentComponent = (
+    <>
+      <div className="flex gap-2 items-center">
+        <img
+          src={userData?.picture}
+          alt=""
+          className="w-11 h-10 object-cover rounded-full"
+        />
+        <div className="flex flex-col gap-[2px] text-sm w-full">
+          <div className="flex w-full justify-between items-center">
+            <p className="font-medium">{userData?.username}</p>
+            <div className="flex gap-1">
+              <p className="text-xs text-gray-400">
+                {moment(comment?.createdAt?.toLocaleString()).fromNow()}
+              </p>
+              <div className="relative">
+                <DotsThree size={21} onClick={() => setShowMenu(!showMenu)} />
+                {showMenu && (
+                  <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
+                    <p className="cursor-pointer">Edit</p>
+                    <p
+                      className="text-red-600 cursor-pointer"
+                      onClick={handleDeleteComment}
+                    >
+                      Delete
+                    </p>
                   </div>
-
-                  :   <div className='w-full flex gap-2 justify-end'>
-                        <p onClick={() => setWantReply(true)} className='text-xs font-medium cursor-pointer w-fit'>{`Reply`}</p>
-                        {
-                        isLike ?
-                           <p onClick={handleSetLike} className='text-xs text-red-500 font-medium cursor-pointer w-fit'>{`Liked (${likesNum})`}</p>
-                         : <p onClick={handleSetLike} className='text-xs font-medium cursor-pointer w-fit'>{`Like (${likesNum})`}</p>
-                        }
-                      </div>
-                }
-          
-            </div>
-        </div>
-        {
-          wantReply && (
-            <div className="relative mt-2">
-              <Input
-                text="Write a comment ..."
-                type="text"
-                widthFull
-                onChange={(v) => setReply(v)}
-                value={reply}
-                className="py-2 text-xs w-[250px] bg-white"
-              />
-              <div
-                onClick={handleSetReply}
-                className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400"
-              >
-                <PaperPlaneRight size={19} />
+                )}
               </div>
             </div>
-          )
-        }
+          </div>
+          <p className="">{comment.text}</p>
+          {comment.replies?.length ? (
+            <div className="flex justify-between w-full">
+              <div className="flex gap-1 items-center">
+                <div className="h-[1px] w-6 bg-gray-400"></div>
+                <p
+                  onClick={() => setShowReplies(!showReplies)}
+                  className="text-xs text-gray-400 font-medium cursor-pointer"
+                >{ showReplies ? `Hide replies (${repliesNum})` : `View replies (${repliesNum})`}</p>
+              </div>
+              <div className="flex gap-2">
+                <p
+                  onClick={() => setWantReply(true)}
+                  className="text-xs font-medium cursor-pointer w-fit"
+                >{`Reply`}</p>
+                {isLike ? (
+                  <p
+                    onClick={handleSetLike}
+                    className="text-xs text-red-500 font-medium cursor-pointer w-fit"
+                  >{`Liked (${likesNum})`}</p>
+                ) : (
+                  <p
+                    onClick={handleSetLike}
+                    className="text-xs font-medium cursor-pointer w-fit"
+                  >{`Like (${likesNum})`}</p>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full flex gap-2 justify-end">
+              <p
+                onClick={() => setWantReply(true)}
+                className="text-xs font-medium cursor-pointer w-fit"
+              >{`Reply`}</p>
+              {isLike ? (
+                <p
+                  onClick={handleSetLike}
+                  className="text-xs text-red-500 font-medium cursor-pointer w-fit"
+                >{`Liked (${likesNum})`}</p>
+              ) : (
+                <p
+                  onClick={handleSetLike}
+                  className="text-xs font-medium cursor-pointer w-fit"
+                >{`Like (${likesNum})`}</p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
 
+      {wantReply && (
+        <div className="relative mt-2">
+          <Input
+            text="Write a comment ..."
+            type="text"
+            widthFull
+            onChange={(v) => setText(v)}
+            value={text}
+            className="py-2 text-xs w-[250px] bg-white"
+          />
+          <div
+            onClick={handleSetReply}
+            className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400"
+          >
+            <PaperPlaneRight size={19} />
+          </div>
+        </div>
+      )}
+      {showReplies &&
+  comment.replies?.map((reply) => (
+    <Reply key={reply._id} reply={reply} commentId={commentId} postId={postId} />
+  ))}
+    </>
+  );
+
+  const deletedComment = <p>Comment has been deleted</p>;
+
+  return (
+    <div className=" bg-gray-100 w-full p-3 rounded-lg">
+      {deleted ? deletedComment : CommentComponent}
     </div>
   );
 }
 
-export default Comment
+export default Comment;
