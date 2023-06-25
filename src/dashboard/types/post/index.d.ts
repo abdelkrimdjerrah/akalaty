@@ -30,6 +30,7 @@ declare namespace Entities {
     _id: mongoose.Schema.Types.ObjectId
     userId: mongoose.Schema.Types.ObjectId;
     text: string;
+    likes?: ILike[];
     createdAt?: Date;
     updatedAt?: Date;
   }
