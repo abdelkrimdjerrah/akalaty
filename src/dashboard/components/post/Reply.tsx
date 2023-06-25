@@ -12,15 +12,16 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import moment from "moment";
 
 interface IReplyProps {
-  reply: Entities.IReply  
+  reply: Entities.IReply;
   commentId: string;
   postId: string;
+  last?: boolean;
 }
 
-function Reply({ reply, commentId, postId }: IReplyProps) {
+function Reply({ reply, commentId, postId, last }: IReplyProps) {
   const replyId = reply._id;
 
-//   const [replyText, setReplyText] = useState("");
+  //   const [replyText, setReplyText] = useState("");
   const [wantReply, setWantReply] = useState(false);
 
   const [likes, setLikes] = useState<any>();
@@ -95,35 +96,35 @@ function Reply({ reply, commentId, postId }: IReplyProps) {
     }
   };
 
-//   const handleSetReply = async () => {
-//     try {
-//       setLoading(true);
-//       if (!reply) {
-//         return;
-//       } else {
-//         setReplyText("");
-//       }
-//       const commentDetails = {
-//         postId,
-//         commentId,
-//         reply,
-//       };
-//       const { data } = await axiosPrivate.patch(
-//         `/api/posts/${postId}/comments/${commentId}/replies`,
-//         commentDetails
-//       );
+  //   const handleSetReply = async () => {
+  //     try {
+  //       setLoading(true);
+  //       if (!reply) {
+  //         return;
+  //       } else {
+  //         setReplyText("");
+  //       }
+  //       const commentDetails = {
+  //         postId,
+  //         commentId,
+  //         reply,
+  //       };
+  //       const { data } = await axiosPrivate.patch(
+  //         `/api/posts/${postId}/comments/${commentId}/replies`,
+  //         commentDetails
+  //       );
 
-//       if (!data?.success) {
-//         console.log("error");
-//         return;
-//       }
+  //       if (!data?.success) {
+  //         console.log("error");
+  //         return;
+  //       }
 
-//     } catch (error) {
-//       console.log("error");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
+  //     } catch (error) {
+  //       console.log("error");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
   const handleDeleteReply = async () => {
     try {
@@ -147,7 +148,7 @@ function Reply({ reply, commentId, postId }: IReplyProps) {
 
   const ReplyComponent = (
     <>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2">
         <img
           src={userData?.picture}
           alt=""
@@ -177,23 +178,23 @@ function Reply({ reply, commentId, postId }: IReplyProps) {
             </div>
           </div>
           <p className="">{reply.text}</p>
-            <div className="w-full flex gap-2 justify-end">
+          <div className="w-full flex gap-2 justify-end">
+            <p
+              onClick={() => setWantReply(true)}
+              className="text-xs font-medium cursor-pointer w-fit"
+            >{`Reply`}</p>
+            {isLike ? (
               <p
-                onClick={() => setWantReply(true)}
+                onClick={handleSetLike}
+                className="text-xs text-red-500 font-medium cursor-pointer w-fit"
+              >{`Liked (${likesNum})`}</p>
+            ) : (
+              <p
+                onClick={handleSetLike}
                 className="text-xs font-medium cursor-pointer w-fit"
-              >{`Reply`}</p>
-              {isLike ? (
-                <p
-                  onClick={handleSetLike}
-                  className="text-xs text-red-500 font-medium cursor-pointer w-fit"
-                >{`Liked (${likesNum})`}</p>
-              ) : (
-                <p
-                  onClick={handleSetLike}
-                  className="text-xs font-medium cursor-pointer w-fit"
-                >{`Like (${likesNum})`}</p>
-              )}
-            </div>     
+              >{`Like (${likesNum})`}</p>
+            )}
+          </div>
         </div>
       </div>
 
@@ -215,16 +216,32 @@ function Reply({ reply, commentId, postId }: IReplyProps) {
           </div>
         </div>
       )} */}
-
     </>
   );
 
   const deletedReply = <p>Reply has been deleted</p>;
 
   return (
-    <div className=" bg-gray-100 w-full p-3 rounded-lg">
-      {deleted ? deletedReply : ReplyComponent}
+    <div className="h-full">
+        {last ? (
+          <div className="flex relative h-full">
+            <div className="w-[1px] h-1/2 absolute bg-gray-200 mx-4"></div>
+            <div className="h-[1px] w-[17px] left-[-16px] top-1/2 bg-gray-200 mx-8 absolute"></div>
+            <div className=" bg-gray-100 w-full p-3 rounded-lg mt-2 ml-8">
+              {deleted ? deletedReply : ReplyComponent}
+            </div>
+          </div>
+        ) : (
+          <div className="flex relative">
+            <div className="w-[1px] bg-gray-200 mx-4"></div>
+            <div className="h-[1px] w-[17px] left-[-16px] top-1/2 bg-gray-200 mx-8 absolute"></div>
+            <div className=" bg-gray-100 w-full p-3 rounded-lg mt-2">
+              {deleted ? deletedReply : ReplyComponent}
+            </div>
+          </div>
+        )}
     </div>
+
   );
 }
 
