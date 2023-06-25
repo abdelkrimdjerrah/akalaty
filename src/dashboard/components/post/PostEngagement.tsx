@@ -12,7 +12,7 @@ interface postIdInterface {
 }
 
 function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
-  const [postComment, setPostComment] = useState("");
+  const [text, setText] = useState("");
   const [comments, setComments] = useState<Entities.IComment[]>(postComments);
   const [commentsNum, setCommentsNum] = useState<number>(postComments.length);
 
@@ -27,14 +27,14 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
   const handleSetPostComment = async () => {
     try {
       setLoading(true);
-      if (!postComment) {
+      if (!text) {
         return;
       } else {
-        setPostComment("");
+        setText("");
       }
       const commentDetails = {
         postId,
-        postComment,
+        text,
       };
       const { data } = await axiosPrivate.patch(
         `/api/posts/${postId}/comments`,
@@ -151,8 +151,8 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
             text="Write a comment ..."
             type="text"
             widthFull
-            onChange={(v) => setPostComment(v)}
-            value={postComment}
+            onChange={(v) => setText(v)}
+            value={text}
             className="py-2 text-xs w-[250px]"
           />
           <div
