@@ -153,47 +153,71 @@ function Comment({ comment, postId }: ICommentProps) {
   };
 
   const CommentComponent = (
-    <>
-      <div className="flex gap-2 items-center">
-        <img
-          src={userData?.picture}
-          alt=""
-          className="w-11 h-10 object-cover rounded-full"
-        />
-        <div className="flex flex-col gap-[2px] text-sm w-full">
-          <div className="flex w-full justify-between items-center">
-            <p className="font-medium">{userData?.username}</p>
-            <div className="flex gap-1">
-              <p className="text-xs text-gray-400">
-                {moment(comment?.createdAt?.toLocaleString()).fromNow()}
-              </p>
-              <div className="relative">
-                <DotsThree size={21} onClick={() => setShowMenu(!showMenu)} />
-                {showMenu && (
-                  <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
-                    <p className="cursor-pointer">Edit</p>
-                    <p
-                      className="text-red-600 cursor-pointer"
-                      onClick={handleDeleteComment}
-                    >
-                      Delete
-                    </p>
-                  </div>
-                )}
+    <div>
+      <div className=" bg-gray-100 w-full p-3 rounded-lg">
+        <div className="flex gap-2">
+          <img
+            src={userData?.picture}
+            alt=""
+            className="w-11 h-10 object-cover rounded-full"
+          />
+          <div className="flex flex-col gap-[2px] text-sm w-full">
+            <div className="flex w-full justify-between items-center">
+              <p className="font-medium">{userData?.username}</p>
+              <div className="flex gap-1">
+                <p className="text-xs text-gray-400">
+                  {moment(comment?.createdAt?.toLocaleString()).fromNow()}
+                </p>
+                <div className="relative">
+                  <DotsThree size={21} onClick={() => setShowMenu(!showMenu)} />
+                  {showMenu && (
+                    <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
+                      <p className="cursor-pointer">Edit</p>
+                      <p
+                        className="text-red-600 cursor-pointer"
+                        onClick={handleDeleteComment}
+                      >
+                        Delete
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-          <p className="">{comment.text}</p>
-          {comment.replies?.length ? (
-            <div className="flex justify-between w-full">
-              <div className="flex gap-1 items-center">
-                <div className="h-[1px] w-6 bg-gray-400"></div>
-                <p
-                  onClick={() => setShowReplies(!showReplies)}
-                  className="text-xs text-gray-400 font-medium cursor-pointer"
-                >{ showReplies ? `Hide replies (${repliesNum})` : `View replies (${repliesNum})`}</p>
+            <p className="">{comment.text}</p>
+            {comment.replies?.length ? (
+              <div className="flex justify-between w-full">
+                <div className="flex gap-1 items-center">
+                  <div className="h-[1px] w-6 bg-gray-400"></div>
+                  <p
+                    onClick={() => setShowReplies(!showReplies)}
+                    className="text-xs text-gray-400 font-medium cursor-pointer"
+                  >
+                    {showReplies
+                      ? `Hide replies (${repliesNum})`
+                      : `View replies (${repliesNum})`}
+                  </p>
+                </div>
+                <div className="flex gap-2">
+                  <p
+                    onClick={() => setWantReply(true)}
+                    className="text-xs font-medium cursor-pointer w-fit"
+                  >{`Reply`}</p>
+                  {isLike ? (
+                    <p
+                      onClick={handleSetLike}
+                      className="text-xs text-red-500 font-medium cursor-pointer w-fit"
+                    >{`Liked (${likesNum})`}</p>
+                  ) : (
+                    <p
+                      onClick={handleSetLike}
+                      className="text-xs font-medium cursor-pointer w-fit"
+                    >{`Like (${likesNum})`}</p>
+                  )}
+                </div>
               </div>
-              <div className="flex gap-2">
+            ) : (
+              <div className="w-full flex gap-2 justify-end">
                 <p
                   onClick={() => setWantReply(true)}
                   className="text-xs font-medium cursor-pointer w-fit"
@@ -210,61 +234,50 @@ function Comment({ comment, postId }: ICommentProps) {
                   >{`Like (${likesNum})`}</p>
                 )}
               </div>
-            </div>
-          ) : (
-            <div className="w-full flex gap-2 justify-end">
-              <p
-                onClick={() => setWantReply(true)}
-                className="text-xs font-medium cursor-pointer w-fit"
-              >{`Reply`}</p>
-              {isLike ? (
-                <p
-                  onClick={handleSetLike}
-                  className="text-xs text-red-500 font-medium cursor-pointer w-fit"
-                >{`Liked (${likesNum})`}</p>
-              ) : (
-                <p
-                  onClick={handleSetLike}
-                  className="text-xs font-medium cursor-pointer w-fit"
-                >{`Like (${likesNum})`}</p>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {wantReply && (
-        <div className="relative mt-2">
-          <Input
-            text="Write a comment ..."
-            type="text"
-            widthFull
-            onChange={(v) => setText(v)}
-            value={text}
-            className="py-2 text-xs w-[250px] bg-white"
-          />
-          <div
-            onClick={handleSetReply}
-            className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400"
-          >
-            <PaperPlaneRight size={19} />
+            )}
           </div>
         </div>
-      )}
+
+        {wantReply && (
+          <div className="relative mt-2">
+            <Input
+              text="Write a comment ..."
+              type="text"
+              widthFull
+              onChange={(v) => setText(v)}
+              value={text}
+              className="py-2 text-xs w-[250px] bg-white"
+            />
+            <div
+              onClick={handleSetReply}
+              className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400"
+            >
+              <PaperPlaneRight size={19} />
+            </div>
+          </div>
+        )}
+      </div>
       {showReplies &&
-  comment.replies?.map((reply) => (
-    <Reply key={reply._id} reply={reply} commentId={commentId} postId={postId} />
-  ))}
-    </>
+        comment.replies?.map((reply, index) => (
+          <div key={reply._id}>
+            {comment.replies?.length == index + 1 ? (
+              <Reply
+                reply={reply}
+                commentId={commentId}
+                postId={postId}
+                last={true}
+              />
+            ) : (
+              <Reply reply={reply} commentId={commentId} postId={postId} />
+            )}
+          </div>
+        ))}
+    </div>
   );
 
   const deletedComment = <p>Comment has been deleted</p>;
 
-  return (
-    <div className=" bg-gray-100 w-full p-3 rounded-lg">
-      {deleted ? deletedComment : CommentComponent}
-    </div>
-  );
+  return <div>{deleted ? deletedComment : CommentComponent}</div>;
 }
 
 export default Comment;
