@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import PostHeader from "./PostHeader";
 import PostEngagement from "./PostEngagement";
 import PostSlider from "./PostSlider";
-import PostText from "./PostText";
+import Text from "./Text";
 import useGetUser from "../../hooks/useGetUser";
 
 interface PostProps {
@@ -12,7 +12,7 @@ interface PostProps {
 
 function Post({ postObj, ref }: PostProps) {
   const { _id, userId, text, images, likes, comments, createdAt } = postObj;
-  console.log(postObj)
+  console.log(postObj);
   const [username, setUsername] = useState("");
 
   const [deleted, setDeleted] = useState(false);
@@ -22,7 +22,7 @@ function Post({ postObj, ref }: PostProps) {
   useEffect(() => {
     const fetchUsername = () => {
       try {
-        if(response){
+        if (response) {
           setUsername(response.username);
         }
       } catch (error) {
@@ -39,17 +39,25 @@ function Post({ postObj, ref }: PostProps) {
     <div ref={ref} className="w-full bg-white rounded-2xl relative p-5 py-6">
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
-          {
-            deleted ? <h1>Post has been deleted !</h1> 
-            :
+          {deleted ? (
+            <h1>Post has been deleted !</h1>
+          ) : (
             <>
-              <PostHeader postId={_id} username={username} createdAt={createdAt} setDeleted={setDeleted}/>
-              <PostText text={text} />
+              <PostHeader
+                postId={_id}
+                username={username}
+                createdAt={createdAt}
+                setDeleted={setDeleted}
+              />
+              <Text text={text} />
               {images?.length > 0 && <PostSlider images={images} />}
-              <PostEngagement postId={_id} postComments={comments} postLikes={likes} />
+              <PostEngagement
+                postId={_id}
+                postComments={comments}
+                postLikes={likes}
+              />
             </>
-          }
-         
+          )}
         </div>
       </div>
     </div>

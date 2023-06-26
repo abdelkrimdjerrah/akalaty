@@ -11,6 +11,7 @@ import Input from "../../shared/Input";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import moment from "moment";
 import Reply from "./Reply";
+import Text from "./Text";
 
 interface ICommentProps {
   comment: Entities.IComment;
@@ -155,14 +156,14 @@ function Comment({ comment, postId }: ICommentProps) {
   const CommentComponent = (
     <div>
       <div className=" bg-gray-100 w-full p-3 rounded-lg">
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full">
           <img
             src={userData?.picture}
             alt=""
-            className="w-11 h-10 object-cover rounded-full"
+            className="w-11 h-11 fixed object-cover rounded-full"
           />
-          <div className="flex flex-col gap-[2px] text-sm w-full">
-            <div className="flex w-full justify-between items-center">
+          <div className="pl-14 flex flex-col gap-[2px] text-sm w-full">
+            <div className="flex justify-between items-center">
               <p className="font-medium">{userData?.username}</p>
               <div className="flex gap-1">
                 <p className="text-xs text-gray-400">
@@ -184,7 +185,8 @@ function Comment({ comment, postId }: ICommentProps) {
                 </div>
               </div>
             </div>
-            <p className="">{comment.text}</p>
+            <Text text={comment.text} />
+
             {comment.replies?.length ? (
               <div className="flex justify-between w-full">
                 <div className="flex gap-1 items-center">

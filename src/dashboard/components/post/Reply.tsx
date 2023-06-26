@@ -10,6 +10,7 @@ import {
 import Input from "../../shared/Input";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import moment from "moment";
+import Text from "./Text";
 
 interface IReplyProps {
   reply: Entities.IReply;
@@ -177,7 +178,7 @@ function Reply({ reply, commentId, postId, last }: IReplyProps) {
               </div>
             </div>
           </div>
-          <p className="">{reply.text}</p>
+          <Text text={reply.text} />
           <div className="w-full flex gap-2 justify-end">
             <p
               onClick={() => setWantReply(true)}
@@ -223,25 +224,24 @@ function Reply({ reply, commentId, postId, last }: IReplyProps) {
 
   return (
     <div className="h-full">
-        {last ? (
-          <div className="flex relative h-full">
-            <div className="w-[1px] h-1/2 absolute bg-gray-200 mx-4"></div>
-            <div className="h-[1px] w-[17px] left-[-16px] top-1/2 bg-gray-200 mx-8 absolute"></div>
-            <div className=" bg-gray-100 w-full p-3 rounded-lg mt-2 ml-8">
-              {deleted ? deletedReply : ReplyComponent}
-            </div>
+      {last ? (
+        <div className="flex relative h-full">
+          <div className="w-[1px] h-1/2 absolute bg-gray-200 mx-4"></div>
+          <div className="h-[1px] w-[17px] left-[-16px] top-1/2 bg-gray-200 mx-8 absolute"></div>
+          <div className=" bg-gray-100 w-full p-3 rounded-lg mt-2 ml-8">
+            {deleted ? deletedReply : ReplyComponent}
           </div>
-        ) : (
-          <div className="flex relative">
-            <div className="w-[1px] bg-gray-200 mx-4"></div>
-            <div className="h-[1px] w-[17px] left-[-16px] top-1/2 bg-gray-200 mx-8 absolute"></div>
-            <div className=" bg-gray-100 w-full p-3 rounded-lg mt-2">
-              {deleted ? deletedReply : ReplyComponent}
-            </div>
+        </div>
+      ) : (
+        <div className="flex relative">
+          <div className="w-[1px] bg-gray-200 mx-4"></div>
+          <div className="h-[1px] w-[17px] left-[-16px] top-1/2 bg-gray-200 mx-8 absolute"></div>
+          <div className=" bg-gray-100 w-full p-3 rounded-lg mt-2">
+            {deleted ? deletedReply : ReplyComponent}
           </div>
-        )}
+        </div>
+      )}
     </div>
-
   );
 }
 
