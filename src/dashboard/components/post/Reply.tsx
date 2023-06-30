@@ -25,7 +25,7 @@ function Reply({ reply, commentId, postId, last }: IReplyProps) {
   //   const [replyText, setReplyText] = useState("");
   const [wantReply, setWantReply] = useState(false);
 
-  const [likes, setLikes] = useState<any>();
+  const [likes, setLikes] = useState<Entities.ILike[]>();
   const [likesNum, setLikesNum] = useState<number>(0);
   const [isLike, setIsLike] = useState(false);
 
