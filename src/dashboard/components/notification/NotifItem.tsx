@@ -6,72 +6,107 @@ import {
   ChatCenteredText,
   UserPlus,
 } from "phosphor-react";
-var Abdelkrim = require("../../../assets/Abdelkrim.png");
-
-interface NotifProps {
-  id: number;
-  type: string;
-  username: string;
-  rating: number;
-  time: string;
-  isRead: boolean;
-}
+import useGetUser from "../../hooks/useGetUser";
+import moment from "moment";
+import { axiosPrivate } from "../../api/axios";
 
 const notifType: any = {
-  like: {
-    message: "Liked your post",
+  "postLiked" : {
+    message: "liked your post",
     color: "#ef4444",
     icon: <Heart size={21} weight="fill" />,
   },
-  star: {
-    message: "Rated your recipe by ",
+  "commentLiked" : {
+    message: "liked your comment in post",
+    color: "#ef4444",
+    icon: <Heart size={21} weight="fill" />,
+  },
+  "replyLiked" : {
+    message: "liked your reply in comment",
+    color: "#ef4444",
+    icon: <Heart size={21} weight="fill" />,
+  },
+  "feedbackLiked" : {
+    message: "liked your feedback in receipe",
+    color: "#ef4444",
+    icon: <Heart size={21} weight="fill" />,
+  },
+  "starredRecipe": {
+    message: "stars to your recipe",
     color: "#eab308",
     icon: <Star size={21} weight="fill" />,
   },
-  comment: {
-    message: "Commented on your post",
+  "commentCreated": {
+    message: "commented on your post",
     color: "#8b5cf6",
     icon: <ChatCircleText size={21} weight="fill" />,
   },
-  feedback: {
+  "replyCreated": {
+    message: "replied to your comment",
+    color: "#8b5cf6",
+    icon: <ChatCircleText size={21} weight="fill" />,
+  },
+  "feedbackCreated": {
     message: "gave feedback to your recipe",
     color: "#0ea5e9",
     icon: <ChatCenteredText size={21} weight="fill" />,
   },
-  follow: {
-    message: "Has started following you",
+  "followed": {
+    message: "started following you",
     color: "#10b981",
     icon: <UserPlus size={21} weight="fill" />,
   },
 };
 
-function NotifItem({ id, username, type, time, rating, isRead }: NotifProps) {
+interface INotifItem {
+  notif : Entities.NotifEntity
+}
+function NotifItem( {notif} : INotifItem) {
+  console.log('notif')
+  console.log(notif)
+  console.log('notif')
+  const { _id, toUserId, byUserId, type, text, isRead, createdAt, updatedAt } = notif
   const [notifIsRead, setNotifIsRead] = useState(isRead);
+  const senderUserData = useGetUser<Entities.UserEntity>(byUserId)
+
+  const handleNotifIsRead = async () => {
+    try {
+      if(!notifIsRead){
+        setNotifIsRead(true)
+        const {data} = await axiosPrivate.patch(`api/notifications/${_id}`)
+        if(!data.success){
+          console.log(data.message)
+        }
+      }
+    } catch (error) {
+        console.log(error)
+    }
+  }
   return (
     <div
-      onClick={() => setNotifIsRead(true)}
+      onClick={() => handleNotifIsRead()}
       className="bg-gray-100 hover:bg-gray-200 w-full p-3 text-xs rounded-lg relative cursor-pointer"
     >
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-2 overflow-hidden">
           <div>
             <img
-              src={Abdelkrim}
-              className="min-h-[40px] min-w-[40px] max-h-[40px] max-w-[40px] rounded-full"
+              src={senderUserData?.picture}
+              className="min-h-[40px] min-w-[40px] max-h-[40px] max-w-[40px] object-cover rounded-full"
               alt=""
             />
           </div>
           <div>
-            <p className="text-xs font-medium">{username}</p>
-            {type === "star" ? (
+            <span className="text-xs font-medium">{senderUserData?.username} </span>
+            {String(type) === "starredRecipe" ? (
               <span>
                 <span className="text-xs ">{notifType[type].message}</span>
-                <span className="font-medium">{rating + " stars"}</span>
+                <span className="font-medium">{5 + " stars"}</span>
               </span>
             ) : (
-              <p className="text-xs ">{notifType[type].message}</p>
+              <span className="text-xs ">{notifType[type].message}</span>
             )}
-            <p className="text-xs font-medium text-gray-400">{time}</p>
+            <p className="text-xs font-medium text-gray-400">{moment(createdAt?.toLocaleString()).fromNow()}</p>
           </div>
         </div>
         <div style={{ color: notifType[type].color }}>
