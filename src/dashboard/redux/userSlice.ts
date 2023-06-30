@@ -1,7 +1,7 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 interface UserState {
-  user: any | null;
+  user: Entities.UserEntity | null;
   token: string | null;
   registerData: {
     username: string;

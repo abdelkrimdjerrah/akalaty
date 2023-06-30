@@ -1,7 +1,7 @@
 interface UserItemProps {
   name: string;
   text: string;
-  picture: any;
+  picture: string;
 }
 
 function UserItem({ name, text, picture }: UserItemProps) {
