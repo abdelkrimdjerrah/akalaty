@@ -70,7 +70,6 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
         `/api/posts/${postId}/likes`,
         postDetails
       );
-
       if (!data?.success) {
         console.log("error");
         return;
@@ -139,12 +138,14 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
           </div>
         </div>
         <div>
-          <p
-            onClick={() => setShowModal(true)}
-            className="text-xs cursor-pointer w-fit font-medium"
-          >
-            View comments
-          </p>
+          {comments.length ? (
+            <p
+              onClick={() => setShowModal(true)}
+              className="text-xs cursor-pointer w-fit font-medium"
+            >
+              View comments
+            </p>
+          ) : null }
         </div>
         <div className="relative">
           <Input

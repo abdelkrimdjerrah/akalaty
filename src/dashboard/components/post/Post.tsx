@@ -12,7 +12,6 @@ interface PostProps {
 
 function Post({ postObj, ref }: PostProps) {
   const { _id, userId, text, images, likes, comments, createdAt } = postObj;
-  console.log(postObj);
   const [username, setUsername] = useState("");
 
   const [deleted, setDeleted] = useState(false);
@@ -45,6 +44,7 @@ function Post({ postObj, ref }: PostProps) {
             <>
               <PostHeader
                 postId={_id}
+                userId={userId}
                 username={username}
                 createdAt={createdAt}
                 setDeleted={setDeleted}
