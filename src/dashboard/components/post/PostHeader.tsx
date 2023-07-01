@@ -2,23 +2,29 @@ import { useState } from "react";
 import UserItem from "../../shared/UserItem";
 import { DotsThree, BookmarkSimple } from "phosphor-react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { selectUserData } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
 
 const Abdelkrim = require("../../../assets/Abdelkrim.png");
 
 interface PostProps {
   postId: string;
+  userId: any;
   username: string;
   createdAt: Date;
-  setDeleted: React.Dispatch<React.SetStateAction<boolean>>
+  setDeleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PostHeader({ postId, username, createdAt, setDeleted }: PostProps) {
+function PostHeader({ postId, username,userId, createdAt, setDeleted }: PostProps) {
   const [bookmark, setBookmark] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const userData = useSelector(selectUserData)
+  console.log(userData)
+
   const axiosPrivate = useAxiosPrivate();
-  
+
   const created = new Date(createdAt).toLocaleString("en-US", {
     day: "numeric",
     month: "long",
@@ -28,17 +34,20 @@ function PostHeader({ postId, username, createdAt, setDeleted }: PostProps) {
     second: "numeric",
   });
 
-
   const handleDeletePost = async () => {
     try {
       setLoading(true);
       const { data } = await axiosPrivate.delete(`/api/posts/${postId}`);
-
+      console.log("data");
+      console.log("data");
+      console.log(data);
+      console.log("data");
+      console.log("data");
       if (!data?.success) {
         console.log("error");
         return;
-      }else{
-        setDeleted(true)
+      } else {
+        setDeleted(true);
       }
     } catch (error) {
       console.log("error");
@@ -58,17 +67,24 @@ function PostHeader({ postId, username, createdAt, setDeleted }: PostProps) {
             <BookmarkSimple size={21} />
           )}
         </div>
-        <div className="relative">
-          <DotsThree size={21} onClick={()=> setShowMenu(!showMenu)}/>
-          {
-            showMenu && (
-              <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
-                <p className="cursor-pointer">Edit</p> 
-                <p className="text-red-600 cursor-pointer"  onClick={handleDeletePost}>Delete</p> 
-              </div>
-            )
-          }
-        </div>
+        {
+          userId === userData?._id && (
+            <div className="relative">
+              <DotsThree size={21} onClick={() => setShowMenu(!showMenu)} />
+              {showMenu && (
+                <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
+                  <p className="cursor-pointer">Edit</p>
+                  <p
+                    className="text-red-600 cursor-pointer"
+                    onClick={handleDeletePost}
+                  >
+                    Delete
+                  </p>
+                </div>
+              )}
+            </div>
+          )
+        }
       </div>
     </div>
   );
