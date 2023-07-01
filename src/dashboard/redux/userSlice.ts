@@ -97,7 +97,7 @@ export const userSlice = createSlice({
       }
     },
 
-    setLoginData: (state, action: PayloadAction<actionType<loginType>>) => {
+    setLoginData: (state:any, action) => {
       const type = action.payload.type;
 
       if (type === "reset") {
@@ -107,8 +107,10 @@ export const userSlice = createSlice({
           // error: {message: '', type: ''},
         };
       } else {
-        if(action.payload.data)
-        state["loginData"] = action.payload.data;
+        if(action.payload.data){
+          console.log(state["loginData"]['email'])
+          state["loginData"][type] = action.payload.data;
+        }
       }
     },
     setForgotPwdData: (

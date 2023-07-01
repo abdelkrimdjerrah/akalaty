@@ -90,17 +90,17 @@ function Login() {
       setLoading(false);
     }
   };
+
   // clean up
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(
-  //       setLoginData({
-  //         type: 'error',
-  //         data: {message: '', type: ''},
-  //       }),
-  //     );
-  //   };
-  // }, []);
+  useEffect(() => {
+    return () => {
+      dispatch(
+        setLoginData({
+          type: 'reset',
+        }),
+      );
+    };
+  }, []);
 
   return (
     <div className="w-full h-full flex items-center justify-center">
