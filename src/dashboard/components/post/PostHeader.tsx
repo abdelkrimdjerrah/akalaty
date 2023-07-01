@@ -20,8 +20,7 @@ function PostHeader({ postId, username,userId, createdAt, setDeleted }: PostProp
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const userData = useSelector(selectUserData)
-  console.log(userData)
+  const JWTuserData = useSelector(selectUserData)
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -38,11 +37,6 @@ function PostHeader({ postId, username,userId, createdAt, setDeleted }: PostProp
     try {
       setLoading(true);
       const { data } = await axiosPrivate.delete(`/api/posts/${postId}`);
-      console.log("data");
-      console.log("data");
-      console.log(data);
-      console.log("data");
-      console.log("data");
       if (!data?.success) {
         console.log("error");
         return;
@@ -68,7 +62,7 @@ function PostHeader({ postId, username,userId, createdAt, setDeleted }: PostProp
           )}
         </div>
         {
-          userId === userData?._id && (
+          userId === JWTuserData?._id && (
             <div className="relative">
               <DotsThree size={21} onClick={() => setShowMenu(!showMenu)} />
               {showMenu && (

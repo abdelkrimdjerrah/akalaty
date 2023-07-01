@@ -12,6 +12,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import moment from "moment";
 import Reply from "./Reply";
 import Text from "./Text";
+import { selectUserData } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
 
 interface ICommentProps {
   comment: Entities.IComment;
@@ -39,6 +41,7 @@ function Comment({ comment, postId }: ICommentProps) {
   const axiosPrivate = useAxiosPrivate();
 
   const userData = useGetUser<Entities.UserEntity>(comment.userId);
+  const JWTuserData = useSelector(selectUserData);
 
   useEffect(() => {
     if (comment.replies) {
@@ -169,20 +172,25 @@ function Comment({ comment, postId }: ICommentProps) {
                 <p className="text-xs text-gray-400">
                   {moment(comment?.createdAt?.toLocaleString()).fromNow()}
                 </p>
-                <div className="relative">
-                  <DotsThree size={21} onClick={() => setShowMenu(!showMenu)} />
-                  {showMenu && (
-                    <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
-                      <p className="cursor-pointer">Edit</p>
-                      <p
-                        className="text-red-600 cursor-pointer"
-                        onClick={handleDeleteComment}
-                      >
-                        Delete
-                      </p>
-                    </div>
-                  )}
-                </div>
+                {comment.userId === JWTuserData?._id ? (
+                  <div className="relative">
+                    <DotsThree
+                      size={21}
+                      onClick={() => setShowMenu(!showMenu)}
+                    />
+                    {showMenu && (
+                      <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
+                        <p className="cursor-pointer">Edit</p>
+                        <p
+                          className="text-red-600 cursor-pointer"
+                          onClick={handleDeleteComment}
+                        >
+                          Delete
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                ) : null}
               </div>
             </div>
             <Text text={comment.text} />
