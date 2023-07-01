@@ -62,9 +62,6 @@ interface INotifItem {
   notif : Entities.NotifEntity
 }
 function NotifItem( {notif} : INotifItem) {
-  console.log('notif')
-  console.log(notif)
-  console.log('notif')
   const { _id, toUserId, byUserId, type, text, isRead, createdAt, updatedAt } = notif
   const [notifIsRead, setNotifIsRead] = useState(isRead);
   const senderUserData = useGetUser<Entities.UserEntity>(byUserId)
@@ -104,7 +101,7 @@ function NotifItem( {notif} : INotifItem) {
                 <span className="font-medium">{5 + " stars"}</span>
               </span>
             ) : (
-              <span className="text-xs ">{notifType[type].message}</span>
+              <span className="text-xs ">{notifType[type].message + ` "${text}"`}</span>
             )}
             <p className="text-xs font-medium text-gray-400">{moment(createdAt?.toLocaleString()).fromNow()}</p>
           </div>

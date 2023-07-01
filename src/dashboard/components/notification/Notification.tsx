@@ -19,8 +19,6 @@ function Notification() {
       try {
         const { data } = await axiosPrivate.get(`/api/notifications`);
         setNotifications(data.notifications);
-        console.log(data.notifications)
-        console.log(notifications?.length);
       } catch (err) {}
     };
     getNotifs();
