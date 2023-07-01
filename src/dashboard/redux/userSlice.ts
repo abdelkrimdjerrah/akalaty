@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 interface UserState {
   user: Entities.UserEntity | null;
@@ -16,6 +16,26 @@ interface UserState {
     email: string;
   };
 }
+
+type actionType<T> = {
+  data?: T;
+  type: string;
+};
+
+type registerType = {
+  username: string;
+  email: string;
+  password: string;
+};
+
+type loginType = {
+  email: string;
+  password: string;
+};
+
+type forgotPwdType = {
+  email: string;
+};
 
 const initialState: UserState = {
   user: null,
@@ -41,20 +61,28 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    loginUser: (state: any, action) => {
-      state[action.payload.type] = action.payload.data;
+    loginUser: (state, action) => {
+      state[action.payload.type as keyof typeof state] = action.payload.data;
     },
     logoutUser: (state) => {
       state.user = null;
       state.token = null;
     },
-    setUserData: (state: any, action) => {
+    setUserData: (
+      state,
+      action: PayloadAction<actionType<Entities.UserEntity>>
+    ) => {
+      if(action.payload.data)
       state.user = action.payload.data;
     },
-    setAccessToken: (state: any, action) => {
+    setAccessToken: (state, action: PayloadAction<actionType<string>>) => {
+      if(action.payload.data)
       state.token = action.payload.data;
     },
-    setRegisterData: (state: any, action) => {
+    setRegisterData: (
+      state,
+      action: PayloadAction<actionType<registerType>>
+    ) => {
       const type = action.payload.type;
       if (type === "reset") {
         state["registerData"] = {
@@ -64,10 +92,12 @@ export const userSlice = createSlice({
           // error: {message: '', type: ''},
         };
       } else {
-        state["registerData"][action.payload.type] = action.payload.data;
+        if(action.payload.data)
+        state["registerData"] = action.payload.data;
       }
     },
-    setLoginData: (state: any, action) => {
+
+    setLoginData: (state, action: PayloadAction<actionType<loginType>>) => {
       const type = action.payload.type;
 
       if (type === "reset") {
@@ -77,11 +107,16 @@ export const userSlice = createSlice({
           // error: {message: '', type: ''},
         };
       } else {
-        state["loginData"][action.payload.type] = action.payload.data;
+        if(action.payload.data)
+        state["loginData"] = action.payload.data;
       }
     },
-    setForgotPwdData: (state: any, action) => {
-      state["forgotPwdData"][action.payload.type] = action.payload.data;
+    setForgotPwdData: (
+      state,
+      action: PayloadAction<actionType<forgotPwdType>>
+    ) => {
+      if(action.payload.data)
+      state["forgotPwdData"] = action.payload.data;
     },
   },
 });
