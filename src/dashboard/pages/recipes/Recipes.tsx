@@ -1,7 +1,7 @@
 import React from "react";
 
 function Recipes() {
-  return <div>Recipes</div>;
+  return <div>Test</div>;
 }
 
 export default Recipes;

@@ -14,7 +14,7 @@ interface postIdInterface {
 function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
   const [text, setText] = useState("");
   const [comments, setComments] = useState<Entities.IComment[]>(postComments);
-  const [commentsNum, setCommentsNum] = useState<number>(postComments.length);
+  const [commentsNum, setCommentsNum] = useState<number>(0);
 
   const [likes, setLikes] = useState<string>(postLikes);
   const [likesNum, setLikesNum] = useState<number>(postLikes.length);
@@ -100,6 +100,23 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
     };
 
     checkPostLike();
+
+    const getCountComments = async () => {
+      try {
+        const response = await axiosPrivate.get(
+          `/api/posts/${postId}/comments/count`,
+          {
+            signal: controller.signal,
+          }
+        );
+        if (response.data.success) {
+          const result = response.data.count; // returns either True or False
+          setCommentsNum(result);
+        }
+      } catch (err) {}
+    };
+
+    getCountComments();
 
     return () => {
       controller.abort(); // Cancel the request if the component unmounts

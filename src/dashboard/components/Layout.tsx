@@ -13,20 +13,20 @@ function Layout() {
           </div>
         </div>
 
-        <div className="fixed left-10 top-20 z-20 w-fit">
+        <div className="fixed left-10 top-20 z-20 w-fit hidden lg:inline">
           <div className="sticky left-10 top-20 z-20 w-fit">
             <Sidebar />
           </div>
         </div>
 
-        <div className="fixed right-10 top-20 z-20 w-fit">
+        <div className="fixed right-10 top-20 z-20 w-fit hidden lg:inline">
           <div className="sticky right-10 top-20 z-20 w-fit">
             <Notification />
           </div>
         </div>
 
         {/* margin right 50px to center the outlet properly, because the sidebar width is less than notification by 50px */}
-        <div className="my-20 w-2/5 mr-[50px]">
+        <div className="my-20 w-[80%] lg:w-2/5 mr-0 lg:mr-[50px]">
           <Outlet />
         </div>
       </div>

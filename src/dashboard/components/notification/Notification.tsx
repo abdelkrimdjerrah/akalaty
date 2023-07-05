@@ -27,7 +27,7 @@ function Notification() {
   function handleAddNotification() {}
 
   return (
-    <div className="bg-white w-[300px] h-fit p-5 rounded-2xl">
+    <div className="bg-white w-[280px] h-fit p-5 rounded-2xl">
       <div className="flex flex-col gap-4 items-center">
         <div className="flex gap-1 w-full">
           <BellRinging size={21} />

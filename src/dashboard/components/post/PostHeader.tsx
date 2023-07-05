@@ -54,13 +54,13 @@ function PostHeader({ postId, username,userId, createdAt, setDeleted }: PostProp
     <div className="flex w-full justify-between">
       <UserItem name={username} text={created} picture={Abdelkrim} />
       <div className="flex gap-1">
-        <div onClick={() => setBookmark(!bookmark)}>
+        {/* <div onClick={() => setBookmark(!bookmark)}>
           {bookmark ? (
             <BookmarkSimple size={21} weight="fill" />
           ) : (
             <BookmarkSimple size={21} />
           )}
-        </div>
+        </div> */}
         {
           userId === JWTuserData?._id && (
             <div className="relative">

@@ -88,7 +88,10 @@ function AddPost() {
 
         <div className="flex gap-2 items-center">
           <div className="relative w-fit">
-            <ButtonSecondary color="orange">Upload image</ButtonSecondary>
+          {
+            selectedFiles ?  <ButtonSecondary color="orange">Selected {selectedFiles.length} </ButtonSecondary>
+             :  <ButtonSecondary color="orange">Upload image</ButtonSecondary>
+          }
             <label className=" cursor-pointer absolute w-full h-full left-0">
               <input
                 type="file"
@@ -101,6 +104,7 @@ function AddPost() {
           <ButtonSecondary onClick={handleAddPost} color="red">
             Add post
           </ButtonSecondary>
+  
           {loading && (
             <>
               <Loader />

@@ -103,14 +103,22 @@ function Login() {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <div className="w-full h-screen flex items-center justify-center">
       <div className="bg-white h-fit px-5 py-8 rounded-2xl w-1/3">
         <div className="flex flex-col gap-2">
           <div className="flex gap-2 w-full items-center">
             <SignIn size={34} />
             <p className="text-3xl">Sign In</p>
           </div>
-          <p className="text-sm">Please fill the form below</p>
+          <p className="text-sm font-medium text-green-500">Please use these info for test</p>
+          <div className="flex gap-2">
+            <p className="text-sm">email:</p>
+            <p className="text-sm">test@gmail.com</p>
+          </div>
+          <div className="flex gap-2">
+            <p className="text-sm">pass:</p>
+            <p className="text-sm">test</p>
+          </div>
           {error && (
             <div className="text-red-500 flex justify-center font-medium">
               <p>Information are incorrect</p>
