@@ -4,7 +4,7 @@ import { selectToken } from "../redux/userSlice";
 import useRefreshToken from "../hooks/useRefreshToken";
 
 // const BASE_URL = "http://localhost:27015";
-const BASE_URL = "akalaty.vercel.app";
+const BASE_URL = "https://akalaty.vercel.app";
 
 export default axios.create({
   baseURL: BASE_URL,
