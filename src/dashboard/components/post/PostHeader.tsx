@@ -67,7 +67,7 @@ function PostHeader({ postId, username,userId, createdAt, setDeleted }: PostProp
               <DotsThree size={21} onClick={() => setShowMenu(!showMenu)} />
               {showMenu && (
                 <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
-                  <p className="cursor-pointer">Edit</p>
+                  {/* <p className="cursor-pointer">Edit</p> */}
                   <p
                     className="text-red-600 cursor-pointer"
                     onClick={handleDeletePost}
