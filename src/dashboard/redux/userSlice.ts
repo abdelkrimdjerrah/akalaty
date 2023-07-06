@@ -47,8 +47,8 @@ const initialState: UserState = {
     // error: {message: '', type: ''},
   },
   loginData: {
-    email: '',
-    password: "",
+    email: "test@gmail.com",
+    password: "test",
     // error: {message: '', type: ''},
   },
   forgotPwdData: {
