@@ -5,6 +5,8 @@ import { persistor, store } from "./dashboard/redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 
 function App() {
+  document.title = "Akalaty";
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
