@@ -9,7 +9,7 @@ interface UserState {
     password: string;
   };
   loginData: {
-    email: string;
+    email: string ;
     password: string;
   };
   forgotPwdData: {
@@ -47,7 +47,7 @@ const initialState: UserState = {
     // error: {message: '', type: ''},
   },
   loginData: {
-    email: "",
+    email: '',
     password: "",
     // error: {message: '', type: ''},
   },
@@ -99,15 +99,13 @@ export const userSlice = createSlice({
 
     setLoginData: (state:any, action) => {
       const type = action.payload.type;
-
       if (type === "reset") {
         state["loginData"] = {
-          email: "",
-          password: "",
+          email: "test@gmail.com",
+          password: "test",
           // error: {message: '', type: ''},
         };
       } else {
-        if(action.payload.data)
         state["loginData"][type] = action.payload.data;
       }
     },
