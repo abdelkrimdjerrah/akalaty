@@ -31,7 +31,7 @@ function Login() {
     dispatch(setLoginData({ type, data }));
   }, []);
 
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   // login
   const handleLogin = async () => {
@@ -45,6 +45,7 @@ function Login() {
       // );
 
       setLoading(true);
+      setError('')
 
       const userData = { email, password };
 
@@ -57,7 +58,7 @@ function Login() {
       });
 
       if (!data?.success) {
-        console.log("error");
+        data?.message ? setError(data?.message) : setError('error')
         return;
       }
 
@@ -85,6 +86,7 @@ function Login() {
       navigate("/");
     } catch (error) {
       console.log("error");
+      setError('error')
       // handleError(error?.response?.data);
     } finally {
       setLoading(false);
@@ -119,11 +121,12 @@ function Login() {
             <p className="text-sm">pass:</p>
             <p className="text-sm">test</p>
           </div>
-          {error && (
+          {error.length ? (
             <div className="text-red-500 flex justify-center font-medium">
               <p>Information are incorrect</p>
             </div>
-          )}
+          )  : null
+        }
           <div className="flex flex-col gap-2 mt-3 mb-3">
             <Input
               text="Email address"
@@ -146,9 +149,16 @@ function Login() {
             </p>
           </div>
 
-          <Button widthFull onClick={handleLogin}>
-            Sign in
-          </Button>
+          {
+            loading ?
+              <Button widthFull loading onClick={handleLogin}>
+                Sign in
+              </Button>
+              : <Button widthFull onClick={handleLogin}>
+                Sign in
+              </Button>
+
+          }
 
           <div className="text-sm flex justify-center gap-1">
             <span>Don't have an account?</span>

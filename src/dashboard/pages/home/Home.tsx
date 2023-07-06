@@ -1,6 +1,7 @@
 import Post from "../../components/post/Post";
 import useGetPostPage from "../../hooks/useGetPostPage";
 import AddPost from "../../components/post/AddPost";
+import Loader from "../../shared/Loader";
 import { useCallback, useRef, useState } from "react";
 
 interface useGetPostPageInterface {
@@ -59,6 +60,14 @@ function Home() {
         <div className="flex flex-col gap-5">
           {results ? content : <h1>Loading</h1>}
         </div>
+        {isLoading && (
+            <>
+            <div className="w-full flex justify-center">
+              <Loader />
+
+            </div>
+            </>
+          )}
       </div>
     </div>
   );

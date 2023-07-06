@@ -35,7 +35,7 @@ export default function Button({
       }
     >
       {children}
-      <div className="absolute top-[30%] right-[5%]">
+      <div className=" absolute top-[30%] right-[5%] ">
         {loading ? <Loader /> : null}
       </div>
     </button>
