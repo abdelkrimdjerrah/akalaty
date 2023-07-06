@@ -121,7 +121,7 @@ function Login() {
             <SignIn size={34} />
             <p className="text-3xl">Sign In</p>
           </div>
-          <p className="text-sm text-gray-500">Hi, I'm still working on this web, feel free to</p>
+          <p className="text-sm text-gray-500">Hi, I'm still working on this web, feel free to test it</p>
           <p className="text-sm font-medium text-green-500">Please use these data for test</p>
           <div className="flex gap-2">
             <p className="text-sm">email:</p>
