@@ -2,7 +2,9 @@ import Post from "../../components/post/Post";
 import useGetPostPage from "../../hooks/useGetPostPage";
 import AddPost from "../../components/post/AddPost";
 import Loader from "../../shared/Loader";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface useGetPostPageInterface {
   isLoading: boolean;
@@ -14,9 +16,14 @@ interface useGetPostPageInterface {
 
 function Home() {
   const [pageNum, setPageNum] = useState(1);
+  const [loading, setLoading] = useState(true);
   const { isLoading, isError, error, results, hasNextPage } = useGetPostPage(
     pageNum
   ) as useGetPostPageInterface;
+
+  useEffect(()=>{
+    hasNextPage ? setLoading(true) : setLoading(false)
+  },[hasNextPage])
 
   const intObserver = useRef<IntersectionObserver | null>(null);
   const lastPostRef = useCallback(
@@ -57,17 +64,12 @@ function Home() {
     <div>
       <div className="flex flex-col gap-4">
         <AddPost />
-        <div className="flex flex-col gap-5">
-          {results ? content : <h1>Loading</h1>}
-        </div>
-        {isLoading && (
-            <>
-            <div className="w-full flex justify-center">
-              <Loader />
-
-            </div>
-            </>
-          )}
+        <div className="flex flex-col gap-5">{results ? content : null}</div>
+        {loading && (
+          <div className="w-full flex justify-center">
+            <Loader />
+          </div>
+        )}
       </div>
     </div>
   );

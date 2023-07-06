@@ -28,6 +28,7 @@ const useGetPostPage = (pageNum = 1) => {
       try {
         const data = await getPostPage(pageNum, { signal });
         if (!data.success) {
+          setHasNextPage(false);
           return;
         }
         setResults((prev) => [...prev, ...data.postPage]);
