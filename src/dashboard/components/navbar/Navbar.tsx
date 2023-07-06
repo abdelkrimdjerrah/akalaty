@@ -17,7 +17,7 @@ function Navbar() {
       <div>
         <img src={Logo} alt="" className="h-[40px]" />
       </div>
-      <div className="w-[35%]">
+      <div className="w-0 md:w-[35%]">
         <Searchbar />
       </div>
       <div
