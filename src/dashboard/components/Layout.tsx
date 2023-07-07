@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 
 function Layout() {
-  const navigate = useNavigate()
-  // sometimes data doesn't show when signing in for the first time
-  //you have to refresh the page 
-  //That's what i did here , auto re-rendering
-  navigate(0)
+  // const navigate = useNavigate()
+  // // sometimes data doesn't show when signing in for the first time
+  // //you have to refresh the page 
+  // //That's what i did here , auto re-rendering
+  // navigate(0)
   return (
     <div>
       <div className=" flex justify-center">
