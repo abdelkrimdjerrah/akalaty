@@ -16,6 +16,17 @@ function PostSlider({ images }: PostSliderProps) {
 
   const hasManyImages: boolean = images.length > 1;
   const swiperRef = useRef<SwiperCore>();
+
+  const [isFirstSlide, setIsFirstSlide] = useState(true);
+  const [isLastSlide, setIsLastSlide] = useState(false);
+
+  const handleSlideChange = () => {
+    const swiperInstance = swiperRef.current;
+    if (swiperInstance) {
+      setIsFirstSlide(swiperInstance.activeIndex === 0);
+      setIsLastSlide(swiperInstance.activeIndex === swiperInstance.slides.length - 1);
+    }
+  };
   
   return (
     <div className="min-w-full my-1 h-[400px] object-fill overflow-hidden relative border rounded-2xl flex justify-center">
@@ -27,7 +38,7 @@ function PostSlider({ images }: PostSliderProps) {
         }}
         pagination={{ clickable: hasManyImages }}
         scrollbar={{ draggable: hasManyImages }}
-        onSlideChange={() => "slide change"}
+        onSlideChange={() => handleSlideChange()}
         onSwiper={(swiper) => swiper}
       >
         {images.map((img: string, key: number) => (
@@ -41,23 +52,27 @@ function PostSlider({ images }: PostSliderProps) {
 
       {hasManyImages && (
         <>
-          <div className="absolute left-4 z-10 h-full flex items-center">
-            <div
-              className="navigationBtn"
-              onClick={() => swiperRef.current?.slidePrev()}
-            >
-              <CaretLeft size={30} />
+          {!isFirstSlide && (
+            <div className="absolute left-4 z-10 h-full flex items-center">
+              <div
+                className="navigationBtn"
+                onClick={() => swiperRef.current?.slidePrev()}
+              >
+                <CaretLeft size={30} />
+              </div>
             </div>
-          </div>
+          )}
 
-          <div className="absolute right-4 z-10 h-full flex items-center">
-            <div
-              className="navigationBtn"
-              onClick={() => swiperRef.current?.slideNext()}
-            >
-              <CaretRight size={30} />
+          {!isLastSlide && (
+            <div className="absolute right-4 z-10 h-full flex items-center">
+              <div
+                className="navigationBtn"
+                onClick={() => swiperRef.current?.slideNext()}
+              >
+                <CaretRight size={30} />
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
     </div>
@@ -65,3 +80,4 @@ function PostSlider({ images }: PostSliderProps) {
 }
 
 export default PostSlider;
+
