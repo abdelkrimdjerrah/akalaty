@@ -1,13 +1,6 @@
 import { BellRinging } from "phosphor-react";
 import NotifItem from "./NotifItem";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Heart,
-  Star,
-  ChatCircleText,
-  ChatCenteredText,
-  UserPlus,
-} from "phosphor-react";
 import { useEffect, useState } from "react";
 import { axiosPrivate } from "../../api/axios";
 

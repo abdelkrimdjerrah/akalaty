@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useGetUser from "../../hooks/useGetUser";
 import {
-  ChatCircleDots,
   DotsThree,
-  Heart,
-  PaperPlaneRight,
-  X,
 } from "phosphor-react";
 import Input from "../../shared/Input";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";

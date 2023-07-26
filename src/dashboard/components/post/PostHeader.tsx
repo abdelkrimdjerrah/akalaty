@@ -1,6 +1,6 @@
 import { useState } from "react";
 import UserItem from "../../shared/UserItem";
-import { DotsThree, BookmarkSimple } from "phosphor-react";
+import { DotsThree } from "phosphor-react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { selectUserData } from "../../redux/userSlice";
 import { useSelector } from "react-redux";

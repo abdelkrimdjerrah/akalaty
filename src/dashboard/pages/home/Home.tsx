@@ -3,7 +3,6 @@ import useGetPostPage from "../../hooks/useGetPostPage";
 import AddPost from "../../components/post/AddPost";
 import Loader from "../../shared/Loader";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 interface useGetPostPageInterface {
