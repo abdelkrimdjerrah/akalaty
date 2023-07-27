@@ -153,6 +153,7 @@ function AddPost() {
             <label className=" cursor-pointer absolute w-full h-full left-0">
               <input
                 type="file"
+                accept="image/png, image/jpeg"
                 multiple
                 onChange={handleFileChange}
                 className=" bg-blue-500"
