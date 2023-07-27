@@ -87,6 +87,30 @@ function AddPost() {
     }
   };
 
+  const handleDeleteImage  = (index:number) => {
+
+    //deleting from the shown images
+    setSelectedFilesImg((prev: Blob[]) => {
+      const newArray: Blob[] = [...prev];
+      newArray.splice(index, 1)
+      return newArray;
+    });
+
+    //deleting from the selected files
+    setSelectedFiles((prev: FileList | null) => {
+      let newFiles: DataTransfer = new DataTransfer();
+      if(prev){
+        for (let i = 0; i < prev.length; i++) {
+          if(i !== index){
+            newFiles.items.add(prev[i])
+          }
+        }
+      }
+      return newFiles.files.length ? newFiles.files : null;
+    })
+
+  };
+
   return (
     <div className="w-full bg-white rounded-2xl relative p-5 py-6 ">
       <div className="flex flex-col gap-3">
@@ -119,21 +143,22 @@ function AddPost() {
             <div className="flex gap-2 overflow-hidden flex-wrap">
               {selectedFilesImg.map((img: any, index: number) => {
                 return (
-                  <div className="relative">
+                  <div className="relative" key={index}>
                     <img
-                      key={index}
                       src={img}
                       alt="img"
                       className="w-20 h-20 object-cover border-[1px] border-gray-100 rounded-lg"
                     />
 
                     {/* adding white bg to the X inside so it will be visible on dark images */}
-                    <div className="bg-white w-2 h-2 absolute top-[10px] right-[10px]" />
-                    <XCircle
-                      size={20}
-                      weight="fill"
-                      className=" absolute top-1 right-1"
-                    />
+                    <div onClick={() => handleDeleteImage(index)} className="cursor-pointer">
+                      <div className="bg-white w-2 h-2 absolute top-[10px] right-[10px]" />
+                      <XCircle
+                        size={20}
+                        weight="fill"
+                        className=" absolute top-1 right-1"
+                      />
+                    </div>
                   </div>
                 );
               })}
