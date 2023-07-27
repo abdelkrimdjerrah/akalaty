@@ -19,8 +19,7 @@ function Login() {
 
   let { email, password } = useSelector(selectLoginData);
 
-  console.log(email)
-  console.log(password)
+
  
   const [loading, setLoading] = useState(false);
 
@@ -53,14 +52,15 @@ function Login() {
         password = 'test'
       }
 
-      const { data } = await axios.post(`/api/auth/login`, userData, {
+      const { data } = await axios.post(`/api/auth/login`,userData,{
         headers: {
-          "Content-Type": "application/json",
           withCredentials: "true",
           credentials: 'include'
         },
+        withCredentials: true,
       });
 
+    
       if (!data?.success) {
         data?.message ? setError(data?.message) : setError('error')
         return;

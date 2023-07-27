@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-import { axiosPrivate } from "../api/axios";
-
-export const getPostPage = async (pageNum = 1, options = {}) => {
-  const response = await axiosPrivate.get(
-    `/api/posts/pages/${pageNum}`,
-    options
-  );
-  return response.data;
-};
+import useAxiosPrivate from "./useAxiosPrivate";
 
 const useGetPostPage = (pageNum = 1) => {
+  const axiosPrivate = useAxiosPrivate();
+
   const [results, setResults] = useState<Entities.IPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -26,7 +20,11 @@ const useGetPostPage = (pageNum = 1) => {
 
     const fetchData = async () => {
       try {
-        const data = await getPostPage(pageNum, { signal });
+        const { data } = await axiosPrivate.get(
+          `/api/posts/pages/${pageNum}`,
+          { signal }
+        );
+
         if (!data.success) {
           setHasNextPage(false);
           return;

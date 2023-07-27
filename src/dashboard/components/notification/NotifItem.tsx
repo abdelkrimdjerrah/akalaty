@@ -8,7 +8,7 @@ import {
 } from "phosphor-react";
 import useGetUser from "../../hooks/useGetUser";
 import moment from "moment";
-import { axiosPrivate } from "../../api/axios";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 
 const notifType: any = {
@@ -67,6 +67,7 @@ function NotifItem( {notif} : INotifItem) {
   const [notifIsRead, setNotifIsRead] = useState(isRead);
   const senderUserData = useGetUser<Entities.UserEntity>(byUserId)
 
+  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate()
 
   const handleClickNotif = async () => {

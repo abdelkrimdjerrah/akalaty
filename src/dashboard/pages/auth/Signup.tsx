@@ -31,9 +31,6 @@ function SignUp() {
         console.log("error");
         return;
       }
-      else{
-        console.log('has been registered!')
-      }
 
     } catch (error) {
       console.log("error");

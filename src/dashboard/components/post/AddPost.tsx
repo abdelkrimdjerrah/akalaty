@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { House, XCircle } from "phosphor-react";
 import Input from "../../shared/Input";
 import ButtonSecondary from "../../shared/ButtonSecondary";
-import { axiosPrivate } from "../../api/axios";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Loader from "../../shared/Loader";
 
 function AddPost() {
@@ -12,6 +12,9 @@ function AddPost() {
   const [isPosted, setIsPosted] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [selectedFilesImg, setSelectedFilesImg] = useState<Blob[]>([]);
+
+  const axiosPrivate = useAxiosPrivate();
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

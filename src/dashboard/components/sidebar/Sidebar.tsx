@@ -20,7 +20,7 @@ function Sidebar() {
           <SidebarItem
             title="Home"
             Icon={House}
-            active={location.pathname === "/" || location.pathname === "/posts"}
+            active={location.pathname === "/" || location.pathname.startsWith("/posts/")}
             onClick={() => {
               navigate("/");
             }}

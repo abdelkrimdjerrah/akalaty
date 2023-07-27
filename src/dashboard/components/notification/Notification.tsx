@@ -2,10 +2,11 @@ import { BellRinging } from "phosphor-react";
 import NotifItem from "./NotifItem";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
-import { axiosPrivate } from "../../api/axios";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 function Notification() {
   const [notifications, setNotifications] = useState<Entities.NotifEntity[]>();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     const getNotifs = async () => {
