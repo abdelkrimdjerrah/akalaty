@@ -9,6 +9,7 @@ import {
 import useGetUser from "../../hooks/useGetUser";
 import moment from "moment";
 import { axiosPrivate } from "../../api/axios";
+import { useNavigate } from "react-router-dom";
 
 const notifType: any = {
   "postLiked" : {
@@ -62,11 +63,13 @@ interface INotifItem {
   notif : Entities.NotifEntity
 }
 function NotifItem( {notif} : INotifItem) {
-  const { _id, toUserId, byUserId, type, text, isRead, createdAt, updatedAt } = notif
+  const { _id, toUserId, byUserId, type, text, isRead, createdAt,url, updatedAt } = notif
   const [notifIsRead, setNotifIsRead] = useState(isRead);
   const senderUserData = useGetUser<Entities.UserEntity>(byUserId)
 
-  const handleNotifIsRead = async () => {
+  const navigate = useNavigate()
+
+  const handleClickNotif = async () => {
     try {
       if(!notifIsRead){
         setNotifIsRead(true)
@@ -75,13 +78,15 @@ function NotifItem( {notif} : INotifItem) {
           console.log(data.message)
         }
       }
+      navigate(url)
+
     } catch (error) {
         console.log(error)
     }
   }
   return (
     <div
-      onClick={() => handleNotifIsRead()}
+      onClick={() => handleClickNotif()}
       className="bg-gray-100 hover:bg-gray-200 w-full p-3 text-xs rounded-lg relative cursor-pointer"
     >
       <div className="flex justify-between items-center w-full">
