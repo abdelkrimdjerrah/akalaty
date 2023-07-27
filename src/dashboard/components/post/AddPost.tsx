@@ -12,24 +12,37 @@ function AddPost() {
   const [isPosted, setIsPosted] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
 
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedFiles(e.target.files);
+    if (e.target.files) {
+      let list: DataTransfer = new DataTransfer();
+
+      //add new selected files
+      for (let i = 0; i < e.target.files.length; i++) {
+        list.items.add(e.target.files[i]);
+      }
+
+      //append old selected files
+      if(selectedFiles){
+        for (let i = 0; i < selectedFiles.length; i++) {
+          list.items.add(selectedFiles[i]);
+        }
+      }
+
+      setSelectedFiles(list.files);
+    }
   };
   const imagesFormData = new FormData();
 
   const handleAddPost = async () => {
     try {
-      
       setLoading(true);
-      
-      if(!text){
-        setIsError("Please write something")
-        return
+
+      if (!text) {
+        setIsError("Please write something");
+        return;
       }
 
-      setIsError("")
-
+      setIsError("");
 
       if (selectedFiles) {
         for (let i = 0; i < selectedFiles.length; i++) {
@@ -48,7 +61,7 @@ function AddPost() {
       });
 
       if (!data?.success) {
-        setIsError(data?.message)
+        setIsError(data?.message);
         return;
       }
       setIsPosted(true);
@@ -88,10 +101,13 @@ function AddPost() {
 
         <div className="flex gap-2 items-center">
           <div className="relative w-fit">
-          {
-            selectedFiles ?  <ButtonSecondary color="orange">Selected {selectedFiles.length} </ButtonSecondary>
-             :  <ButtonSecondary color="orange">Upload image</ButtonSecondary>
-          }
+            {selectedFiles ? (
+              <ButtonSecondary color="orange">
+                Selected {selectedFiles.length}{" "}
+              </ButtonSecondary>
+            ) : (
+              <ButtonSecondary color="orange">Upload image</ButtonSecondary>
+            )}
             <label className=" cursor-pointer absolute w-full h-full left-0">
               <input
                 type="file"
@@ -104,7 +120,7 @@ function AddPost() {
           <ButtonSecondary onClick={handleAddPost} color="red">
             Add post
           </ButtonSecondary>
-  
+
           {loading && (
             <>
               <Loader />
