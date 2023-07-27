@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { House } from "phosphor-react";
+import { useEffect, useState } from "react";
+import { House, XCircle } from "phosphor-react";
 import Input from "../../shared/Input";
 import ButtonSecondary from "../../shared/ButtonSecondary";
 import { axiosPrivate } from "../../api/axios";
@@ -11,6 +11,7 @@ function AddPost() {
   const [isError, setIsError] = useState("");
   const [isPosted, setIsPosted] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  const [selectedFilesImg, setSelectedFilesImg] = useState<Blob[]>([]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -19,10 +20,23 @@ function AddPost() {
       //add new selected files
       for (let i = 0; i < e.target.files.length; i++) {
         list.items.add(e.target.files[i]);
+
+        //convert image to base64
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[i] as Blob);
+        reader.onload = () => {
+          setSelectedFilesImg((prev: Blob[]) => {
+            const newSelectedFilesImg: Blob[] = [...prev];
+            if (reader.result) {
+              newSelectedFilesImg.push(reader.result as unknown as Blob);
+            }
+            return newSelectedFilesImg;
+          });
+        };
       }
 
       //append old selected files
-      if(selectedFiles){
+      if (selectedFiles) {
         for (let i = 0; i < selectedFiles.length; i++) {
           list.items.add(selectedFiles[i]);
         }
@@ -31,6 +45,7 @@ function AddPost() {
       setSelectedFiles(list.files);
     }
   };
+
   const imagesFormData = new FormData();
 
   const handleAddPost = async () => {
@@ -98,6 +113,33 @@ function AddPost() {
           value={text}
           className="py-2 text-xs w-[250px]"
         />
+
+        <div>
+          {selectedFiles && (
+            <div className="flex gap-2 overflow-hidden flex-wrap">
+              {selectedFilesImg.map((img: any, index: number) => {
+                return (
+                  <div className="relative">
+                    <img
+                      key={index}
+                      src={img}
+                      alt="img"
+                      className="w-20 h-20 object-cover border-[1px] border-gray-100 rounded-lg"
+                    />
+
+                    {/* adding white bg to the X inside so it will be visible on dark images */}
+                    <div className="bg-white w-2 h-2 absolute top-[10px] right-[10px]" />
+                    <XCircle
+                      size={20}
+                      weight="fill"
+                      className=" absolute top-1 right-1"
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
 
         <div className="flex gap-2 items-center">
           <div className="relative w-fit">
