@@ -5,17 +5,6 @@ import Post from "./Post";
 import { axiosPrivate } from "../../api/axios";
 import Loader from "../../shared/Loader";
 
-function withRouter(Component: any) {
-  function ComponentWithRouterProp(props: any) {
-    let location = useLocation();
-    let navigate = useNavigate();
-    let params = useParams();
-    return <Component {...props} router={{ location, navigate, params }} />;
-  }
-
-  return ComponentWithRouterProp;
-}
-
 function OnePost() {
   const [postObj, setPostObj] = useState<Entities.IPost>();
   const [loading, setLoading] = useState(true);
@@ -30,8 +19,8 @@ function OnePost() {
         const { data } = await axiosPrivate.get(`/api/posts/${id}`);
         setLoading(false);
         if (data.success) {
-          const result = data.post; // returns either True or False
-          setPostObj(result);
+          const result = data.post;
+          return setPostObj(result);
         } else {
           setError(true);
         }
@@ -40,6 +29,7 @@ function OnePost() {
     };
 
     getOnePost();
+
   }, [id]);
 
   return (
@@ -55,4 +45,4 @@ function OnePost() {
   );
 }
 
-export default withRouter(OnePost);
+export default OnePost;
