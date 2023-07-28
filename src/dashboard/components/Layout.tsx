@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./navbar/Navbar";
 import Sidebar from "./sidebar/Sidebar";
-import Notification from "./notification/Notification";
+import Notifications from "./notification/Notifications";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "../api/axios";
@@ -27,7 +27,7 @@ function Layout() {
 
         <div className="fixed right-10 top-20 z-20 w-fit hidden lg:inline">
           <div className="sticky right-10 top-20 z-20 w-fit">
-            <Notification />
+            <Notifications />
           </div>
         </div>
 

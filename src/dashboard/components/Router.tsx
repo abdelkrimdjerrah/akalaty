@@ -4,7 +4,7 @@ import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 import Layout from "./Layout";
 import OnePost from "./post/OnePost";
-import Post from "./post/Post";
+import Notifications from "./notification/AllNotifications";
 import { Route, Routes } from "react-router-dom";
 import { selectUserData } from "../redux/userSlice";
 import { useSelector } from "react-redux";
@@ -19,6 +19,7 @@ function Router() {
           <Route index path="/" element={<Home />} />
           <Route path="posts/:id" element={<OnePost />} />
           <Route path="recipes" element={<Recipes />} />
+          <Route path="notifications" element={<Notifications />} />
         </Route>
       ) : (
         <Route path="/">

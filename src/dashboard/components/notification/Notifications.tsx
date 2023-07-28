@@ -3,29 +3,30 @@ import NotifItem from "./NotifItem";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useNavigate } from "react-router-dom";
 
-function Notification() {
+function Notifications() {
   const [notifications, setNotifications] = useState<Entities.NotifEntity[]>();
   const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const getNotifs = async () => {
       try {
-        const { data } = await axiosPrivate.get(`/api/notifications`);
+        const { data } = await axiosPrivate.get(`/api/notifications/pages/1/limit/3`);
         setNotifications(data.notifications);
       } catch (err) {}
     };
     getNotifs();
   }, []);
 
-  function handleAddNotification() {}
 
   return (
     <div className="bg-white w-[280px] h-fit p-5 rounded-2xl">
       <div className="flex flex-col gap-4 items-center">
         <div className="flex gap-1 w-full">
           <BellRinging size={21} />
-          <p className="text-sm font-medium">Notification</p>
+          <p className="text-sm font-medium">Notifications</p>
         </div>
 
         <div className="flex justify-between items-center w-full">
@@ -35,7 +36,6 @@ function Notification() {
                 {notifications &&
                   notifications
                     ?.slice(Math.max(notifications.length - 3, 0))
-                    .reverse()
                     .map((notif: Entities.NotifEntity) => (
                       <motion.li
                         key={notif._id}
@@ -56,7 +56,7 @@ function Notification() {
 
         <div
           className="cursor-pointer text-xs font-medium"
-          onClick={() => handleAddNotification()}
+          onClick={() => navigate('/notifications')}
         >
           View all
         </div>
@@ -65,4 +65,4 @@ function Notification() {
   );
 }
 
-export default Notification;
+export default Notifications;
