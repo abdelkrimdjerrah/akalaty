@@ -10,6 +10,9 @@ function useGetUser<UserType extends Entities.UserEntity | Entities.UserEntity[]
   const navigate = useNavigate();
   const [data, setData] = useState<UserType>();
 
+  const controller = new AbortController();
+    const { signal } = controller;
+
   useEffect(() => {
     const controller = new AbortController();
 
@@ -17,9 +20,7 @@ function useGetUser<UserType extends Entities.UserEntity | Entities.UserEntity[]
       try {
         const response = await axiosPrivate.get(
           id ? `/api/users/${id}` : "/api/users",
-          {
-            signal: controller.signal,
-          }
+          { signal }
         );
 
         setData(response.data.user);
