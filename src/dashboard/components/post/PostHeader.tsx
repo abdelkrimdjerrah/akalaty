@@ -17,7 +17,6 @@ interface PostProps {
 }
 
 function PostHeader({ postId, username, picture, userId, createdAt, setDeleted }: PostProps) {
-  console.log(picture)
   const [bookmark, setBookmark] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);

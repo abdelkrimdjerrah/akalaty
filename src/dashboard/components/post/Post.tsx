@@ -13,8 +13,6 @@ interface PostProps {
 function Post({ postObj, ref }: PostProps) {
   const { _id, userId, text, images, likes, comments, createdAt } = postObj;
 
-  console.log(text)
-  console.log(images)
   const [username, setUsername] = useState("");
   const [picture, setPicture] = useState("");
 
