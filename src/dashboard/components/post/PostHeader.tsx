@@ -10,12 +10,14 @@ const Abdelkrim = require("../../../assets/Abdelkrim.png");
 interface PostProps {
   postId: string;
   userId: any;
+  picture: string;
   username: string;
   createdAt: Date;
   setDeleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PostHeader({ postId, username,userId, createdAt, setDeleted }: PostProps) {
+function PostHeader({ postId, username, picture, userId, createdAt, setDeleted }: PostProps) {
+  console.log(picture)
   const [bookmark, setBookmark] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -52,7 +54,7 @@ function PostHeader({ postId, username,userId, createdAt, setDeleted }: PostProp
 
   return (
     <div className="flex w-full justify-between">
-      <UserItem name={username} text={created} picture={Abdelkrim} />
+      <UserItem name={username} text={created} picture={picture} />
       <div className="flex gap-1">
         {/* <div onClick={() => setBookmark(!bookmark)}>
           {bookmark ? (

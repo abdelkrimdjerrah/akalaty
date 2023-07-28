@@ -12,17 +12,23 @@ interface PostProps {
 
 function Post({ postObj, ref }: PostProps) {
   const { _id, userId, text, images, likes, comments, createdAt } = postObj;
+
+  console.log(text)
+  console.log(images)
   const [username, setUsername] = useState("");
+  const [picture, setPicture] = useState("");
 
   const [deleted, setDeleted] = useState(false);
 
   const response = useGetUser<Entities.UserEntity>(userId);
 
+
   useEffect(() => {
     const fetchUsername = () => {
       try {
-        if (response) {
+        if (response?.username && response?.picture) {
           setUsername(response.username);
+          setPicture(response.picture);
         }
       } catch (error) {
         console.error(error);
@@ -45,6 +51,7 @@ function Post({ postObj, ref }: PostProps) {
               <PostHeader
                 postId={_id}
                 userId={userId}
+                picture={picture}
                 username={username}
                 createdAt={createdAt}
                 setDeleted={setDeleted}
