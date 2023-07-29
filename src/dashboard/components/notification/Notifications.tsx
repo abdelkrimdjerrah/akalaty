@@ -4,21 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
+import useGetNotificationPage from "../../hooks/useGetNotificationPage";
 
 function Notifications() {
-  const [notifications, setNotifications] = useState<Entities.NotifEntity[]>();
-  const axiosPrivate = useAxiosPrivate();
-  const navigate = useNavigate()
 
-  useEffect(() => {
-    const getNotifs = async () => {
-      try {
-        const { data } = await axiosPrivate.get(`/api/notifications/pages/1/limit/3`);
-        setNotifications(data.notifications);
-      } catch (err) {}
-    };
-    getNotifs();
-  }, []);
+  const { isLoading, isError, error, notificationPage } = useGetNotificationPage(1,3)
+  
+  const navigate = useNavigate()
 
 
   return (
@@ -33,9 +25,9 @@ function Notifications() {
           <div className="flex flex-col w-full">
             <ul className="flex flex-col justify-end items-center max-h-[230px] gap-2">
               <AnimatePresence initial={false}>
-                {notifications &&
-                  notifications
-                    ?.slice(Math.max(notifications.length - 3, 0))
+                {notificationPage &&
+                  notificationPage
+                    ?.slice(Math.max(notificationPage.length - 3, 0))
                     .map((notif: Entities.NotifEntity) => (
                       <motion.li
                         key={notif._id}

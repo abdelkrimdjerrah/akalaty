@@ -1,23 +1,11 @@
 import { BellRinging } from "phosphor-react";
 import NotifItem from "./NotifItem";
-import { useEffect, useState } from "react";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useGetNotificationPage from "../../hooks/useGetNotificationPage";
 
 function AllNotifications() {
-  const [notifications, setNotifications] = useState<Entities.NotifEntity[]>();
-  const axiosPrivate = useAxiosPrivate();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    const getNotifs = async () => {
-      try {
-        const { data } = await axiosPrivate.get(`/api/notifications`);
-        setNotifications(data.notifications);
-      } catch (err) {}
-    };
-    getNotifs();
-  }, []);
+  const { isLoading, isError, error, notificationPage } = useGetNotificationPage(1,6)
 
   return (
     <div className="w-full bg-white rounded-2xl relative p-5 py-6 ">
@@ -30,8 +18,8 @@ function AllNotifications() {
         <div className="flex justify-between items-center w-full">
           <div className="flex flex-col w-full">
             <ul className="flex flex-col justify-end items-center gap-2">
-              {notifications &&
-                notifications
+              {notificationPage &&
+                notificationPage
                   .map((notif: Entities.NotifEntity) => (
                     <div key={notif._id} className="w-full">
                       {/* Notification element */}
