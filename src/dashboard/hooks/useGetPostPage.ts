@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 
-const useGetPostPage = (pageNum = 1) => {
+const useGetPostPage = (pageNum:number ,limit:number) => {
   const axiosPrivate = useAxiosPrivate();
 
-  const [results, setResults] = useState<Entities.IPost[]>([]);
+  const [postPage, setPostPage] = useState<Entities.IPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState({});
@@ -15,13 +15,16 @@ const useGetPostPage = (pageNum = 1) => {
     setIsError(false);
     setError({});
 
+    const encodedPageNum = encodeURIComponent(pageNum);
+    const encodedLimit = encodeURIComponent(limit);
+
     const controller = new AbortController();
     const { signal } = controller;
 
     const fetchData = async () => {
       try {
         const { data } = await axiosPrivate.get(
-          `/api/posts/pages/${pageNum}`,
+          `/api/posts/pages?page=${encodedPageNum}&limit=${encodedLimit}`,
           { signal }
         );
 
@@ -29,7 +32,7 @@ const useGetPostPage = (pageNum = 1) => {
           setHasNextPage(false);
           return;
         }
-        setResults((prev) => [...prev, ...data.postPage]);
+        setPostPage((prev) => [...prev, ...data.postPage]);
         setHasNextPage(Boolean(data.postPage.length));
         setIsLoading(false);
       } catch (e: any) {
@@ -45,7 +48,7 @@ const useGetPostPage = (pageNum = 1) => {
     return () => controller.abort();
   }, [pageNum]);
 
-  return { isLoading, isError, error, results, hasNextPage };
+  return { isLoading, isError, error, postPage, hasNextPage };
 };
 
 export default useGetPostPage;

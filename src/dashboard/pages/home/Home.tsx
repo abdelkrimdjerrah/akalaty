@@ -5,20 +5,14 @@ import Loader from "../../shared/Loader";
 import { useCallback, useEffect, useRef, useState } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 
-interface useGetPostPageInterface {
-  isLoading: boolean;
-  isError: boolean;
-  error: any;
-  results: Entities.IPost[];
-  hasNextPage: boolean;
-}
+
 
 function Home() {
   const [pageNum, setPageNum] = useState(1);
   const [loading, setLoading] = useState(true);
-  const { isLoading, isError, error, results, hasNextPage } = useGetPostPage(
-    pageNum
-  ) as useGetPostPageInterface;
+  const { isLoading, isError, error, postPage, hasNextPage } = useGetPostPage(
+    pageNum,6
+  );
 
   useEffect(()=>{
     hasNextPage ? setLoading(true) : setLoading(false)
@@ -42,10 +36,10 @@ function Home() {
     [isLoading, hasNextPage]
   );
 
-  if (isError) return <p className="center">Error: {error.message}</p>;
+  if (isError) return <p className="center">There's an error</p>;
 
-  const content = results.map((post, i) => {
-    if (results.length === i + 1) {
+  const content = postPage.map((post, i) => {
+    if (postPage.length === i + 1) {
       return (
         <div key={i}>
           <Post postObj={post} />
@@ -63,7 +57,7 @@ function Home() {
     <div>
       <div className="flex flex-col gap-4">
         <AddPost />
-        <div className="flex flex-col gap-5">{results ? content : null}</div>
+        <div className="flex flex-col gap-5">{postPage ? content : null}</div>
         {loading && (
           <div className="w-full flex justify-center">
             <Loader />
