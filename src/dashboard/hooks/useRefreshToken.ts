@@ -7,25 +7,25 @@ const useRefreshToken = () => {
   const [refreshToken, setRefreshToken] = useState<string>("");
   
   useEffect(()=>{
-    const refresh = async () => {
-      try {
-        const { data } = await axios.get(`/api/auth/refresh`,{
-          headers: {
-            withCredentials: "true",
-            credentials: 'include'
-          },
-          withCredentials: true,
-        });
+    // const refresh = async () => {
+    //   try {
+    //     const { data } = await axios.get(`/api/auth/refresh`,{
+    //       headers: {
+    //         withCredentials: "true",
+    //         credentials: 'include'
+    //       },
+    //       withCredentials: true,
+    //     });
   
-        dispatch(
-          setAccessToken({ type: "token", data: data.accessToken })
-        );
+    //     dispatch(
+    //       setAccessToken({ type: "token", data: data.accessToken })
+    //     );
   
-        setRefreshToken(data.accessToken);
-      } catch (error) {}
-    };
+    //     setRefreshToken(data.accessToken);
+    //   } catch (error) {}
+    // };
 
-    refresh();
+    // refresh();
 
   })
 
