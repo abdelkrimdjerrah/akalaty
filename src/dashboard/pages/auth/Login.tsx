@@ -78,8 +78,6 @@ function Login() {
         })
       );
 
-      localStorage.setItem("token", data?.accessToken);
-
       dispatch(
         setUserData({
           type: "user",

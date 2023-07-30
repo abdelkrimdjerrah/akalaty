@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../redux/userSlice";
 
 const useAxiosPrivate = () => {
-  const token = useSelector(selectToken);
 
-  // const refresh = useRefreshToken();
+  const refresh = useRefreshToken();
+  const token = useSelector(selectToken);
 
   const requestIntercept = axiosPrivate.interceptors.request.use(
     (config) => {
@@ -19,24 +19,24 @@ const useAxiosPrivate = () => {
     (error) => Promise.reject(error)
   );
 
-  // const responseIntercept = axiosPrivate.interceptors.response.use(
-  //   (response) => response,
-  //   async (error) => {
-  //     const prevRequest = error?.config;
-  //     if (error?.response?.status === 403 && !prevRequest?.sent) {
-  //       prevRequest.sent = true;
-  //       const newAccessToken = await refresh();
-  //       prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-  //       return axiosPrivate(prevRequest);
-  //     }
-  //     return Promise.reject(error);
-  //   }
-  // );
+  const responseIntercept = axiosPrivate.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      console.log("2222 - " + token)
+      const prevRequest = error?.config;
+      if (error?.response?.status === 403 && !prevRequest?.sent) {
+        prevRequest.sent = true;
+        prevRequest.headers["Authorization"] = `Bearer ${refresh}`;
+        return axiosPrivate(prevRequest);
+      }
+      return Promise.reject(error);
+    }
+  );
 
   useEffect(() => {
     return () => {
       axiosPrivate.interceptors.request.eject(requestIntercept);
-      // axiosPrivate.interceptors.response.eject(responseIntercept);
+      axiosPrivate.interceptors.response.eject(responseIntercept);
     };
   }, [requestIntercept]);
 
