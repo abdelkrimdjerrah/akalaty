@@ -1,35 +1,19 @@
 import axios from "../api/axios";
 import { useDispatch } from "react-redux";
 import { setAccessToken } from "../redux/userSlice";
-import { useEffect, useState } from "react";
 const useRefreshToken = () => {
   const dispatch = useDispatch();
-  const [refreshToken, setRefreshToken] = useState<string>("");
-  
-  useEffect(()=>{
-    // const refresh = async () => {
-    //   try {
-    //     const { data } = await axios.get(`/api/auth/refresh`,{
-    //       headers: {
-    //         withCredentials: "true",
-    //         credentials: 'include'
-    //       },
-    //       withCredentials: true,
-    //     });
-  
-    //     dispatch(
-    //       setAccessToken({ type: "token", data: data.accessToken })
-    //     );
-  
-    //     setRefreshToken(data.accessToken);
-    //   } catch (error) {}
-    // };
 
-    // refresh();
+  const refresh = async () => {
+    const { data } = await axios.get("/api/auth/refresh", {
+      withCredentials: true,
+    });
 
-  })
+    dispatch(setAccessToken({ type: "token", data: data.accessToken }));
 
-  return refreshToken;
+    return data.accessToken;
+  };
+  return refresh;
 };
 
 export default useRefreshToken;
