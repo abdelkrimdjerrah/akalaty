@@ -13,12 +13,15 @@ import { selectUserData } from "../../redux/userSlice";
 import { useSelector } from "react-redux";
 
 interface ICommentProps {
-  comment: Entities.IComment;
+  commentId: string;
+  commentUserId: string;
+  commentText: string,
+  commentCreatedAt: Date | undefined,
   postId: string;
+  commentLikes: Entities.ILike[] | undefined;
 }
 
-function Comment({ comment, postId }: ICommentProps) {
-  const commentId = comment._id;
+function Comment({ postId,commentUserId, commentId, commentLikes, commentText, commentCreatedAt }: ICommentProps) {
 
   const [text, setText] = useState("");
   const [replies, setReplies] = useState<Entities.IReply[]>();
@@ -37,40 +40,10 @@ function Comment({ comment, postId }: ICommentProps) {
 
   const axiosPrivate = useAxiosPrivate();
 
-  const userData = useGetUser<Entities.UserEntity>(comment.userId);
+  const userData = useGetUser<Entities.UserEntity>(commentUserId);
   const JWTuserData = useSelector(selectUserData);
 
-  useEffect(() => {
-    if (comment.replies) {
-      setReplies(comment.replies);
-      setRepliesNum(comment.replies.length);
-    }
-    if (comment.likes) {
-      setLikes(comment.likes);
-      setLikesNum(comment.likes.length);
-    }
-
-    const controller = new AbortController();
-
-    const checkCommentLike = async () => {
-      try {
-        const { data } = await axiosPrivate.get(
-          `/api/posts/${postId}/comments/${commentId}/likes/check`
-        );
-
-        if (data.success) {
-          const result = data.hasLikedPost; // returns either True or False
-          setIsLike(result);
-        }
-      } catch (err) {}
-    };
-
-    checkCommentLike();
-
-    return () => {
-      controller.abort(); // Cancel the request if the component unmounts
-    };
-  }, []);
+ 
 
   const handleSetLike = async () => {
     try {
@@ -125,6 +98,8 @@ function Comment({ comment, postId }: ICommentProps) {
         return;
       }
 
+      setWantReply(false);
+
       setRepliesNum(() => repliesNum + 1);
     } catch (error) {
       console.log("error");
@@ -153,23 +128,79 @@ function Comment({ comment, postId }: ICommentProps) {
     }
   };
 
+  
+  useEffect(() => {
+   
+    const controller = new AbortController();
+    const checkCommentLike = async () => {
+      try {
+        const { data } = await axiosPrivate.get(
+          `/api/posts/${postId}/comments/${commentId}/likes/check`
+        );
+
+        if (data.success) {
+          const result = data.hasLikedPost; // returns either True or False
+          setIsLike(result);
+        }
+      } catch (err) {}
+    };
+
+    checkCommentLike();
+
+    return () => {
+      controller.abort(); // Cancel the request if the component unmounts
+    };
+
+  }, []);
+  useEffect(() => {
+    
+    const getReplies = async () => {
+      try { 
+
+        const { data } = await axiosPrivate.get(
+          `/api/posts/${postId}/comments/${commentId}/replies`
+        );
+          
+        if (!data?.success) {
+          console.log("error");
+          return;
+        }
+        
+        setReplies(data?.commentReplies);
+        setRepliesNum(data?.commentReplies.length);
+
+        if (commentLikes) {
+          setLikes(commentLikes);
+          setLikesNum(commentLikes.length);
+        }
+
+      } catch (error) {
+        console.log("error");
+      }
+    };
+
+    getReplies()
+
+
+    // trigger when showReplies is true or text is empty (it means that the user has sent a reply, and when user send a reply we clear the text)
+  }, [showReplies, !text]);
   const CommentComponent = (
     <div>
       <div className=" bg-gray-100 w-full p-3 rounded-lg">
-        <div className="flex gap-2 w-full">
+        <div className="flex gap-2 w-full relative">
           <img
             src={userData?.picture}
             alt=""
-            className="w-11 h-11 fixed object-cover rounded-full"
+            className="w-11 h-11 absolute object-cover rounded-full"
           />
           <div className="pl-14 flex flex-col gap-[2px] text-sm w-full">
             <div className="flex justify-between items-center">
               <p className="font-medium">{userData?.username}</p>
               <div className="flex gap-1">
                 <p className="text-xs text-gray-400">
-                  {moment(comment?.createdAt?.toLocaleString()).fromNow()}
+                  {moment(commentCreatedAt?.toLocaleString()).fromNow()}
                 </p>
-                {comment.userId === JWTuserData?._id ? (
+                {commentUserId === JWTuserData?._id ? (
                   <div className="relative">
                     <DotsThree
                       size={21}
@@ -190,9 +221,9 @@ function Comment({ comment, postId }: ICommentProps) {
                 ) : null}
               </div>
             </div>
-            <Text text={comment.text} />
+            <Text text={commentText} />
 
-            {comment.replies?.length ? (
+            {replies?.length ? (
               <div className="flex justify-between w-full">
                 <div className="flex gap-1 items-center">
                   <div className="h-[1px] w-6 bg-gray-400"></div>
@@ -265,9 +296,9 @@ function Comment({ comment, postId }: ICommentProps) {
         )}
       </div>
       {showReplies &&
-        comment.replies?.map((reply, index) => (
+        replies?.map((reply, index) => (
           <div key={reply._id}>
-            {comment.replies?.length == index + 1 ? (
+            {replies?.length == index + 1 ? (
               <Reply
                 reply={reply}
                 commentId={commentId}

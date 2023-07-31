@@ -7,13 +7,12 @@ import Comment from "./Comment";
 
 interface postIdInterface {
   postId: string;
-  postComments: any;
   postLikes: any;
 }
 
-function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
+function PostEngagement({ postId, postLikes }: postIdInterface) {
   const [text, setText] = useState("");
-  const [comments, setComments] = useState<Entities.IComment[]>(postComments);
+  const [comments, setComments] = useState<Entities.IComment[]>();
   const [commentsNum, setCommentsNum] = useState<number>(0);
 
   const [likes, setLikes] = useState<string>(postLikes);
@@ -81,8 +80,32 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
     }
   };
 
+
+  
+
   useEffect(() => {
     const controller = new AbortController();
+
+    const getComments = async () => {
+      try { 
+        const { data } = await axiosPrivate.get(
+          `/api/posts/${postId}/comments`
+        );
+  
+        if (!data?.success) {
+          console.log("error");
+          return;
+        }
+        
+        setComments(data?.postComments);
+        setCommentsNum(data?.postComments.length);
+
+      } catch (error) {
+        console.log("error");
+      }
+    };
+
+    getComments()
 
     const checkPostLike = async () => {
       try {
@@ -155,7 +178,7 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
           </div>
         </div>
         <div>
-          {comments.length ? (
+          {(comments && comments.length > 0) ? (
             <p
               onClick={() => setShowModal(true)}
               className="text-xs cursor-pointer w-fit font-medium"
@@ -190,7 +213,7 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="max-w-[500px] bg-white min-w-[500px] h-fit p-5 rounded-2xl relative"
+            className="max-w-[500px]  max-h-[80%] overflow-y-scroll bg-white min-w-[500px]  p-5 rounded-2xl relative"
           >
             <div onClick={() => setShowModal(false)}>
               <X
@@ -205,9 +228,10 @@ function PostEngagement({ postId, postComments, postLikes }: postIdInterface) {
               </div>
               <div>
                 <div className="flex flex-col gap-2">
-                  {comments.map((comment: Entities.IComment) => (
+                  {
+                  comments?.map((comment: Entities.IComment) => (
                     <div key={comment._id}>
-                      <Comment postId={postId} comment={comment} />
+                      <Comment postId={postId} commentId={comment._id} commentUserId={comment.userId} commentLikes={comment.likes} commentText={comment.text} commentCreatedAt={comment.createdAt}/>
                     </div>
                   ))}
                 </div>

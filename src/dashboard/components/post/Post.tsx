@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import PostHeader from "./PostHeader";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import PostEngagement from "./PostEngagement";
 import PostSlider from "./PostSlider";
 import Text from "./Text";
@@ -11,17 +12,20 @@ interface PostProps {
 }
 
 function Post({ postObj, ref }: PostProps) {
-  const { _id, userId, text, images, likes, comments, createdAt } = postObj;
+  const { _id, userId, text, images, likes, createdAt } = postObj;
 
   const [username, setUsername] = useState("");
   const [picture, setPicture] = useState("");
-
+  
   const [deleted, setDeleted] = useState(false);
-
+  
   const response = useGetUser<Entities.UserEntity>(userId);
 
 
+ 
+
   useEffect(() => {
+    
     const fetchUsername = () => {
       try {
         if (response?.username && response?.picture) {
@@ -58,7 +62,6 @@ function Post({ postObj, ref }: PostProps) {
               {images?.length > 0 && <PostSlider images={images} />}
               <PostEngagement
                 postId={_id}
-                postComments={comments}
                 postLikes={likes}
               />
             </>
