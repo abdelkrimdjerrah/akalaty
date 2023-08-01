@@ -81,8 +81,6 @@ function PostEngagement({ postId, postLikes }: postIdInterface) {
   };
 
 
-  
-
   useEffect(() => {
     const controller = new AbortController();
 
@@ -98,7 +96,6 @@ function PostEngagement({ postId, postLikes }: postIdInterface) {
         }
         
         setComments(data?.postComments);
-        setCommentsNum(data?.postComments.length);
 
       } catch (error) {
         console.log("error");
@@ -144,7 +141,7 @@ function PostEngagement({ postId, postLikes }: postIdInterface) {
     return () => {
       controller.abort(); // Cancel the request if the component unmounts
     };
-  }, []);
+  }, [commentsNum]);
 
   return (
     <div>
@@ -231,7 +228,7 @@ function PostEngagement({ postId, postLikes }: postIdInterface) {
                   {
                   comments?.map((comment: Entities.IComment) => (
                     <div key={comment._id}>
-                      <Comment postId={postId} commentId={comment._id} commentUserId={comment.userId} commentLikes={comment.likes} commentText={comment.text} commentCreatedAt={comment.createdAt}/>
+                      <Comment postId={postId} commentId={comment._id} commentUserId={comment.userId} commentLikes={comment.likes} commentText={comment.text} commentCreatedAt={comment.createdAt} setCommentsNum={setCommentsNum}/>
                     </div>
                   ))}
                 </div>

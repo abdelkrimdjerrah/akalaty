@@ -13,6 +13,7 @@ import { selectUserData } from "../../redux/userSlice";
 import { useSelector } from "react-redux";
 
 interface ICommentProps {
+  setCommentsNum: React.Dispatch<React.SetStateAction<number>>;
   commentId: string;
   commentUserId: string;
   commentText: string,
@@ -21,7 +22,7 @@ interface ICommentProps {
   commentLikes: Entities.ILike[] | undefined;
 }
 
-function Comment({ postId,commentUserId, commentId, commentLikes, commentText, commentCreatedAt }: ICommentProps) {
+function Comment({ postId,commentUserId, commentId, commentLikes, commentText, commentCreatedAt,setCommentsNum }: ICommentProps) {
 
   const [text, setText] = useState("");
   const [replies, setReplies] = useState<Entities.IReply[]>();
@@ -99,8 +100,9 @@ function Comment({ postId,commentUserId, commentId, commentLikes, commentText, c
       }
 
       setWantReply(false);
-
       setRepliesNum(() => repliesNum + 1);
+      setCommentsNum((prev) => prev + 1);
+
     } catch (error) {
       console.log("error");
     } finally {
@@ -304,9 +306,10 @@ function Comment({ postId,commentUserId, commentId, commentLikes, commentText, c
                 commentId={commentId}
                 postId={postId}
                 last={true}
+                setCommentsNum={setCommentsNum}
               />
             ) : (
-              <Reply reply={reply} commentId={commentId} postId={postId} />
+              <Reply reply={reply} commentId={commentId} postId={postId} setCommentsNum={setCommentsNum} />
             )}
           </div>
         ))}

@@ -9,13 +9,14 @@ import moment from "moment";
 import Text from "./Text";
 
 interface IReplyProps {
+  setCommentsNum: React.Dispatch<React.SetStateAction<number>>;
   reply: Entities.IReply;
   commentId: string;
   postId: string;
   last?: boolean;
 }
 
-function Reply({ reply, commentId, postId, last }: IReplyProps) {
+function Reply({ reply, commentId, postId, last, setCommentsNum }: IReplyProps) {
   const replyId = reply._id;
 
   //   const [replyText, setReplyText] = useState("");
