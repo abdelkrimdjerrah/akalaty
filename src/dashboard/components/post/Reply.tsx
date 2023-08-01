@@ -177,10 +177,10 @@ function Reply({ reply, commentId, postId, last, setCommentsNum }: IReplyProps) 
           </div>
           <Text text={reply.text} />
           <div className="w-full flex gap-2 justify-end">
-            <p
+            {/* <p
               onClick={() => setWantReply(true)}
               className="text-xs font-medium cursor-pointer w-fit"
-            >{`Reply`}</p>
+            >{`Reply`}</p> */}
             {isLike ? (
               <p
                 onClick={handleSetLike}
