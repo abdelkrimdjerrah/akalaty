@@ -25,6 +25,7 @@ interface ICommentProps {
 function Comment({ postId,commentUserId, commentId, commentLikes, commentText, commentCreatedAt,setCommentsNum }: ICommentProps) {
 
   const [text, setText] = useState("");
+  const [firstReply, setFirstReply] = useState(false);
   const [replies, setReplies] = useState<Entities.IReply[]>();
   const [repliesNum, setRepliesNum] = useState<number>(0);
   const [wantReply, setWantReply] = useState(false);
@@ -100,6 +101,7 @@ function Comment({ postId,commentUserId, commentId, commentLikes, commentText, c
       }
 
       setWantReply(false);
+      if(repliesNum === 0) setFirstReply(true)
       setRepliesNum(() => repliesNum + 1);
       setCommentsNum((prev) => prev + 1);
 
@@ -184,8 +186,7 @@ function Comment({ postId,commentUserId, commentId, commentLikes, commentText, c
     getReplies()
 
 
-    // trigger when showReplies is true or text is empty (it means that the user has sent a reply, and when user send a reply we clear the text)
-  }, [showReplies, !text]);
+  }, [showReplies, firstReply]);
   const CommentComponent = (
     <div>
       <div className=" bg-gray-100 w-full p-3 rounded-lg">
