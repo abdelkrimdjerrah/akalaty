@@ -287,7 +287,7 @@ function Comment({ postId,commentUserId, commentId, commentLikes, commentText, c
               widthFull
               onChange={(v) => setText(v)}
               value={text}
-              className="py-2 text-xs w-[250px] bg-white"
+              className="py-2 text-xs w-[250px] bg-white pr-8"
             />
             <div
               onClick={handleSetReply}

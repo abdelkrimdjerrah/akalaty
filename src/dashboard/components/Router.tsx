@@ -4,7 +4,7 @@ import Login from "../pages/auth/Login";
 import Signup from "../pages/auth/Signup";
 import Layout from "./Layout";
 import OnePost from "./post/OnePost";
-import Notifications from "./notification/AllNotifications";
+import Notifications from "../pages/notifications/Notifications";
 import { Route, Routes } from "react-router-dom";
 import { selectUserData } from "../redux/userSlice";
 import { useSelector } from "react-redux";

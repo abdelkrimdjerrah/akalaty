@@ -25,6 +25,7 @@ function Input({
   Icon,
 }: InputProps) {
   const width = widthFull ? " w-full " : "";
+  const paddingRight = Icon ? " pr-8 " : " ";
 
   const background = white ? " bg-white " : "bg-gray-100";
   return (
@@ -34,8 +35,9 @@ function Input({
           className={
             background +
             width +
+            paddingRight +
             " " +
-            "font-regular text-sm rounded-md p-2 pr-8 focus:shadow-border outline-none " +
+            "font-regular text-sm rounded-md p-2 focus:shadow-border outline-none " +
             className
           }
           type={type}

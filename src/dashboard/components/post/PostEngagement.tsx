@@ -191,7 +191,7 @@ function PostEngagement({ postId, postLikes }: postIdInterface) {
             widthFull
             onChange={(v) => setText(v)}
             value={text}
-            className="py-2 text-xs w-[250px]"
+            className="py-2 text-xs w-[250px] pr-8"
           />
           <div
             onClick={handleSetPostComment}
