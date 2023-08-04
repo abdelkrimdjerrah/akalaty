@@ -24,7 +24,7 @@ function Notifications() {
 
         <div className="flex justify-between items-center w-full">
           <div className="flex flex-col w-full">
-            <ul className="flex flex-col justify-end items-center max-h-[230px] gap-2">
+            <ul className="flex flex-col justify-end items-center gap-2">
               <AnimatePresence initial={false}>
                 {notificationPage &&
                   notificationPage
