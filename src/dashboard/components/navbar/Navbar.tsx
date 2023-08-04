@@ -27,7 +27,7 @@ function Navbar() {
   };
 
   return (
-    <div className="bg-white w-full px-16 pt-2 pb-2 flex items-center justify-between">
+    <div className="bg-white w-full px-9 pt-2 pb-2 flex items-center justify-between">
       <div onClick={() => navigate("/")} className="cursor-pointer">
         <img src={Logo} alt="" className="h-[40px]" />
       </div>
