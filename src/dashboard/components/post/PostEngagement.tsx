@@ -210,7 +210,7 @@ function PostEngagement({ postId, postLikes }: postIdInterface) {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="max-w-[500px]  max-h-[80%] overflow-y-scroll bg-white min-w-[500px]  p-5 rounded-2xl relative"
+            className="max-w-[500px]  max-h-[80%] overflow-y-scroll bg-white w-[95%] md:min-w-[500px]   p-5 rounded-2xl relative"
           >
             <div onClick={() => setShowModal(false)}>
               <X

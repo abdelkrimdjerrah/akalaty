@@ -32,7 +32,7 @@ function Layout() {
         </div>
 
         {/* margin right 50px to center the outlet properly, because the sidebar width is less than notification by 50px */}
-        <div className="my-20 w-[80%] lg:w-2/5 mr-0 lg:mr-[50px]">
+        <div className="my-20 w-[95%] md:w-[80%] lg:w-2/5 mr-0 lg:mr-[50px]">
           <Outlet />
         </div>
       </div>
