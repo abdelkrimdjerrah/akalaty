@@ -7,20 +7,15 @@ import { useNavigate } from "react-router-dom";
 import useGetNotificationPage from "../../hooks/useGetNotificationPage";
 
 
-interface INotifProps{
-  widthfull?: boolean
-}
-
-function Notifications({widthfull}: INotifProps) {
+function Notifications() {
 
   const { isLoading, isError, error, notificationPage } = useGetNotificationPage(1,3)
   
   const navigate = useNavigate()
 
-  console.log(widthfull)
-  const classname = widthfull ? ' w-full bg-white h-fit rounded-2xl ' : ' w-[280px] bg-white h-fit p-5 rounded-2xl '
+
   return (
-    <div className={classname}>
+    <div className='lg:w-[280px] lg:p-5 bg-white h-fit rounded-2xl'>
       <div className="flex flex-col gap-4 items-center">
         <div className="flex gap-1 w-full">
           <BellRinging size={21} />

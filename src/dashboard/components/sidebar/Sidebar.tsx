@@ -6,14 +6,15 @@ import { selectUserData } from "../../redux/userSlice";
 import { useSelector } from "react-redux";
 var Abdelkrim = require("../../../assets/Abdelkrim.png");
 
+
+
+
 function Sidebar() {
   let navigate = useNavigate();
   let location = useLocation();
   const userData = useSelector(selectUserData);
-
-
   return (
-    <div className="bg-white min-w-[230px] h-fit p-5 rounded-2xl">
+    <div className="bg-white min-w-[230px] h-fit lg:p-5 rounded-2xl">
       <div className="flex flex-col gap-4">
         <UserItem name={userData?.username ? userData?.username : 'test'} text={userData?.role ? userData?.role : 'test'} picture={Abdelkrim} />
         <div className="flex flex-col gap-2">
