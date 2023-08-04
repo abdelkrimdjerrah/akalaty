@@ -46,7 +46,7 @@ function Navbar() {
         </div>
       </div>
 
-      <div className="lg:hidden inline">
+      <div className="inline lg:hidden fixed ">
       {showModalNotif && (
         <Modal
           closeModal={() => {
@@ -64,7 +64,7 @@ function Navbar() {
               />
             </div>
             
-            <div className="mt-[-17px]">
+            <div>
               <Notifications widthfull/>
             </div>
 

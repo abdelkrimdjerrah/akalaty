@@ -18,7 +18,7 @@ function Notifications({widthfull}: INotifProps) {
   const navigate = useNavigate()
 
   console.log(widthfull)
-  const classname = widthfull ? ' w-full bg-white h-fit p-5 rounded-2xl ' : ' w-[280px] bg-white h-fit p-5 rounded-2xl '
+  const classname = widthfull ? ' w-full bg-white h-fit rounded-2xl ' : ' w-[280px] bg-white h-fit p-5 rounded-2xl '
   return (
     <div className={classname}>
       <div className="flex flex-col gap-4 items-center">
