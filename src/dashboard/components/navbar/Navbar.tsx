@@ -93,7 +93,7 @@ function Navbar() {
               setShowModalMenu(false);
             }}
           >
-            <div className="h-screen w-[75%] md:w-1/2 fixed top-0 bottom-0 left-0 bg-white  p-5">
+            <div className="h-screen w-[75%] md:w-1/2 absolute top-0 bottom-0 left-0 bg-white  p-5">
               <div onClick={() => setShowModalMenu(false)}>
                 <X
                   size={21}
