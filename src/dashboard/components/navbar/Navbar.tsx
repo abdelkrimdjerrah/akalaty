@@ -86,14 +86,14 @@ function Navbar() {
       </div>
 
       {/* for menu modal */}
-      <div className=" lg:hidden absolute top-0 bottom-0 left-0">
+      <div className=" lg:hidden absolute top-0 h-screen left-0">
         {showModalMenu && (
           <Modal
             closeModal={() => {
               setShowModalMenu(false);
             }}
           >
-            <div className="h-screen w-[75%] md:w-1/2 absolute top-0 bottom-0 left-0 bg-white  p-5">
+            <div className="h-screen w-[75%] md:w-1/2 absolute top-0 left-0 bg-white  p-5">
               <div onClick={() => setShowModalMenu(false)}>
                 <X
                   size={21}
