@@ -86,7 +86,7 @@ function Navbar() {
       </div>
 
       {/* for menu modal */}
-      <div className=" lg:hidden fixed ">
+      <div className=" lg:hidden absolute top-0 bottom-0 left-0">
         {showModalMenu && (
           <Modal
             closeModal={() => {
