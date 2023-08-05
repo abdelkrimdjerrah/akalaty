@@ -3,7 +3,7 @@ import NotifItem from "../../components/notification/NotifItem";
 import { useEffect, useState } from "react";
 import useGetNotificationPage from "../../hooks/useGetNotificationPage";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import Input from "../../shared/Input";
+import Input from "../../components/shared/Input";
 
 function AllNotifications() {
   const [notificationsCount, setNotificationsCount] = useState(0);

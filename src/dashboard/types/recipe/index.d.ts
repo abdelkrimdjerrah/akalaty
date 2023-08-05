@@ -3,7 +3,8 @@ declare namespace Entities {
   export interface IRecipe extends Creatable {
     _id: mongoose.Schema.Types.ObjectId;
     userId: mongoose.Schema.Types.ObjectId;
-    text: string;
+    title: string;
+    description: string;
     type:
         "Breakfast"
       | "Appetizer"

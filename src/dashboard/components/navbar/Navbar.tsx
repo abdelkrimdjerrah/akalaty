@@ -8,7 +8,7 @@ import { BellRinging } from "phosphor-react";
 import { useEffect, useState } from "react";
 import Notifications from "../notification/Notifications";
 import axios from "../../api/axios";
-import Modal from "../../shared/Modal";
+import Modal from "../shared/Modal";
 import Sidebar from "../sidebar/Sidebar";
 
 function Navbar() {

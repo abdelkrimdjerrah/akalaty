@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { House, XCircle } from "phosphor-react";
-import Input from "../../shared/Input";
-import ButtonSecondary from "../../shared/ButtonSecondary";
+import Input from "../shared/Input";
+import ButtonSecondary from "../shared/ButtonSecondary";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import Loader from "../../shared/Loader";
+import Loader from "../shared/Loader";
 
 function AddPost() {
   const [text, setText] = useState("");

@@ -1,6 +1,6 @@
 import { SignIn, User, Lock } from "phosphor-react";
-import Input from "../../shared/Input";
-import Button from "../../shared/Button";
+import Input from "../../components/shared/Input";
+import Button from "../../components/shared/Button";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";

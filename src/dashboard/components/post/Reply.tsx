@@ -3,10 +3,10 @@ import useGetUser from "../../hooks/useGetUser";
 import {
   DotsThree,
 } from "phosphor-react";
-import Input from "../../shared/Input";
+import Input from "../shared/Input";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import moment from "moment";
-import Text from "./Text";
+import Text from "../shared/Text";
 
 interface IReplyProps {
   setCommentsNum: React.Dispatch<React.SetStateAction<number>>;
@@ -175,7 +175,7 @@ function Reply({ reply, commentId, postId, last, setCommentsNum }: IReplyProps) 
               </div>
             </div>
           </div>
-          <Text text={reply.text} />
+          <Text text={reply.text} length={140}/>
           <div className="w-full flex gap-2 justify-end">
             {/* <p
               onClick={() => setWantReply(true)}

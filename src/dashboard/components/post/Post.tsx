@@ -3,7 +3,7 @@ import PostHeader from "./PostHeader";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import PostEngagement from "./PostEngagement";
 import PostSlider from "./PostSlider";
-import Text from "./Text";
+import Text from "../shared/Text";
 import useGetUser from "../../hooks/useGetUser";
 
 interface PostProps {
@@ -58,7 +58,7 @@ function Post({ postObj, ref }: PostProps) {
                 createdAt={createdAt}
                 setDeleted={setDeleted}
               />
-              <Text text={text} />
+              <Text text={text} length={140}/>
               {images?.length > 0 && <PostSlider images={images} />}
               <PostEngagement
                 postId={_id}

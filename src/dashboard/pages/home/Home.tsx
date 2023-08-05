@@ -1,7 +1,7 @@
 import Post from "../../components/post/Post";
 import useGetPostPage from "../../hooks/useGetPostPage";
 import AddPost from "../../components/post/AddPost";
-import Loader from "../../shared/Loader";
+import Loader from "../../components/shared/Loader";
 import { useCallback, useEffect, useRef, useState } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 

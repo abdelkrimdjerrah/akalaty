@@ -1,4 +1,4 @@
-import UserItem from "../../shared/UserItem";
+import UserItem from "../shared/UserItem";
 import SidebarItem from "./SidebarItem";
 import { House, Cookie } from "phosphor-react";
 import { useLocation, useNavigate } from "react-router-dom";

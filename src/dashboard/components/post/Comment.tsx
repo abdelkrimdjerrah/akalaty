@@ -4,11 +4,11 @@ import {
   DotsThree,
   PaperPlaneRight,
 } from "phosphor-react";
-import Input from "../../shared/Input";
+import Input from "../shared/Input";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import moment from "moment";
 import Reply from "./Reply";
-import Text from "./Text";
+import Text from "../shared/Text";
 import { selectUserData } from "../../redux/userSlice";
 import { useSelector } from "react-redux";
 
@@ -224,7 +224,7 @@ function Comment({ postId,commentUserId, commentId, commentLikes, commentText, c
                 ) : null}
               </div>
             </div>
-            <Text text={commentText} />
+            <Text text={commentText} length={140} />
 
             {replies?.length ? (
               <div className="flex justify-between w-full">

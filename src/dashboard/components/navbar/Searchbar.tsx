@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "../../shared/Input";
+import Input from "../shared/Input";
 import { MagnifyingGlass } from "phosphor-react";
 
 function Searchbar() {

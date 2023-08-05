@@ -1,6 +1,6 @@
 import { User, Lock, UserCircle, Envelope } from "phosphor-react";
-import Input from "../../shared/Input";
-import Button from "../../shared/Button";
+import Input from "../../components/shared/Input";
+import Button from "../../components/shared/Button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ChatCircleDots, Heart, PaperPlaneRight, X } from "phosphor-react";
-import Input from "../../shared/Input";
-import Modal from "../../shared/Modal";
+import Input from "../shared/Input";
+import Modal from "../shared/Modal";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Comment from "./Comment";
 

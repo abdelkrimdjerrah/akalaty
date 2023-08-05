@@ -3,6 +3,7 @@ import RecipeHeader from "./RecipeHeader";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useGetUser from "../../hooks/useGetUser";
 import RecipeImages from "./RecipeImages";
+import Text from "../shared/Text";
 
 interface RecipeProps {
   recipeObj: any;
@@ -23,7 +24,8 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
   const {
     _id,
     userId,
-    text,
+    title,
+    description,
     type,
     rating,
     ingredients,
@@ -76,7 +78,7 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
               />
               <div className="w-full gap-3 items-center">
                   <span className="text-2xl mt-[-3px]  whitespace-pre-wrap">
-                    {text}
+                    {title}
                   </span>
                   <span
                     style={{ backgroundColor: recipeTypesColors[type].second }}
@@ -89,6 +91,10 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
                       {type}
                     </span>
                   </span>
+              </div>
+
+              <div>
+                <Text text={description} length={276} hiddenMore />
               </div>
             </div>
           </div>

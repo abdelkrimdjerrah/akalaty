@@ -3,7 +3,7 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import useGetPost from "../../hooks/useGetPost";
 import Post from "./Post";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import Loader from "../../shared/Loader";
+import Loader from "../shared/Loader";
 
 function OnePost() {
   const [postObj, setPostObj] = useState<Entities.IPost>();

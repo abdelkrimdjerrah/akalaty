@@ -2,24 +2,31 @@ import { useState } from "react";
 
 interface IText {
   text: string;
+  length: number;
+  hiddenMore?: boolean;
 }
 
-function Text({ text }: IText) {
+function Text({ text, length, hiddenMore }: IText) {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleText = () => {
     setIsExpanded(!isExpanded);
   };
-  const truncatedText = isExpanded ? text : text.substring(0, 140) + "...";
+  const truncatedText = isExpanded ? text : text.substring(0, length) + "...";
   const buttonText = isExpanded ? "  See less" : "  See more";
+
 
   return (
     <div className=" break-words text-sm">
-      {text.length > 140 ? (
+      {text.length > length ? (
         <>
           <span className="">{truncatedText}</span>
-          <span onClick={toggleText} className="text-gray-400">
-            {buttonText}
-          </span>
+          {
+            !hiddenMore && (
+              <span onClick={toggleText} className="text-gray-400 cursor-pointer">
+                {buttonText}
+              </span>
+            )
+          }
         </>
       ) : (
         <span className="">{text}</span>
