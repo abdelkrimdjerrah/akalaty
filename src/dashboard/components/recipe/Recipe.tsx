@@ -4,6 +4,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useGetUser from "../../hooks/useGetUser";
 import RecipeImages from "./RecipeImages";
 import Text from "../shared/Text";
+import Stars from "../shared/Stars";
 
 interface RecipeProps {
   recipeObj: any;
@@ -93,9 +94,12 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
                   </span>
               </div>
 
-              <div>
-                <Text text={description} length={276} hiddenMore />
-              </div>
+              <Text text={description} length={276} hiddenMore />
+
+              <Stars rating={rating}/>
+ 
+
+              
             </div>
           </div>
         </>
