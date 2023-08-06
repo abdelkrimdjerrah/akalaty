@@ -20,7 +20,7 @@ const Stars = ({rating}:StarsProps) => {
       </div>
 
       <div
-        className="text-yellow-500 absolute top-0 left-0 h-full inset-0"
+        className="text-yellow-400 absolute top-0 left-0 h-full inset-0"
         style={{ width: calc, overflow: "hidden" }}
       >
         <div className="flex gap-[2px] min-w-fit">

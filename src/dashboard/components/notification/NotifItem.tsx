@@ -3,6 +3,7 @@ import {
   Heart,
   Star,
   ChatCircleText,
+  PencilSimple,
   ChatCenteredText,
   UserPlus,
 } from "phosphor-react";
@@ -50,7 +51,7 @@ const notifType: any = {
   "feedbackCreated": {
     message: "gave feedback to your recipe",
     color: "#0ea5e9",
-    icon: <ChatCenteredText size={21} weight="fill" />,
+    icon: <PencilSimple size={21} weight="fill" />,
   },
   "followed": {
     message: "started following you",

@@ -8,7 +8,7 @@ import Notifications from "../pages/notifications/Notifications";
 import { Route, Routes } from "react-router-dom";
 import { selectUserData } from "../redux/userSlice";
 import { useSelector } from "react-redux";
-
+import OneRecipe from "./recipe/OneRecipe";
 
 function Router() {
   const user = useSelector(selectUserData);
@@ -19,6 +19,7 @@ function Router() {
           <Route index path="/" element={<Home />} />
           <Route path="posts/:id" element={<OnePost />} />
           <Route path="recipes" element={<Recipes />} />
+          <Route path="recipes/:id" element={<OneRecipe />} />
           <Route path="notifications" element={<Notifications />} />
         </Route>
       ) : (

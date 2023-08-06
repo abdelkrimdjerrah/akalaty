@@ -7,16 +7,16 @@ import { useSelector } from "react-redux";
 
 const Abdelkrim = require("../../../assets/Abdelkrim.png");
 
-interface PostProps {
+interface RecipeProps {
   recipeId: string;
   userId: any;
   picture: string;
   username: string;
-  createdAt: Date;
+  createdAt: Date | string;
   setDeleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function RecipeHeader({ recipeId, username, picture, userId, createdAt, setDeleted }: PostProps) {
+function RecipeHeader({ recipeId, username, picture, userId, createdAt, setDeleted }: RecipeProps) {
   const [bookmark, setBookmark] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [loading, setLoading] = useState(false);

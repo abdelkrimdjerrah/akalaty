@@ -2,7 +2,7 @@ import { useState } from "react";
 
 interface IText {
   text: string;
-  length: number;
+  length?: number;
   hiddenMore?: boolean;
 }
 
@@ -17,7 +17,7 @@ function Text({ text, length, hiddenMore }: IText) {
 
   return (
     <div className=" break-words text-sm">
-      {text.length > length ? (
+      {length && text.length > length ? (
         <>
           <span className="">{truncatedText}</span>
           {
