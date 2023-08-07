@@ -39,7 +39,7 @@ export default function Button({
       className={
         width +
         btn_style +
-        " text-sm font-medium  relative py-1 px-5 rounded-md duration-200 disabled:opacity-60 disabled:cursor-not-allowed " +
+        " text-sm font-medium text-gray-600 bg-gray-100  relative py-1 px-5 rounded-md duration-200 disabled:opacity-60 disabled:cursor-not-allowed " +
         className
       }
     >
