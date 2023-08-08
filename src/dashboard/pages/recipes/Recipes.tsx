@@ -5,7 +5,11 @@ import AddRecipe from "../../components/recipe/AddRecipe";
 
 function Recipes() {
 
-  const recipes = useGetRecipe<Entities.IRecipe[]>();
+
+  const [active, setActive] = useState(false);
+
+
+  const recipes = useGetRecipe<Entities.IRecipe[]>('','dessert');
 
   return (
     <div className="flex flex-col gap-3">

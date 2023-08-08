@@ -15,13 +15,13 @@ interface RecipeProps {
 }
 
 const recipeTypesColors: any = {
-  Breakfast: { main: "#F5B657", second: "#FFF4E2" },
-  Appetizer: { main: "#F557EF", second: "#FFE7FE" },
-  Main: { main: "#7D82FA", second: "#E0E1FF" },
-  Dessert: { main: "#FA7D7D", second: "#FEE7E7" },
-  Drink: { main: "#AD4F4F", second: "#FFE7E7" },
-  Vegan: { main: "#7AB675", second: "#F4FFF3" },
-  Other: { main: "#404040", second: "#E8E8E8" },
+  breakfast: { main: "#F5B657", second: "#FFF4E2" },
+  appetizer: { main: "#F557EF", second: "#FFE7FE" },
+  main: { main: "#7D82FA", second: "#E0E1FF" },
+  dessert: { main: "#FA7D7D", second: "#FEE7E7" },
+  drink: { main: "#AD4F4F", second: "#FFE7E7" },
+  vegan: { main: "#7AB675", second: "#F4FFF3" },
+  other: { main: "#404040", second: "#E8E8E8" },
 };
 
 function Recipe({ recipeObj, ref }: RecipeProps) {

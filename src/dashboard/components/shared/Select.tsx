@@ -11,9 +11,6 @@ const Select = ({ options, placeholder }: SelectProps) => {
   const [active, setActive] = useState(false);
 
 
-
-
-
   const ref = useRef<HTMLDivElement>(null);
 
 
@@ -42,7 +39,6 @@ const Select = ({ options, placeholder }: SelectProps) => {
       >
 
         <div className="flex gap-2 justify-between items-center" 
-             
         >
             <div>
             <p>{selectedOption ? selectedOption : placeholder}</p>
@@ -56,7 +52,7 @@ const Select = ({ options, placeholder }: SelectProps) => {
 
         <div>
         {active && (
-            <div className="absolute min-w-fit top-9 left-0 w-full bg-white rounded-md shadow-md border border-gray-300">
+            <div className="absolute min-w-fit whitespace-nowrap top-9 left-0 w-full bg-white rounded-md shadow-md border border-gray-300">
                 {options.map((option) => (
                     <div
                         key={option.value}

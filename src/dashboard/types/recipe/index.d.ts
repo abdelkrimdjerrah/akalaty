@@ -6,13 +6,13 @@ declare namespace Entities {
     title: string;
     description: string;
     type:
-        "Breakfast"
-      | "Appetizer"
-      | "Main"
-      | "Dessert"
-      | "Drink"
-      | "Vegan"
-      | "Other";
+        "breakfast"
+      | "appetizer"
+      | "main"
+      | "dessert"
+      | "drink"
+      | "vegan"
+      | "other";
     rating: number;
     ingredients: [
       {
