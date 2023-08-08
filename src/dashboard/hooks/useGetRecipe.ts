@@ -2,8 +2,21 @@ import { useEffect, useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 
+
+const recipeTypeValues = [
+        "breakfast"
+      , "appetizer"
+      , "main"
+      , "dessert"
+      , "drink"
+      , "vegan"
+      , "other"
+      ]
+
 function useGetRecipe<RecipeType extends Entities.IRecipe | Entities.IRecipe[]>(
-  recipeId?: string
+  recipeId?: string,
+  type?: string,
+  rating?: 'best' | 'low'
 ) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
@@ -15,6 +28,9 @@ function useGetRecipe<RecipeType extends Entities.IRecipe | Entities.IRecipe[]>(
     const fetchUser = async () => {
       try {
         const response = await axiosPrivate.get(
+          (rating && rating == 'best') ? `/api/recipes/filter/rating/best` :
+          (rating && rating == 'low') ? `/api/recipes/filter/rating/low` :
+          (type && recipeTypeValues.includes(type)) ? `/api/recipes/filter/types/${type}` :
           recipeId ? `/api/recipes/${recipeId}` : "/api/recipes",
           {
             signal: controller.signal,
