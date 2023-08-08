@@ -16,7 +16,7 @@ const recipeTypeValues = [
 function useGetRecipe<RecipeType extends Entities.IRecipe | Entities.IRecipe[]>(
   recipeId?: string,
   type?: string,
-  rating?: 'best' | 'low'
+  rating?: 'best' | 'low' | 'none'
 ) {
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();

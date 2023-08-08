@@ -103,9 +103,13 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
                 setDeleted={setDeleted}
               />
               <div className="w-full gap-3 items-center">
-                <span className="text-2xl mt-[-3px]  whitespace-pre-wrap">
+
+
+                <span className="text-2xl mt-[-3px] whitespace-pre-wrap">
                   {title}
                 </span>
+
+
                 <span
                   style={{ backgroundColor: recipeTypesColors[type].second }}
                   className="px-3 ml-3 py-1 rounded-full"
@@ -117,6 +121,9 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
                     {type}
                   </span>
                 </span>
+
+
+
               </div>
 
               <Text text={description} length={230} hiddenMore />

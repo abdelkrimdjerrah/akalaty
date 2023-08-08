@@ -2,8 +2,13 @@ import { Cookie, SlidersHorizontal } from "phosphor-react";
 import ButtonSecondary from "../shared/ButtonSecondary";
 import { useNavigate } from "react-router-dom";
 import Select from "../shared/Select";
+import { recipeFilterContext } from "../../context/recipeFilterContext";
+import { useContext } from "react";
 
 function AddRecipe() {
+
+  const { optionSelectType, setOptionSelectType, optionOrderByRating, setOptionOrderByRating } = useContext(recipeFilterContext)
+
   const navigate = useNavigate();
 
   const optionsSelectBy = [

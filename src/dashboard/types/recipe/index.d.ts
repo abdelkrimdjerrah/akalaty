@@ -1,3 +1,16 @@
+
+declare namespace Types {
+  export type IRecipeType =
+    | "breakfast"
+    | "appetizer"
+    | "main"
+    | "dessert"
+    | "drink"
+    | "vegan"
+    | "other"
+    | "all";
+}
+
 declare namespace Entities {
 
   export interface IRecipe extends Creatable {
@@ -5,14 +18,7 @@ declare namespace Entities {
     userId: mongoose.Schema.Types.ObjectId;
     title: string;
     description: string;
-    type:
-        "breakfast"
-      | "appetizer"
-      | "main"
-      | "dessert"
-      | "drink"
-      | "vegan"
-      | "other";
+    type: IRecipeType
     rating: number;
     ingredients: [
       {
@@ -46,3 +52,5 @@ declare namespace Entities {
     updatedAt?: Date;
   }
 }
+
+
