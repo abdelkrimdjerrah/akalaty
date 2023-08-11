@@ -1,11 +1,16 @@
-import { axiosPrivate } from "../api/axios";
+import axios, { axiosPrivate } from "../api/axios";
 import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
 import { useSelector } from "react-redux";
-import { selectToken } from "../redux/userSlice";
+import { logoutUser, selectToken, setLoginData } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 
 const useAxiosPrivate = () => {
-
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const refresh = useRefreshToken();
   const token = useSelector(selectToken);
 
@@ -24,6 +29,11 @@ const useAxiosPrivate = () => {
     response => response,
     async (error) => {
         const prevRequest = error?.config;
+        if (error?.response?.status === 403) {
+          dispatch(logoutUser());
+           navigate("/");
+          const { data } = await axios.post(`/api/auth/logout`);
+      }
         if (error?.response?.status === 403 && !prevRequest?.sent) {
             prevRequest.sent = true;
             const newAccessToken = await refresh();
