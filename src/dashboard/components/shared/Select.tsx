@@ -25,7 +25,6 @@ const Select = ({
   const [active, setActive] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-
   useEffect(() => {
     const handleOutsideClick = (event: any) => {
       if (ref.current && !ref.current.contains(event.target)) {
@@ -48,7 +47,7 @@ const Select = ({
     >
       <div className="flex gap-2 justify-between items-center">
         <div>
-          <p>{!selectedOption.label.length || selectedOption.value == 'none' ? placeholder  : selectedOption.label}</p>
+          <p>{!selectedOption.value ? placeholder  : selectedOption.label}</p>
         </div>
         <div>
           <CaretDown size={15} weight="bold" />

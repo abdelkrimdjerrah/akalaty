@@ -1,74 +1,48 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
-import { useNavigate, useLocation } from "react-router-dom";
-import isEqual from "lodash/isEqual";
 
-const recipeTypeValues = [
-  "breakfast",
-  "appetizer",
-  "main",
-  "dessert",
-  "drink",
-  "vegan",
-  "other"
-];
 
+// if params == string means that we sent a recipe id, so we fetch only one recipe
+// if params == object means that we sent a query params, so we fetch a list of recipes with sepcific filters
+// if params == undefined means that we fetch all recipes
 function useGetRecipe<RecipeType extends Entities.IRecipe | Entities.IRecipe[]>(
-  recipeId?: string,
-  filters?: { rating?: string | number; type?: string }
+  params?: string | { rating?: string | number; type?: string }
 ) {
   const axiosPrivate = useAxiosPrivate();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [data, setData] = useState<RecipeType>();
-  const prevFilters = useRef<{ rating?: string | number; type?: string }>();
+  const [data, setData] = useState<RecipeType | undefined>();
 
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
         let url = "/api/recipes/filter";
-        let queryParams = [];
-
-        if (recipeId) {
-          url = `/api/recipes/${recipeId}`;
-        } else {
-          if (filters?.rating) {
-            if (filters.rating === "best") {
-              queryParams.push("rating=best");
-            } else if (filters.rating === "low") {
-              queryParams.push("rating=low");
-            }
-          }
-          if (filters?.type && recipeTypeValues.includes(filters.type)) {
-            queryParams.push(`type=${filters.type}`);
-          }
-          if (queryParams.length > 0) {
-            url += `?${queryParams.join("&")}`;
+        let queryParams = {};
+        
+        if (typeof params === "string") {
+          url = `/api/recipes/${params}`;
+        } else if (typeof params === "object") {
+          if(params?.rating || params?.type){
+            queryParams = { ...params };
           }
         }
+        
+        const response = await axiosPrivate.get(url, { params: queryParams });
 
-        const response = await axiosPrivate.get(url);
-
-        const result = recipeId ? response.data.recipe : response.data.recipes;
+        const result = typeof params === "string"
+          ? response.data.recipe
+          : response.data.recipes;
         setData(result);
       } catch (err) {
-        console.error(err);
-      }
+        console.error(err);      }
     };
 
-    // The infinite GET requests indicate that the useGetRecipe hook is being called repeatedly.
-    //  This might be due to the fact that the filters prop is changing continuously, 
-    //  causing the effect to trigger repeatedly.
-    //  the current value of filters is compared with the previous value using the isEqual function 
-    //  from the lodash library. If the values are equal, the effect will exit early without making 
-    //  the API request. If the values are different, the API request is made and the prevFilters
-    //   variable is updated with the new value.
-    
-    if (!isEqual(prevFilters.current, filters)) {
-      fetchRecipes();
-      prevFilters.current = filters;
-    }
-  }, [filters, recipeId, axiosPrivate]);
+    fetchRecipes();
+  }, 
+      //useEffect will be called when one param of this array of condition is changed
+      [
+        (typeof params === "object" && params?.rating),
+        (typeof params === "object" && params?.type)
+      ]
+  );
 
   return data;
 }

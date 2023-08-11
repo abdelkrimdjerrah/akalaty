@@ -2,12 +2,10 @@ import { Cookie, SlidersHorizontal } from "phosphor-react";
 import ButtonSecondary from "../shared/ButtonSecondary";
 import { useNavigate } from "react-router-dom";
 import Select from "../shared/Select";
-import { recipeFilterContext } from "../../context/recipeFilterContext";
-import { useContext, useState } from "react";
 
-function AddRecipe() {
+function AddRecipe({filterStates}: any) {
 
-  const {optionSelectType, setOptionSelectType, optionOrderByRating, setOptionOrderByRating} = useContext(recipeFilterContext)
+  const {optionSelectType, setOptionSelectType, optionOrderByRating, setOptionOrderByRating} = filterStates
 
   const navigate = useNavigate();
 
@@ -19,13 +17,13 @@ function AddRecipe() {
     { value: 'drink', label: 'Drink' },
     { value: 'vegan', label: 'Vegan' },
     { value: 'other', label: 'Other' },
-    { value: 'none', label: 'None' }
+    { value: '', label: 'None' }
   ]
 
   const optionsOrderBy = [
     { value: 'best', label: 'Best rating' },
     { value: 'low', label: 'Low rating' },
-    { value: 'none', label: 'None' }
+    { value: '', label: 'None' }
   ]
 
   return (
@@ -62,7 +60,6 @@ function AddRecipe() {
           defaultValue={optionSelectType}
           setSelectedOption={setOptionSelectType}
           selectedOption={optionSelectType}
-          className="custom-select"
          />
 
          <Select
@@ -71,7 +68,6 @@ function AddRecipe() {
           defaultValue={optionOrderByRating}
           setSelectedOption={setOptionOrderByRating}
           selectedOption={optionOrderByRating}
-          className="custom-select"
          />
 
 
