@@ -7,11 +7,11 @@ import { recipeFilterContext } from "../../context/recipeFilterContext";
 
 function Recipes() {
 
-  const [optionSelectType, setOptionSelectType] = useState<Types.IRecipeType>('all');
-  const [optionOrderByRating, setOptionOrderByRating] = useState<'best' | 'low' | 'none'>('none');
+  const [optionSelectType, setOptionSelectType] = useState({label: '', value: ''});
+  const [optionOrderByRating, setOptionOrderByRating] = useState({label: '', value: ''});
 
   //  Functions variables order : recipeId, type, rating
-  const recipes = useGetRecipe<Entities.IRecipe[]>('',optionSelectType,optionOrderByRating);
+  const recipes = useGetRecipe<Entities.IRecipe[]>('',{ rating: optionOrderByRating.value, type: optionSelectType.value });
 
   return (
     <recipeFilterContext.Provider value={{ optionSelectType, setOptionSelectType, optionOrderByRating, setOptionOrderByRating }}>

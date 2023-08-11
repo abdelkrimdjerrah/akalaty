@@ -3,11 +3,11 @@ import ButtonSecondary from "../shared/ButtonSecondary";
 import { useNavigate } from "react-router-dom";
 import Select from "../shared/Select";
 import { recipeFilterContext } from "../../context/recipeFilterContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 function AddRecipe() {
 
-  const { optionSelectType, setOptionSelectType, optionOrderByRating, setOptionOrderByRating } = useContext(recipeFilterContext)
+  const {optionSelectType, setOptionSelectType, optionOrderByRating, setOptionOrderByRating} = useContext(recipeFilterContext)
 
   const navigate = useNavigate();
 
@@ -23,8 +23,8 @@ function AddRecipe() {
   ]
 
   const optionsOrderBy = [
-    { value: 'best_rating', label: 'Best rating' },
-    { value: 'low_rating', label: 'Low rating' },
+    { value: 'best', label: 'Best rating' },
+    { value: 'low', label: 'Low rating' },
     { value: 'none', label: 'None' }
   ]
 
@@ -55,8 +55,26 @@ function AddRecipe() {
         </div>
 
         <div className="flex gap-2 items-center">
-            <Select placeholder="Select type" options={optionsSelectBy}/>
-            <Select placeholder="Order by" options={optionsOrderBy}/>
+
+         <Select
+          items={optionsSelectBy}
+          placeholder="Select an option"
+          defaultValue={optionSelectType}
+          setSelectedOption={setOptionSelectType}
+          selectedOption={optionSelectType}
+          className="custom-select"
+         />
+
+         <Select
+          items={optionsOrderBy}
+          placeholder="Order by"
+          defaultValue={optionOrderByRating}
+          setSelectedOption={setOptionOrderByRating}
+          selectedOption={optionOrderByRating}
+          className="custom-select"
+         />
+
+
         </div>
       </div>
 
