@@ -6,9 +6,7 @@ import { logoutUser, selectToken, setLoginData } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-
 const useAxiosPrivate = () => {
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const refresh = useRefreshToken();
@@ -24,27 +22,24 @@ const useAxiosPrivate = () => {
     (error) => Promise.reject(error)
   );
 
-
   const responseIntercept = axiosPrivate.interceptors.response.use(
-    response => response,
+    (response) => response,
     async (error) => {
-        const prevRequest = error?.config;
-        if (error?.response?.status === 403) {
-          dispatch(logoutUser());
-           navigate("/");
-          const { data } = await axios.post(`/api/auth/logout`);
+      const prevRequest = error?.config;
+      if (error?.response?.status === 403) {
+        dispatch(logoutUser());
+        navigate("/");
+        await axios.post(`/api/auth/logout`);
       }
-        if (error?.response?.status === 403 && !prevRequest?.sent) {
-            prevRequest.sent = true;
-            const newAccessToken = await refresh();
-            prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
-            return axiosPrivate(prevRequest);
-        }
-        return Promise.reject(error);
+      if (error?.response?.status === 403 && !prevRequest?.sent) {
+        prevRequest.sent = true;
+        const newAccessToken = await refresh();
+        prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        return axiosPrivate(prevRequest);
+      }
+      return Promise.reject(error);
     }
-);
-
-
+  );
 
   useEffect(() => {
     return () => {
