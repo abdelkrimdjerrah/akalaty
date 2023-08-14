@@ -19,9 +19,6 @@ function AllNotifications() {
     const mathCeil = Math.ceil(notificationsCount / Number(showPerPage));
     const mathRound = Math.round(notificationsCount / Number(showPerPage));
 
-    console.log(division)
-    console.log(mathRound)
-
     
     // mathCeil === mathRound means that the division is equal or greater than .5
     pagesCount = mathCeil === mathRound ? mathRound : mathCeil - 1;

@@ -23,6 +23,8 @@ function AddRecipe({filterStates}: any) {
   const optionsOrderBy = [
     { value: 'best', label: 'Best rating' },
     { value: 'low', label: 'Low rating' },
+    { value: 'relevant', label: 'Most relevant' },
+    { value: 'oldest', label: 'Oldest' },
     { value: '', label: 'None' }
   ]
 
