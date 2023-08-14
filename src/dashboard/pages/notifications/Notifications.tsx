@@ -1,7 +1,6 @@
 import { BellRinging } from "phosphor-react";
 import NotifItem from "../../components/notification/NotifItem";
 import { useEffect, useState } from "react";
-import useGetNotificationPage from "../../hooks/useGetNotificationPage";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Input from "../../components/shared/Input";
 
@@ -11,26 +10,10 @@ function AllNotifications() {
   const [showPerPage, setShowPerPage] = useState('6');
   const [currentPage, setCurrentPage] = useState(1);
 
-  let pagesCount
   let pages 
 
   if(showPerPage && notificationsCount){
-    const division = notificationsCount / Number(showPerPage)
-    const mathCeil = Math.ceil(notificationsCount / Number(showPerPage));
-    const mathRound = Math.round(notificationsCount / Number(showPerPage));
-
-    
-    // mathCeil === mathRound means that the division is equal or greater than .5
-    pagesCount = mathCeil === mathRound ? mathRound : mathCeil - 1;
-    
-    if(division === mathRound){
-      pagesCount = division - 1
-    }
-
-    if(mathRound - division == 0.5){
-      pagesCount = mathRound - 1
-    }
-
+    const pagesCount = Math.ceil(notificationsCount / Number(showPerPage));  
     pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
   }
 
