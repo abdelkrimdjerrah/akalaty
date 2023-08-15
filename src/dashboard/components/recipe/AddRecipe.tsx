@@ -29,7 +29,7 @@ function AddRecipe({filterStates}: any) {
   ]
 
   return (
-    <div className="w-full bg-white rounded-2xl relative p-5 py-6 flex gap-6">
+    <div className="w-full bg-white rounded-2xl relative p-5 py-6 flex flex-col xs:flex-row gap-2 xs:gap-6">
       <div className="flex flex-col gap-3 min-w-fit">
         <div className="flex gap-1 w-full">
           <Cookie size={21} />
@@ -54,7 +54,7 @@ function AddRecipe({filterStates}: any) {
           <p className="text-sm font-medium">Settings</p>
         </div>
 
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center flex-wrap">
 
          <Select
           items={optionsSelectBy}
@@ -64,13 +64,13 @@ function AddRecipe({filterStates}: any) {
           selectedOption={optionSelectType}
          />
 
-         <Select
-          items={optionsOrderBy}
-          placeholder="Order by"
-          defaultValue={optionOrderByRating}
-          setSelectedOption={setOptionOrderByRating}
-          selectedOption={optionOrderByRating}
-         />
+          <Select
+           items={optionsOrderBy}
+           placeholder="Order by"
+           defaultValue={optionOrderByRating}
+           setSelectedOption={setOptionOrderByRating}
+           selectedOption={optionOrderByRating}
+          />
 
 
         </div>

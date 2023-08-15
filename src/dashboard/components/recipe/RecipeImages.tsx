@@ -14,73 +14,73 @@ const RecipeImages = ({images}: recipeImagesProps) => {
    const[initialSlide, setInitialSlide] = useState(0);
 
   return (
-    <div>
+    <div className='min-w-[303px]'>
         {
               images.length === 1 ? (
-                <div className="h-[300px] w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
+                <div className="h-[300px] w-full sm:w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
                     <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className="object-cover cursor-pointer w-full" />
                 </div>
             ) : images.length === 2 ? (
-                <div className='flex flex-col gap-1'>
-                    <div className="h-[150px] w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
+                <div className='grid grid-rows-2 gap-1'>
+                    <div className="h-[150px] w-full sm:w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
                         <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className="object-cover cursor-pointer w-full" />
                     </div>
-                    <div className="h-[150px] w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
+                    <div className="h-[150px] w-full sm:w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
                         <img onClick={()=> {setShowModal(true);setInitialSlide(1)}} src={images[1]} alt="" className="object-cover cursor-pointer w-full" />
                     </div>
                 </div>
             ) : images.length === 3 ? (
-                <div className='flex gap-1'>
-                    <div className="h-[300px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                <div className='gap-1 grid grid-cols-2'>
+                    <div className="h-[300px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className="object object-cover cursor-pointer w-full" />
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(1)}} src={images[1]} alt="" className="object object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(2)}} src={images[2]} alt="" className="object-cover cursor-pointer w-full" />
                         </div>
                     </div>
                 </div>
             ) : images.length === 4 ? (
-                <div className='flex gap-1'>
+                <div className='grid grid-cols-2 gap-1'>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className=" object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(1)}} src={images[1]} alt="" className="object-cover cursor-pointer w-full" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(2)}} src={images[2]} alt="" className=" object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(3)}} src={images[3]} alt="" className="object-cover cursor-pointer w-full" />
                         </div>
                     </div>
                 </div>
             ) : images.length > 4 ? (
-                <div className='flex gap-1'>
+                <div className='grid grid-cols-2 gap-1'>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className=" object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(1)}} src={images[1]} alt="" className="object-cover cursor-pointer w-full" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(2)}} src={images[2]} alt="" className=" object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
-                            <div className='h-[150px] w-[150px] flex items-center justify-center absolute'>
-                                <div className=' z-20 text-xl text-white flex'>{`+`+(images.length - 4)}</div>
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                            <div className='h-[150px] w-full sm:w-[150px] flex items-center justify-center absolute'>
+                                <div className=' z-[11] text-xl text-white flex'>{`+`+(images.length - 4)}</div>
                             </div>
-                            <div onClick={()=> {setShowModal(true);setInitialSlide(3)}} className='bg-red-300 bg-opacity-60 h-[150px] w-[150px] absolute z-10 backdrop-blur-[1px] cursor-pointer'></div>
+                            <div onClick={()=> {setShowModal(true);setInitialSlide(3)}} className='bg-red-300 bg-opacity-60 h-[150px] w-full sm:w-[150px] absolute z-10 backdrop-blur-[1px] cursor-pointer'></div>
                             <img src={images[3]} alt="" className="object-cover w-full " />
                         </div>
                     </div>

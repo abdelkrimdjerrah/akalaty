@@ -15,7 +15,7 @@ function Notifications() {
 
 
   return (
-    <div className='lg:w-[270px] lg:p-5 bg-white h-fit rounded-2xl'>
+    <div className='lg:w-[293px] lg:p-5 bg-white h-fit rounded-2xl'>
       <div className="flex flex-col gap-4 items-center">
         <div className="flex gap-1 w-full">
           <BellRinging size={21} />

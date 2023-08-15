@@ -43,7 +43,7 @@ function Post({ postObj, ref }: PostProps) {
   }, [response]);
 
   return (
-    <div ref={ref} className="w-full bg-white rounded-2xl relative p-5 py-6">
+    <div ref={ref} className="w-full bg-white rounded-2xl relative p-2 py-3 md:p-5 md:py-6">
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
           {deleted ? (

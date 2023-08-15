@@ -39,13 +39,13 @@ const Select = ({
 
   return (
     <div
-      className="bg-transparent cursor-pointer relative z-20 border flex justify-between items-center px-3 border-gray-300 rounded-md py-1 text-sm font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:border-gray-400"
+      className="bg-white min-w-fit cursor-pointer relative border flex justify-between items-center px-3 border-gray-300 rounded-md py-1 text-sm font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:border-gray-400"
       ref={ref}
       onClick={() => {
         setActive((prev) => !prev);
       }}
     >
-      <div className="flex gap-2 justify-between items-center">
+      <div className="flex gap-2 min-w-fit  justify-between items-center">
         <div>
           <p>{!selectedOption.value ? placeholder  : selectedOption.label}</p>
         </div>
@@ -54,7 +54,7 @@ const Select = ({
         </div>
       </div>
       {active && (
-        <div className="absolute min-w-fit whitespace-nowrap top-9 left-0 w-full bg-white rounded-md shadow-md border border-gray-300">
+        <div className="absolute z-[11] min-w-fit whitespace-nowrap top-9 left-0 w-full bg-white rounded-md shadow-md border border-gray-300">
           {items.map((item) => (
             <div
               key={item.value}

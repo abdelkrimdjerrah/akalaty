@@ -10,6 +10,7 @@ import Notifications from "../notification/Notifications";
 import axios from "../../api/axios";
 import Modal from "../shared/Modal";
 import Sidebar from "../sidebar/Sidebar";
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -26,14 +27,20 @@ function Navbar() {
     } catch (err) {}
   };
 
+  let location = useLocation();
+
+  useEffect(() => {
+    //when user change the route, we close the modal
+    setShowModalMenu(false)
+  }
+  , [location.pathname]);
+
   return (
     <div className="bg-white w-full px-9 pt-2 pb-2 flex items-center justify-between relative">
       <div onClick={() => navigate("/")} className="cursor-pointer">
         <img src={Logo} alt="" className="h-[40px]" />
       </div>
-      <div className="hidden md:inline w-[35%]">
-        <Searchbar />
-      </div>
+
       <div className="flex gap-3 items-center">
         <div
           className="inline lg:hidden "
@@ -95,7 +102,7 @@ function Navbar() {
               className="  bg-gray-900 bg-opacity-10 backdrop-blur-[1px] absolute top-0 left-0 h-screen w-full"
             />
 
-            <div className="lg:hidden absolute z-20 top-0 bg-white h-screen w-[75%] md:w-1/2 left-0 p-5">
+            <div className="lg:hidden absolute z-40 top-0 bg-white h-screen w-[75%] md:w-1/2 left-0 p-5">
                 <div onClick={() => setShowModalMenu(false)}>
                   <X
                     size={21}

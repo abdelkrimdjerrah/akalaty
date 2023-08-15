@@ -170,13 +170,17 @@ function AddPost() {
         </div>
 
         <div className="flex gap-2 items-center">
+        <ButtonSecondary onClick={handleAddPost} color="orange">
+            Add post
+          </ButtonSecondary>
+
           <div className="relative w-fit">
             {selectedFiles ? (
-              <ButtonSecondary color="orange">
+              <ButtonSecondary>
                 Selected {selectedFiles.length}{" "}
               </ButtonSecondary>
             ) : (
-              <ButtonSecondary color="orange">Upload image</ButtonSecondary>
+              <ButtonSecondary>Upload image</ButtonSecondary>
             )}
             <label className=" cursor-pointer absolute w-full h-full left-0">
               <input
@@ -188,9 +192,7 @@ function AddPost() {
               />
             </label>
           </div>
-          <ButtonSecondary onClick={handleAddPost} color="red">
-            Add post
-          </ButtonSecondary>
+          
 
           {loading && (
             <>

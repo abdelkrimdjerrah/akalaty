@@ -85,12 +85,12 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
   }, [response]);
 
   return (
-    <div ref={ref} className="w-full bg-white rounded-2xl relative p-5 py-6">
+    <div ref={ref} className="w-full bg-white rounded-2xl relative p-2 py-3 sm:p-5 sm:py-6">
       {deleted ? (
         <h1>Recipe has been deleted !</h1>
       ) : (
         <>
-          <div className="w-full flex gap-6">
+          <div className="w-full  flex sm:flex-row flex-col gap-4 sm:gap-6">
             {images?.length > 0 && <RecipeImages images={images} />}
 
             <div className="flex flex-col gap-3 w-full ">
@@ -142,7 +142,7 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
                 </div>
               </div>
 
-              <Button className="mt-2" outlined color={recipeTypesColors[type].main} onClick={()=>{navigate(`/recipes/${recipeId}`)}}>
+              <Button className="mt-2 w-full sm:w-fit" outlined color={recipeTypesColors[type].main} onClick={()=>{navigate(`/recipes/${recipeId}`)}}>
                 <div>View recipe</div>
               </Button>
 

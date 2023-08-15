@@ -14,7 +14,7 @@ function Sidebar() {
   let location = useLocation();
   const userData = useSelector(selectUserData);
   return (
-    <div className="bg-white min-w-[180px] h-fit lg:p-5 rounded-2xl">
+    <div className="bg-white min-w-[202px] h-fit lg:p-5 rounded-2xl">
       <div className="flex flex-col gap-4">
         <UserItem name={userData?.username ? userData?.username : 'test'} text={userData?.role ? userData?.role : 'test'} picture={Abdelkrim} />
         <div className="flex flex-col gap-2">

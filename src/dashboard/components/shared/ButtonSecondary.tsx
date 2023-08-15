@@ -24,7 +24,7 @@ export default function Button({
   const width = widthFull ? "w-full flex-1" : "";
   let btn_style = "";
   if (color == "red") {
-    btn_style = " text-[#FA7D7D] bg-[#FEE7E7]";
+    btn_style = " text-red-400 bg-red-100";
   }
   if (color == "yellow") {
     btn_style = " text-yellow-800 bg-yellow-100 ";
