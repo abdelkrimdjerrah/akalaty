@@ -85,7 +85,7 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
   }, [response]);
 
   return (
-    <div ref={ref} className="w-full bg-white rounded-2xl relative p-2 py-3 sm:p-5 sm:py-6">
+    <div ref={ref} className="w-full bg-white rounded-2xl relative p-3 py-4 sm:p-5 sm:py-6">
       {deleted ? (
         <h1>Recipe has been deleted !</h1>
       ) : (

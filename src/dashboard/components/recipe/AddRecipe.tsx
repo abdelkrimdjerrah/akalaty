@@ -29,7 +29,7 @@ function AddRecipe({filterStates}: any) {
   ]
 
   return (
-    <div className="w-full bg-white rounded-2xl relative p-5 py-6 flex flex-col xs:flex-row gap-2 xs:gap-6">
+    <div className="w-full bg-white rounded-2xl relative px-3 py-4 sm:p-5 sm:py-6 flex flex-col xs:flex-row gap-2 xs:gap-6">
       <div className="flex flex-col gap-3 min-w-fit">
         <div className="flex gap-1 w-full">
           <Cookie size={21} />

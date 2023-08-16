@@ -17,28 +17,28 @@ const RecipeImages = ({images}: recipeImagesProps) => {
     <div className='min-w-[303px]'>
         {
               images.length === 1 ? (
-                <div className="h-[300px] w-full sm:w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
+                <div className="h-[300px] w-full sm:w-[300px] overflow-hidden relative border rounded-lg flex justify-center">
                     <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className="object-cover cursor-pointer w-full" />
                 </div>
             ) : images.length === 2 ? (
                 <div className='grid grid-rows-2 gap-1'>
-                    <div className="h-[150px] w-full sm:w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
+                    <div className="h-[150px] w-full sm:w-[300px] overflow-hidden relative border rounded-lg flex justify-center">
                         <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className="object-cover cursor-pointer w-full" />
                     </div>
-                    <div className="h-[150px] w-full sm:w-[300px] overflow-hidden relative border rounded-2xl flex justify-center">
+                    <div className="h-[150px] w-full sm:w-[300px] overflow-hidden relative border rounded-lg flex justify-center">
                         <img onClick={()=> {setShowModal(true);setInitialSlide(1)}} src={images[1]} alt="" className="object-cover cursor-pointer w-full" />
                     </div>
                 </div>
             ) : images.length === 3 ? (
                 <div className='gap-1 grid grid-cols-2'>
-                    <div className="h-[300px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                    <div className="h-[300px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className="object object-cover cursor-pointer w-full" />
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(1)}} src={images[1]} alt="" className="object object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(2)}} src={images[2]} alt="" className="object-cover cursor-pointer w-full" />
                         </div>
                     </div>
@@ -46,18 +46,18 @@ const RecipeImages = ({images}: recipeImagesProps) => {
             ) : images.length === 4 ? (
                 <div className='grid grid-cols-2 gap-1'>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className=" object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(1)}} src={images[1]} alt="" className="object-cover cursor-pointer w-full" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(2)}} src={images[2]} alt="" className=" object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(3)}} src={images[3]} alt="" className="object-cover cursor-pointer w-full" />
                         </div>
                     </div>
@@ -65,18 +65,18 @@ const RecipeImages = ({images}: recipeImagesProps) => {
             ) : images.length > 4 ? (
                 <div className='grid grid-cols-2 gap-1'>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(0)}} src={images[0]} alt="" className=" object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(1)}} src={images[1]} alt="" className="object-cover cursor-pointer w-full" />
                         </div>
                     </div>
                     <div className='flex flex-col gap-1'>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <img onClick={()=> {setShowModal(true);setInitialSlide(2)}} src={images[2]} alt="" className=" object-cover cursor-pointer w-full" />
                         </div>
-                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-2xl flex justify-center">
+                        <div className="h-[150px] w-full sm:w-[150px] overflow-hidden relative  rounded-lg flex justify-center">
                             <div className='h-[150px] w-full sm:w-[150px] flex items-center justify-center absolute'>
                                 <div className=' z-[11] text-xl text-white flex'>{`+`+(images.length - 4)}</div>
                             </div>
@@ -97,7 +97,7 @@ const RecipeImages = ({images}: recipeImagesProps) => {
             >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="w-full flex justify-center h-fit rounded-2xl relative"
+                className="w-full flex justify-center h-fit rounded-lg relative"
             >
                 <ImagesSlider images={images} initialSlide={initialSlide}/>
 

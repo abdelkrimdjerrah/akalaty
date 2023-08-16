@@ -115,7 +115,7 @@ function AddPost() {
   };
 
   return (
-    <div className="w-full bg-white rounded-2xl relative p-5 py-6 ">
+    <div className="w-full bg-white rounded-2xl relative px-3 py-4 sm:p-5 sm:py-6 ">
       <div className="flex flex-col gap-3">
         <div className="flex gap-1 w-full">
           <House size={21} />

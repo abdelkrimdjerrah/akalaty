@@ -69,7 +69,7 @@ function OneRecipe() {
   }, [responseUser]);
 
   return (
-    <div className="w-full bg-white rounded-2xl relative px-2 py-3 md:p-5 md:py-6">
+    <div className="w-full bg-white rounded-2xl relative px-3 py-4 sm:p-5 sm:py-6">
       {deleted ? (
         <h1>Recipe has been deleted !</h1>
       ) : responseRecipe ? (
