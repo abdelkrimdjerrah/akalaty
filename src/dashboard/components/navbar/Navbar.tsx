@@ -43,21 +43,21 @@ function Navbar() {
 
       <div className="flex gap-3 items-center">
         <div
-          className="inline lg:hidden "
+          className="inline 2lg:hidden "
           onClick={() => setShowModalNotif(true)}
         >
           <BellRinging size={21} />
         </div>
 
         <div
-          className="inline lg:hidden "
+          className="inline 2lg:hidden "
           onClick={() => setShowModalMenu(true)}
         >
           <List size={21} />
         </div>
 
         <div
-          className="cursor-pointer hidden lg:flex gap-1 items-center"
+          className="cursor-pointer hidden 2lg:flex gap-1 items-center"
           onClick={handleLogout}
         >
           <p className="text-sm">Logout</p>
@@ -66,7 +66,7 @@ function Navbar() {
       </div>
 
       {/* for notification modal */}
-      <div className="inline lg:hidden fixed ">
+      <div className="inline 2lg:hidden fixed ">
         {showModalNotif && (
           <Modal
             closeModal={() => {

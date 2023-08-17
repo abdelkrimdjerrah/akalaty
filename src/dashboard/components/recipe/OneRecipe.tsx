@@ -10,6 +10,8 @@ import Button from "../shared/Button";
 import useGetRecipe from "../../hooks/useGetRecipe";
 import { useParams } from "react-router-dom";
 import useGetPost from "../../hooks/useGetPost";
+import Ingredients from "./Ingredients";
+import Recipe from "./Recipe";
 
 const recipeTypesColors: any = {
   breakfast: { main: "#F5B657", second: "#FFF4E2" },
@@ -69,89 +71,18 @@ function OneRecipe() {
   }, [responseUser]);
 
   return (
-    <div className="w-full bg-white rounded-2xl relative px-3 py-4 sm:p-5 sm:py-6">
+    <div className="w-full bg-white rounded-2xl relative">
       {deleted ? (
         <h1>Recipe has been deleted !</h1>
       ) : responseRecipe ? (
         <>
           <div className="flex flex-col  gap-4 md:gap-6">
-            <div className="w-full flex flex-col md:flex-row  gap-4 md:gap-6">
-              {responseRecipe?.images?.length > 0 && (
-                <RecipeImages images={responseRecipe?.images} />
-              )}
-
-              <div className="flex flex-col gap-3 w-full ">
-                <RecipeHeader
-                  recipeId={responseRecipe?._id}
-                  userId={responseRecipe?.userId}
-                  picture={picture}
-                  username={username}
-                  createdAt={
-                    responseRecipe?.createdAt ? responseRecipe?.createdAt : ""
-                  }
-                  setDeleted={setDeleted}
-                />
-                <div className="w-full gap-3 items-center">
-                  <span className="text-2xl mt-[-3px]  whitespace-pre-wrap">
-                    {responseRecipe?.title}
-                  </span>
-                  <span
-                    style={{
-                      backgroundColor:
-                        recipeTypesColors[responseRecipe?.type].second,
-                    }}
-                    className="px-3 ml-3 py-1 rounded-full"
-                  >
-                    <span
-                      style={{
-                        color: recipeTypesColors[responseRecipe?.type].main,
-                      }}
-                      className="text-sm"
-                    >
-                      {responseRecipe?.type}
-                    </span>
-                  </span>
-                </div>
-
-                <Text text={responseRecipe?.description} hiddenMore />
-
-                <div className="flex items-center gap-3 flex-wrap">
-                  <Stars rating={responseRecipe?.rating} />
-                  <div className="flex gap-3">
-                    <div className="flex gap-[2px] items-center text-sm min-w-fit">
-                      <PencilSimple size={20} />
-                      <span>{countFeedbacks}</span>
-                    </div>
-                    <div className="flex gap-[2px] items-center text-sm min-w-fit">
-                      <Clock size={20} />
-                      <span>{responseRecipe?.duration} min</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+            <Recipe recipeObj={responseRecipe} textFull/>
+          <div className="px-3 py-4 sm:p-5 sm:py-6">
             <hr />
+            <Ingredients ingredients={responseRecipe.ingredients}/>
+          </div>
 
-            <div className="flex flex-col gap-4">
-              <div className="flex gap-1 w-full items-center">
-                <Hamburger size={23} />
-                <p className=" font-medium">Ingredients</p>
-              </div>
-              <div className="flex flex-col gap-3">
-                {
-                    responseRecipe?.ingredients?.map(({name, amount, unit}, index) => (
-                        <div key={index} className="flex gap-2 items-center">
-                            <span className="mt-[-4px]">{name}</span>
-                            <div className="px-2 py-[2px] rounded-full bg-gray-200 text-xs flex gap-1">
-                                <span>{amount}</span>
-                                <span>{unit}</span>
-                            </div>
-                        </div>
-                    ))
-                }
-              </div>
-            </div>
           </div>
         </>
       ) : null}

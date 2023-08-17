@@ -12,6 +12,7 @@ import { useNavigate
 interface RecipeProps {
   recipeObj: any;
   ref?: any;
+  textFull?: boolean;
 }
 
 const recipeTypesColors: any = {
@@ -24,7 +25,7 @@ const recipeTypesColors: any = {
   other: { main: "#404040", second: "#E8E8E8" },
 };
 
-function Recipe({ recipeObj, ref }: RecipeProps) {
+function Recipe({ recipeObj, ref, textFull }: RecipeProps) {
   const {
     _id,
     userId,
@@ -125,8 +126,12 @@ function Recipe({ recipeObj, ref }: RecipeProps) {
 
 
               </div>
-
-              <Text text={description} length={230} hiddenMore />
+              {
+                textFull ?
+                <Text text={description} length={0} hiddenMore />
+                :
+                <Text text={description} length={230} hiddenMore />
+              }
 
               <div className="flex items-center gap-3 flex-wrap">
                 <Stars rating={rating} />
