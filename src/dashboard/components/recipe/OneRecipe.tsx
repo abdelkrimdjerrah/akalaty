@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import useGetPost from "../../hooks/useGetPost";
 import Ingredients from "./Ingredients";
 import Recipe from "./Recipe";
+import Feedbacks from "./Feedbacks";
 
 const recipeTypesColors: any = {
   breakfast: { main: "#F5B657", second: "#FFF4E2" },
@@ -76,13 +77,14 @@ function OneRecipe() {
         <h1>Recipe has been deleted !</h1>
       ) : responseRecipe ? (
         <>
-          <div className="flex flex-col  gap-4 md:gap-6">
-            <Recipe recipeObj={responseRecipe} textFull/>
-          <div className="px-3 py-4 sm:p-5 sm:py-6">
-            <hr />
-            <Ingredients ingredients={responseRecipe.ingredients}/>
-          </div>
-
+          <div className="flex flex-col">
+            <Recipe recipeObj={responseRecipe} textFull />
+            <div className="p-3 sm:p-5 flex flex-col gap-5">
+              <hr />
+              <Ingredients ingredients={responseRecipe.ingredients} />
+              <hr />
+              <Feedbacks recipeId={responseRecipe._id}/>
+            </div>
           </div>
         </>
       ) : null}

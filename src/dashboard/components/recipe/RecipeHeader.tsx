@@ -67,7 +67,7 @@ function RecipeHeader({ recipeId, username, picture, userId, createdAt, setDelet
             <div className="relative">
               <DotsThree size={21} onClick={() => setShowMenu(!showMenu)} />
               {showMenu && (
-                <div className=" text-sm py-3 px-3 absolute right-0 top-7 z-10 flex flex-col items-center bg-gray-100 shadow-md gap-2">
+                <div className=" bg-white shadow-sm border border-gray-200 text-sm absolute right-0 top-5 z-10 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-md">
                   {/* <p className="cursor-pointer">Edit</p> */}
                   <p
                     className="text-red-600 cursor-pointer"

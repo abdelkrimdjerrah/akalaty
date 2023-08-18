@@ -43,6 +43,7 @@ declare namespace Entities {
   }
 
   export interface IFeedback extends Creatable {
+    _id: mongoose.Schema.Types.ObjectId;
     recipeId: mongoose.Schema.Types.ObjectId;
     userId: mongoose.Schema.Types.ObjectId;
     text: string;

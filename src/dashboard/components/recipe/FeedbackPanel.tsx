@@ -3,9 +3,9 @@ import ButtonSecondary from "../shared/ButtonSecondary";
 import { useNavigate } from "react-router-dom";
 import Select from "../shared/Select";
 
-function AddRecipe({filterStates}: any) {
+function FeedbackPanel({filterStates}: any) {
 
-  const {optionSelectType, setOptionSelectType, optionOrderByRating, setOptionOrderByRating} = filterStates
+  const {optionHasImages, setOptionHasImages, optionOrderByRating, setOptionOrderByRating} = filterStates
 
   const navigate = useNavigate();
 
@@ -59,9 +59,9 @@ function AddRecipe({filterStates}: any) {
          <Select
           items={optionsSelectBy}
           placeholder="Select an option"
-          defaultValue={optionSelectType}
-          setSelectedOption={setOptionSelectType}
-          selectedOption={optionSelectType}
+          defaultValue={optionHasImages}
+          setSelectedOption={setOptionHasImages}
+          selectedOption={optionHasImages}
          />
 
           <Select
@@ -80,4 +80,4 @@ function AddRecipe({filterStates}: any) {
   );
 }
 
-export default AddRecipe;
+export default FeedbackPanel;

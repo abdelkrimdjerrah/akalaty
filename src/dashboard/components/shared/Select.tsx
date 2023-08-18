@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CaretDown } from "phosphor-react";
 
 interface Props {
@@ -23,20 +23,37 @@ const Select = ({
   selectedOption,
 }: Props) => {
   const [active, setActive] = useState(false);
+  const [showAbove, setShowAbove] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+
+    // close dropdown when clicked outside
     const handleOutsideClick = (event: any) => {
       if (ref.current && !ref.current.contains(event.target)) {
         setActive(false);
       }
     };
+
+    // if there is no enough space for dropdown to show below, show it above
+    const calculatePosition = () => {
+      if (!ref.current) return;
+      const { bottom } = ref.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      setShowAbove(bottom + 200 > windowHeight); 
+    };
+    calculatePosition();
+
+    window.addEventListener("resize", calculatePosition);
     document.addEventListener("click", handleOutsideClick, true);
     return () => {
       document.removeEventListener("click", handleOutsideClick, true);
+      window.removeEventListener("resize", calculatePosition);
+
     };
   }, []);
 
+ 
   return (
     <div
       className="bg-white min-w-fit cursor-pointer relative border flex justify-between items-center px-3 border-gray-300 rounded-md py-1 text-sm font-medium text-gray-700 hover:border-gray-400 focus:outline-none focus:border-gray-400"
@@ -47,20 +64,24 @@ const Select = ({
     >
       <div className="flex gap-2 min-w-fit  justify-between items-center">
         <div>
-          <p>{!selectedOption.value ? placeholder  : selectedOption.label}</p>
+          <p>{!selectedOption.value ? placeholder : selectedOption.label}</p>
         </div>
         <div>
           <CaretDown size={15} weight="bold" />
         </div>
       </div>
       {active && (
-        <div className="absolute z-[11] min-w-fit whitespace-nowrap top-9 left-0 w-full bg-white rounded-md shadow-md border border-gray-300">
+        <div
+          className={`absolute z-[11] min-w-fit whitespace-nowrap ${
+            showAbove ? "bottom-full" : "top-9"
+          } left-0 w-full bg-white rounded-md shadow-md border border-gray-300`}
+        >
           {items.map((item) => (
             <div
               key={item.value}
               className="px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-md"
               onClick={(e) => {
-                e.stopPropagation()
+                e.stopPropagation();
                 setSelectedOption({ label: item.label, value: item.value });
                 setActive(false);
               }}
