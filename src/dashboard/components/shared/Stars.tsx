@@ -2,9 +2,10 @@ import { Star } from "phosphor-react"
 
 interface StarsProps {
     rating: number;
+    size: number;
 }
 
-const Stars = ({rating}:StarsProps) => {
+const Stars = ({rating, size}:StarsProps) => {
 
     const calc = rating *  100 / 5 + '%'
 
@@ -12,11 +13,11 @@ const Stars = ({rating}:StarsProps) => {
     <div className=" w-fit relative">
 
       <div className="text-gray-300 flex gap-[2px] ">
-        <Star size={20} weight="fill"/>
-        <Star size={20} weight="fill"/>
-        <Star size={20} weight="fill"/>
-        <Star size={20} weight="fill"/>
-        <Star size={20} weight="fill"/>
+        <Star size={size} weight="fill"/>
+        <Star size={size} weight="fill"/>
+        <Star size={size} weight="fill"/>
+        <Star size={size} weight="fill"/>
+        <Star size={size} weight="fill"/>
       </div>
 
       <div
@@ -24,11 +25,11 @@ const Stars = ({rating}:StarsProps) => {
         style={{ width: calc, overflow: "hidden" }}
       >
         <div className="flex gap-[2px] min-w-fit">
-          <Star size={20} weight="fill" />
-          <Star size={20} weight="fill" />
-          <Star size={20} weight="fill" />
-          <Star size={20} weight="fill" />
-          <Star size={20} weight="fill" />
+          <Star size={size} weight="fill" />
+          <Star size={size} weight="fill" />
+          <Star size={size} weight="fill" />
+          <Star size={size} weight="fill" />
+          <Star size={size} weight="fill" />
         </div>
       </div>
 

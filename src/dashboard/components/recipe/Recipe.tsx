@@ -134,7 +134,7 @@ function Recipe({ recipeObj, ref, textFull }: RecipeProps) {
               }
 
               <div className="flex items-center gap-3 flex-wrap">
-                <Stars rating={rating} />
+                <Stars rating={rating} size={20}/>
                 <div className="flex gap-3">
                   <div className="flex gap-[2px] items-center text-sm min-w-fit">
                     <PencilSimple size={20} />

@@ -6,25 +6,24 @@ import { selectUserData } from "../../redux/userSlice";
 import moment from "moment";
 import Text from "../shared/Text";
 import { DotsThree } from "phosphor-react";
+import Stars from "../shared/Stars";
 
 interface FeedbackItemProps {
-    feedbackObj : Entities.IFeedback
+  feedbackObj: Entities.IFeedback;
 }
 
-const FeedbackItem = ({feedbackObj}: FeedbackItemProps) => {
-    
-    const {recipeId,_id, userId, text, rating, createdAt} = feedbackObj;
-    const feedbackId = _id;
-   
-    const [showMenu, setShowMenu] = useState(false);
-    const [deleted, setDeleted] = useState(false);
-  
-    const axiosPrivate = useAxiosPrivate();
-  
-    const userData = useGetUser<Entities.UserEntity>(userId);
+const FeedbackItem = ({ feedbackObj }: FeedbackItemProps) => {
+  const { recipeId, _id, userId, text, rating, createdAt } = feedbackObj;
+  const feedbackId = _id;
 
-    const JWTuserData = useSelector(selectUserData);
+  const [showMenu, setShowMenu] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
+  const axiosPrivate = useAxiosPrivate();
+
+  const userData = useGetUser<Entities.UserEntity>(userId);
+
+  const JWTuserData = useSelector(selectUserData);
 
   const handleDeleteFeedback = async () => {
     try {
@@ -54,11 +53,12 @@ const FeedbackItem = ({feedbackObj}: FeedbackItemProps) => {
           />
           <div className="pl-14 flex flex-col gap-[2px] text-sm w-full">
             <div className="flex justify-between items-center">
-              <p className="font-medium">{userData?.username}</p>
-              <div className="flex gap-1">
-                <p className="text-xs text-gray-400">
-                  {moment(createdAt?.toLocaleString()).fromNow()}
-                </p>
+              <div className="flex items-center gap-2">
+                <p className="font-medium">{userData?.username}</p>
+                <Stars rating={rating} size={15} />
+              </div>
+
+              <div className="flex gap-1 items-center">
                 {userId === JWTuserData?._id ? (
                   <div className="relative">
                     <DotsThree
@@ -67,7 +67,6 @@ const FeedbackItem = ({feedbackObj}: FeedbackItemProps) => {
                     />
                     {showMenu && (
                       <div className="bg-white shadow-sm border border-gray-200 text-sm absolute right-0 top-5 z-10 px-3 py-2 hover:bg-gray-100 cursor-pointer rounded-md">
-                        {/* <p className="cursor-pointer">Edit</p> */}
                         <p
                           className="text-red-600 cursor-pointer"
                           onClick={handleDeleteFeedback}
@@ -81,24 +80,16 @@ const FeedbackItem = ({feedbackObj}: FeedbackItemProps) => {
               </div>
             </div>
 
-
             <Text text={text} length={0} />
-
-  
-           
           </div>
         </div>
-
-    
       </div>
-    
     </div>
   );
 
   const deletedFeedback = <p>Comment has been deleted</p>;
 
   return <div>{deleted ? deletedFeedback : FeedbackComponent}</div>;
+};
 
-}
-
-export default FeedbackItem
+export default FeedbackItem;
