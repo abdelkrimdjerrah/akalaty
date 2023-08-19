@@ -2,6 +2,7 @@ import { PaperPlaneRight, PencilSimple } from "phosphor-react";
 import Input from "../shared/Input";
 import { useState } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import Textarea from "../shared/Textarea";
 
 
 interface SetFeedbackProps {
@@ -45,17 +46,17 @@ const SetFeedback = ({recipeId}:SetFeedbackProps) => {
 
   return (
     <div className="relative">
-      <Input
+      <Textarea
         text="Write a feedback ..."
-        type="text"
         widthFull
         onChange={(v) => setText(v)}
         value={text}
         className="py-2 text-xs w-[250px] pr-8"
+        rows={5}
       />
       <div
         onClick={handleSetFeedback}
-        className="cursor-pointer absolute top-0 right-0 h-full flex items-center mr-2 text-gray-400"
+        className="cursor-pointer absolute bottom-2 right-2 text-gray-400"
       >
         <PaperPlaneRight size={19} />
       </div>

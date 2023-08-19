@@ -78,7 +78,7 @@ function OneRecipe() {
       ) : responseRecipe ? (
         <>
           <div className="flex flex-col">
-            <Recipe recipeObj={responseRecipe} textFull />
+            <Recipe recipeObj={responseRecipe} textFull noBtn />
             <div className="p-3 sm:p-5 flex flex-col gap-5">
               <hr />
               <Ingredients ingredients={responseRecipe.ingredients} />

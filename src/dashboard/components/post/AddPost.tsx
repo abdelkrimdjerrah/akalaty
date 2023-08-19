@@ -4,6 +4,7 @@ import Input from "../shared/Input";
 import ButtonSecondary from "../shared/ButtonSecondary";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import Loader from "../shared/Loader";
+import Textarea from "../shared/Textarea";
 
 function AddPost() {
   const [text, setText] = useState("");
@@ -131,7 +132,7 @@ function AddPost() {
             <p className="text-sm text-red-500">{isError}</p>
           </>
         )}
-        <Input
+        <Textarea
           text="Write a text ..."
           type="text"
           widthFull

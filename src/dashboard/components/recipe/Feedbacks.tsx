@@ -50,7 +50,8 @@ const Feedbacks = ({ recipeId }: FeedbacksProps) => {
         <p className=" font-medium">Feedback</p>
       </div>
 
-     <SetFeedback recipeId={recipeId} />
+        <SetFeedback recipeId={recipeId} />
+
 
 
       <div className="flex flex-col gap-3">

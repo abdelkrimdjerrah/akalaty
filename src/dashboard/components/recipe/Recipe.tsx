@@ -13,6 +13,7 @@ interface RecipeProps {
   recipeObj: any;
   ref?: any;
   textFull?: boolean;
+  noBtn?: boolean;
 }
 
 const recipeTypesColors: any = {
@@ -25,7 +26,7 @@ const recipeTypesColors: any = {
   other: { main: "#404040", second: "#E8E8E8" },
 };
 
-function Recipe({ recipeObj, ref, textFull }: RecipeProps) {
+function Recipe({ recipeObj, ref, textFull, noBtn }: RecipeProps) {
   const {
     _id,
     userId,
@@ -147,9 +148,13 @@ function Recipe({ recipeObj, ref, textFull }: RecipeProps) {
                 </div>
               </div>
 
-              <Button className="mt-2 w-full sm:w-fit" outlined color={recipeTypesColors[type].main} onClick={()=>{navigate(`/recipes/${recipeId}`)}}>
-                <div>View recipe</div>
-              </Button>
+              {
+                !noBtn && (
+                    <Button className="mt-2 w-full sm:w-fit" outlined color={recipeTypesColors[type].main} onClick={()=>{navigate(`/recipes/${recipeId}`)}}>
+                      <div>View recipe</div>
+                    </Button>
+                )
+              }
 
             </div>
           </div>
