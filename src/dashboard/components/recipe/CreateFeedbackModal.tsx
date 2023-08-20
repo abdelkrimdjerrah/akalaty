@@ -79,7 +79,7 @@ const CreateFeedbackModal = ({ closeModal, recipeId }: any) => {
       const feedbackDetails = {
         recipeId,
         text,
-        rating: 4,
+        rating,
         images: imagesFormData,
       };
 
