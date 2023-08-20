@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import Modal from "../shared/Modal";
+import React, { useRef, useState } from "react";
+import Modal from "../../shared/Modal";
 import { X, XCircle } from "phosphor-react";
-import Button from "../shared/ButtonSecondary";
-import Textarea from "../shared/Textarea";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import ButtonSecondary from "../shared/ButtonSecondary";
-import Loader from "../shared/Loader";
-import RatingSystem from "../shared/RatingSystem";
+import Button from "../../shared/ButtonSecondary";
+import Textarea from "../../shared/Textarea";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import ButtonSecondary from "../../shared/ButtonSecondary";
+import Loader from "../../shared/Loader";
+import RatingSystem from "../../shared/RatingSystem";
+import successAnimation from './successAnimation.json'
+import Lottie, {LottieRefCurrentProps} from "lottie-react";
+
+
 
 const CreateFeedbackModal = ({ closeModal, recipeId }: any) => {
   const [text, setText] = useState("");
@@ -16,6 +20,8 @@ const CreateFeedbackModal = ({ closeModal, recipeId }: any) => {
   const [error, setError] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [selectedFilesImg, setSelectedFilesImg] = useState<Blob[]>([]);
+
+  const successAnimationRef = useRef<LottieRefCurrentProps>(null);
 
   const axiosPrivate = useAxiosPrivate();
 
@@ -145,91 +151,100 @@ const CreateFeedbackModal = ({ closeModal, recipeId }: any) => {
         </div>
 
         <div className="flex flex-col gap-2">
-          {added && (
-            <>
-              <p className="text-sm text-green-500">
-                Feedback added successfully!
-              </p>
-            </>
-          )}
           {error && (
             <>
               <p className="text-sm text-red-500">{error}</p>
             </>
           )}
   
-            <div className="w-full flex justify-center">
-                <RatingSystem rating={rating} setRating={setRating} size={25} />
+          {added ? (
+            <div className="flex flex-col items-center">
+              <Lottie 
+                lottieRef={successAnimationRef}
+                animationData={successAnimation}
+                style={{width: 300, height: 300}}
+                onComplete={() => closeModal()}
+                loop={false}
+              />
+            
             </div>
+          ):
+          (
+            <>     
+                <div className="w-full flex justify-center">
+                    <RatingSystem rating={rating} setRating={setRating} size={25} />
+                </div>
 
-          <Textarea
-            text="Write a feedback ..."
-            widthFull
-            onChange={(v) => setText(v)}
-            value={text}
-            className="py-2 text-xs w-[250px] pr-8"
-            rows={5}
-          />
+              <Textarea
+                text="Write a feedback ..."
+                widthFull
+                onChange={(v) => setText(v)}
+                value={text}
+                className="py-2 text-xs w-[250px] pr-8"
+                rows={5}
+              />
 
-            {selectedFiles && (
-              <div className="flex gap-2 overflow-hidden flex-wrap">
-                {selectedFilesImg.map((img: any, index: number) => {
-                  return (
-                    <div className="relative" key={index}>
-                      <img
-                        src={img}
-                        alt="img"
-                        className="w-20 h-20 object-cover border-[1px] border-gray-100 rounded-lg"
-                      />
+                {selectedFiles && (
+                  <div className="flex gap-2 overflow-hidden flex-wrap">
+                    {selectedFilesImg.map((img: any, index: number) => {
+                      return (
+                        <div className="relative" key={index}>
+                          <img
+                            src={img}
+                            alt="img"
+                            className="w-20 h-20 object-cover border-[1px] border-gray-100 rounded-lg"
+                          />
 
-                      {/* adding white bg to the X inside so it will be visible on dark images */}
-                      <div
-                        onClick={() => handleDeleteImage(index)}
-                        className="cursor-pointer"
-                      >
-                        <div className="bg-white w-2 h-2 absolute top-[10px] right-[10px]" />
-                        <XCircle
-                          size={20}
-                          weight="fill"
-                          className=" absolute top-1 right-1"
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+                          {/* adding white bg to the X inside so it will be visible on dark images */}
+                          <div
+                            onClick={() => handleDeleteImage(index)}
+                            className="cursor-pointer"
+                          >
+                            <div className="bg-white w-2 h-2 absolute top-[10px] right-[10px]" />
+                            <XCircle
+                              size={20}
+                              weight="fill"
+                              className=" absolute top-1 right-1"
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
 
-          <div className="flex gap-2 items-center w-full justify-center">
-            <ButtonSecondary onClick={handleAddFeedback} color="orange">
-              Add post
-            </ButtonSecondary>
-
-            <div className="relative w-fit">
-              {selectedFiles ? (
-                <ButtonSecondary>
-                  Selected {selectedFiles.length}{" "}
+              <div className="flex gap-2 items-center w-full justify-center">
+                <ButtonSecondary onClick={handleAddFeedback} color="orange">
+                  Add feedback
                 </ButtonSecondary>
-              ) : (
-                <ButtonSecondary>Upload image</ButtonSecondary>
-              )}
-              <label className=" cursor-pointer absolute w-full h-full left-0">
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg"
-                  multiple
-                  onChange={handleFileChange}
-                  className=" bg-blue-500"
-                />
-              </label>
-            </div>
 
-            {loading && (
-              <>
-                <Loader />
-              </>
-            )}
-          </div>
+                <div className="relative w-fit">
+                  {selectedFiles ? (
+                    <ButtonSecondary>
+                      Selected {selectedFiles.length}{" "}
+                    </ButtonSecondary>
+                  ) : (
+                    <ButtonSecondary>Upload image</ButtonSecondary>
+                  )}
+                  <label className=" cursor-pointer absolute w-full h-full left-0">
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      multiple
+                      onChange={handleFileChange}
+                      className=" bg-blue-500"
+                    />
+                  </label>
+                </div>
+
+                {loading && (
+                  <>
+                    <Loader />
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </Modal>

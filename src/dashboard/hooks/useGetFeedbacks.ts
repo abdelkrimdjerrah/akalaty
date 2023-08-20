@@ -5,6 +5,7 @@ const useGetFeedbacks = (recipeId:string, page?:number ,limit?:number, filters?:
   const axiosPrivate = useAxiosPrivate();
 
   const [feedbacks, setFeedbacks] = useState<Entities.IFeedback[]>([]);
+  const [countAllFeedbacks, setCountAllFeedbacks] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState({});
@@ -36,6 +37,7 @@ const useGetFeedbacks = (recipeId:string, page?:number ,limit?:number, filters?:
             return;
         }
         setFeedbacks(data.feedbacksPage);
+        setCountAllFeedbacks(data.countAllFeedbacks);
         setIsLoading(false);
         
       } catch (e: any) {
@@ -48,7 +50,7 @@ const useGetFeedbacks = (recipeId:string, page?:number ,limit?:number, filters?:
 
   }, [page, limit, filters?.images, filters?.rating]);
 
-  return {feedbacks, isLoading, isError, error};
+  return {feedbacks, countAllFeedbacks, isLoading, isError, error};
 };
 
 export default useGetFeedbacks;

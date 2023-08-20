@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom";
 import useGetPost from "../../hooks/useGetPost";
 import Ingredients from "./Ingredients";
 import Recipe from "./Recipe";
-import Feedbacks from "./Feedbacks";
+import Feedbacks from "./feedback/Feedbacks";
 
 const recipeTypesColors: any = {
   breakfast: { main: "#F5B657", second: "#FFF4E2" },

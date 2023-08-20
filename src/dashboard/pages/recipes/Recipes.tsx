@@ -21,9 +21,9 @@ function Recipes() {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-5">
       <RecipePanel filterStates={filterStates}/>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-5">
         {recipes?.map((recipe) => (
           <div key={recipe._id}>
             <Recipe recipeObj={recipe} />

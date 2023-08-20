@@ -1,7 +1,7 @@
 import { PlusCircle, SlidersHorizontal } from "phosphor-react";
-import ButtonSecondary from "../shared/ButtonSecondary";
+import ButtonSecondary from "../../shared/ButtonSecondary";
 import { useNavigate } from "react-router-dom";
-import Select from "../shared/Select";
+import Select from "../../shared/Select";
 import { useState } from "react";
 import CreateFeedbackModal from "./CreateFeedbackModal";
 

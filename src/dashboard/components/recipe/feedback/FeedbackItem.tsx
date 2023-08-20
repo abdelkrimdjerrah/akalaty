@@ -1,12 +1,12 @@
 import { useState } from "react";
-import useGetUser from "../../hooks/useGetUser";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import useGetUser from "../../../hooks/useGetUser";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { useSelector } from "react-redux";
-import { selectUserData } from "../../redux/userSlice";
+import { selectUserData } from "../../../redux/userSlice";
 import moment from "moment";
-import Text from "../shared/Text";
+import Text from "../../shared/Text";
 import { DotsThree } from "phosphor-react";
-import Stars from "../shared/Stars";
+import Stars from "../../shared/Stars";
 
 interface FeedbackItemProps {
   feedbackObj: Entities.IFeedback;
@@ -52,10 +52,15 @@ const FeedbackItem = ({ feedbackObj }: FeedbackItemProps) => {
             className="w-11 h-11 absolute object-cover rounded-full"
           />
           <div className="pl-14 flex flex-col gap-[2px] text-sm w-full">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <p className="font-medium">{userData?.username}</p>
-                <Stars rating={rating} size={15} />
+            <div className="flex justify-between items-start">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <p className="font-medium">{userData?.username}</p>
+                  <Stars rating={rating} size={15} />
+                </div>
+                <p className="text-xs text-gray-400">
+                  {moment(createdAt?.toLocaleString()).fromNow()}
+                </p>
               </div>
 
               <div className="flex gap-1 items-center">
@@ -87,7 +92,7 @@ const FeedbackItem = ({ feedbackObj }: FeedbackItemProps) => {
     </div>
   );
 
-  const deletedFeedback = <p>Comment has been deleted</p>;
+  const deletedFeedback = <p>Feedback has been deleted</p>;
 
   return <div>{deleted ? deletedFeedback : FeedbackComponent}</div>;
 };
