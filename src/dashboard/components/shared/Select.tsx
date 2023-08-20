@@ -22,36 +22,44 @@ const Select = ({
   setSelectedOption,
   selectedOption,
 }: Props) => {
+
   const [active, setActive] = useState(false);
-  const [showAbove, setShowAbove] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+const [showAbove, setShowAbove] = useState(false);
+//added show to avoid a glitch, since it's takes time to reach and make the calculation in calculatePosition()
+const [show, setShow] = useState(false);
+const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+console.log(showAbove);
 
-    // close dropdown when clicked outside
-    const handleOutsideClick = (event: any) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setActive(false);
-      }
-    };
+const handleOutsideClick = (event: any) => {
+  if (ref.current && !ref.current.contains(event.target)) {
+    setActive(false);
+  }
+};
 
-    // if there is no enough space for dropdown to show below, show it above
-    const calculatePosition = () => {
-      if (!ref.current) return;
-      const { bottom } = ref.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      setShowAbove(bottom + 200 > windowHeight); 
-    };
-    calculatePosition();
+const calculatePosition = () => {
+  if (!ref.current) return;
+  const { bottom } = ref.current.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+  console.log(`Yoo ${bottom + 200} ${windowHeight}`)
+  setShowAbove(bottom + 200 > windowHeight); 
+  setShow(true);
+};
 
-    window.addEventListener("resize", calculatePosition);
-    document.addEventListener("click", handleOutsideClick, true);
-    return () => {
-      document.removeEventListener("click", handleOutsideClick, true);
-      window.removeEventListener("resize", calculatePosition);
+useEffect(() => {
+  calculatePosition();
+}, [active]);
 
-    };
-  }, []);
+useEffect(() => {
+  window.addEventListener("resize", calculatePosition);
+  document.addEventListener("click", handleOutsideClick, true);
+
+  return () => {
+    document.removeEventListener("click", handleOutsideClick, true);
+    window.removeEventListener("resize", calculatePosition);
+    setShow(false);
+  };
+}, []);
 
  
   return (
@@ -60,6 +68,7 @@ const Select = ({
       ref={ref}
       onClick={() => {
         setActive((prev) => !prev);
+        setShow(false);
       }}
     >
       <div className="flex gap-2 min-w-fit  justify-between items-center">
@@ -70,7 +79,7 @@ const Select = ({
           <CaretDown size={15} weight="bold" />
         </div>
       </div>
-      {active && (
+      {(active && show) && (
         <div
           className={`absolute z-[11] min-w-fit whitespace-nowrap ${
             showAbove ? "bottom-full" : "top-9"
