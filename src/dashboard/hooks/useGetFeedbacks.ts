@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 
-const useGetFeedbacks = (recipeId:string, page?:number ,limit?:number) => {
+const useGetFeedbacks = (recipeId:string, page?:number ,limit?:number, filters?:{images?:string, rating?:string|number}) => {
   const axiosPrivate = useAxiosPrivate();
 
   const [feedbacks, setFeedbacks] = useState<Entities.IFeedback[]>([]);
@@ -24,6 +24,9 @@ const useGetFeedbacks = (recipeId:string, page?:number ,limit?:number) => {
           queryParams = { page, limit };
           url = `/api/recipes/${recipeId}/feedbacks/pages`;
         }
+        if(filters?.images) queryParams = {...queryParams, images: filters.images};
+        if(filters?.rating) queryParams = {...queryParams, rating: filters.rating};
+
 
         const { data } = await axiosPrivate.get(url, { params: queryParams });
 
@@ -43,7 +46,7 @@ const useGetFeedbacks = (recipeId:string, page?:number ,limit?:number) => {
 
     fetchData();
 
-  }, [page, limit]);
+  }, [page, limit, filters?.images, filters?.rating]);
 
   return {feedbacks, isLoading, isError, error};
 };

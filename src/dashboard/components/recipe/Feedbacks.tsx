@@ -29,7 +29,8 @@ const Feedbacks = ({ recipeId }: FeedbacksProps) => {
   const { feedbacks, isLoading, isError, error } = useGetFeedbacks(
     recipeId,
     currentPage,
-    showPerPage.value
+    showPerPage.value,
+    { images:optionHasImages.value, rating:optionOrderByRating.value}
   );
 
   
