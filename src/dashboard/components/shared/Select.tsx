@@ -29,7 +29,6 @@ const [showAbove, setShowAbove] = useState(false);
 const [show, setShow] = useState(false);
 const ref = useRef<HTMLDivElement>(null);
 
-console.log(showAbove);
 
 const handleOutsideClick = (event: any) => {
   if (ref.current && !ref.current.contains(event.target)) {
@@ -41,7 +40,6 @@ const calculatePosition = () => {
   if (!ref.current) return;
   const { bottom } = ref.current.getBoundingClientRect();
   const windowHeight = window.innerHeight;
-  console.log(`Yoo ${bottom + 200} ${windowHeight}`)
   setShowAbove(bottom + 200 > windowHeight); 
   setShow(true);
 };
