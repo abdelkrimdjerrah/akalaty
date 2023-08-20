@@ -9,8 +9,9 @@ import Stars from "../shared/Stars";
 import Button from "../shared/Button";
 import { useNavigate
  } from "react-router-dom";
+import { create } from "lodash";
 interface RecipeProps {
-  recipeObj: any;
+  recipeObj: Entities.IRecipe;
   ref?: any;
   textFull?: boolean;
   noBtn?: boolean;
@@ -39,6 +40,7 @@ function Recipe({ recipeObj, ref, textFull, noBtn }: RecipeProps) {
     images,
     createdAt,
   } = recipeObj;
+
 
   const recipeId = _id;
 
@@ -85,6 +87,7 @@ function Recipe({ recipeObj, ref, textFull, noBtn }: RecipeProps) {
    
 
   }, [response]);
+
 
   return (
     <div ref={ref} className="w-full bg-white rounded-2xl relative p-3 py-4 sm:p-5 sm:py-6">

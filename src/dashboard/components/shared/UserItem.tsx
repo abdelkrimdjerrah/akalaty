@@ -1,6 +1,6 @@
 interface UserItemProps {
   name: string;
-  text: string;
+  text?: string;
   picture: string;
 }
 

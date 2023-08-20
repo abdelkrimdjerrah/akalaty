@@ -9,10 +9,10 @@ const Abdelkrim = require("../../../assets/Abdelkrim.png");
 
 interface RecipeProps {
   recipeId: string;
-  userId: any;
+  userId: string;
   picture: string;
   username: string;
-  createdAt: Date | string;
+  createdAt?: Date;
   setDeleted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -25,14 +25,19 @@ function RecipeHeader({ recipeId, username, picture, userId, createdAt, setDelet
 
   const axiosPrivate = useAxiosPrivate();
 
-  const created = new Date(createdAt).toLocaleString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-  });
+  let created
+
+  console.log(createdAt)
+  if(createdAt){
+    created = new Date(createdAt).toLocaleString("en-US", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    });
+  }
 
   const handleDeleteRecipe = async () => {
     try {

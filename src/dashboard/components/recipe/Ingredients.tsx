@@ -21,8 +21,8 @@ const Ingredients = ({ ingredients }: IngredientsProps) => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex gap-1 w-full items-center">
-        <Hamburger size={23} />
-        <p className=" font-medium">Ingredients</p>
+        <Hamburger size={26} />
+        <p className=" font-medium text-lg">Ingredients</p>
       </div>
       <div className="flex flex-col gap-3">
         {ingredients.map(({ name, amount, unit }, index) => (

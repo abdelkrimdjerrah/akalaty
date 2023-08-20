@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useGetRecipe from "../../hooks/useGetRecipe";
 import Recipe from "../../components/recipe/Recipe";
-import AddRecipe from "../../components/recipe/AddRecipe";
+import RecipePanel from "../../components/recipe/RecipePanel";
 
 
 function Recipes() {
@@ -22,7 +22,7 @@ function Recipes() {
 
   return (
     <div className="flex flex-col gap-3">
-      <AddRecipe filterStates={filterStates}/>
+      <RecipePanel filterStates={filterStates}/>
       <div className="flex flex-col gap-3">
         {recipes?.map((recipe) => (
           <div key={recipe._id}>
