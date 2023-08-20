@@ -3,7 +3,16 @@ import ButtonSecondary from "../shared/ButtonSecondary";
 import { useNavigate } from "react-router-dom";
 import Select from "../shared/Select";
 
-function AddRecipe({filterStates}: any) {
+interface RecipePanelProps {
+  filterStates: {
+    optionSelectType: { value: string; label: string };
+    setOptionSelectType: React.Dispatch<React.SetStateAction<{ value: string; label: string }>>;
+    optionOrderByRating: { value: string; label: string };
+    setOptionOrderByRating: React.Dispatch<React.SetStateAction<{ value: string; label: string }>>;
+  };
+}
+
+function RecipePanel({filterStates}: RecipePanelProps) {
 
   const {optionSelectType, setOptionSelectType, optionOrderByRating, setOptionOrderByRating} = filterStates
 
@@ -80,4 +89,4 @@ function AddRecipe({filterStates}: any) {
   );
 }
 
-export default AddRecipe;
+export default RecipePanel;
