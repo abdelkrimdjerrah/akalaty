@@ -139,36 +139,35 @@ function AddPost() {
           onClick={() => setIsPosted(false)}
           onChange={(v) => setText(v)}
           value={text}
+          rows={4}
           className="py-2 text-xs w-[250px]"
         />
 
-        <div>
-          {selectedFiles && (
-            <div className="flex gap-2 overflow-hidden flex-wrap">
-              {selectedFilesImg.map((img: any, index: number) => {
-                return (
-                  <div className="relative" key={index}>
-                    <img
-                      src={img}
-                      alt="img"
-                      className="w-20 h-20 object-cover border-[1px] border-gray-100 rounded-lg"
-                    />
+        {selectedFiles && (
+          <div className="flex gap-2 overflow-hidden flex-wrap">
+            {selectedFilesImg.map((img: any, index: number) => {
+              return (
+                <div className="relative" key={index}>
+                  <img
+                    src={img}
+                    alt="img"
+                    className="w-20 h-20 object-cover border-[1px] border-gray-100 rounded-lg"
+                  />
 
-                    {/* adding white bg to the X inside so it will be visible on dark images */}
-                    <div onClick={() => handleDeleteImage(index)} className="cursor-pointer">
-                      <div className="bg-white w-2 h-2 absolute top-[10px] right-[10px]" />
-                      <XCircle
-                        size={20}
-                        weight="fill"
-                        className=" absolute top-1 right-1"
-                      />
-                    </div>
+                  {/* adding white bg to the X inside so it will be visible on dark images */}
+                  <div onClick={() => handleDeleteImage(index)} className="cursor-pointer">
+                    <div className="bg-white w-2 h-2 absolute top-[10px] right-[10px]" />
+                    <XCircle
+                      size={20}
+                      weight="fill"
+                      className=" absolute top-1 right-1"
+                    />
                   </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
         <div className="flex gap-2 items-center">
         <ButtonSecondary onClick={handleAddPost} color="orange">
