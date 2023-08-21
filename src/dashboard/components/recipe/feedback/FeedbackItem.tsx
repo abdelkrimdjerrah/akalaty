@@ -7,15 +7,17 @@ import moment from "moment";
 import Text from "../../shared/Text";
 import { DotsThree } from "phosphor-react";
 import Stars from "../../shared/Stars";
+import FeedbackImages from "./FeedbackImages";
 
 interface FeedbackItemProps {
   feedbackObj: Entities.IFeedback;
 }
 
 const FeedbackItem = ({ feedbackObj }: FeedbackItemProps) => {
-  const { recipeId, _id, userId, text, rating, createdAt } = feedbackObj;
+  const { recipeId, _id, userId, text, rating, images, createdAt } = feedbackObj;
   const feedbackId = _id;
 
+  console.log(images)
   const [showMenu, setShowMenu] = useState(false);
   const [deleted, setDeleted] = useState(false);
 
@@ -85,7 +87,13 @@ const FeedbackItem = ({ feedbackObj }: FeedbackItemProps) => {
               </div>
             </div>
 
-            <Text text={text} length={0} />
+            <div className="py-1">
+              <Text text={text} length={0} />
+            </div>
+
+            <div>
+              <FeedbackImages images={images} />
+            </div>
           </div>
         </div>
       </div>

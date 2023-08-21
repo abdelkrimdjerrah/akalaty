@@ -33,7 +33,7 @@ const CreateFeedbackModal = ({ closeModal, recipeId }: any) => {
       for (let i = 0; i < e.target.files.length; i++) {
         list.items.add(e.target.files[i]);
 
-        //convert image to base64
+        //convert image to base64 in order to show it in front-end
         const reader = new FileReader();
         reader.readAsDataURL(e.target.files[i] as Blob);
         reader.onload = () => {
@@ -58,7 +58,7 @@ const CreateFeedbackModal = ({ closeModal, recipeId }: any) => {
     }
   };
 
-  const imagesFormData = new FormData();
+  const formData = new FormData();
 
   const handleAddFeedback = async () => {
     try {
@@ -78,27 +78,23 @@ const CreateFeedbackModal = ({ closeModal, recipeId }: any) => {
 
       if (selectedFiles) {
         for (let i = 0; i < selectedFiles.length; i++) {
-          imagesFormData.append("images", selectedFiles[i]);
+          formData.append("images", selectedFiles[i]);
         }
       }
 
-      const feedbackDetails = {
-        recipeId,
-        text,
-        rating,
-        images: imagesFormData,
-      };
+      
+      //these will be found in req.body in server
+      formData.append("recipeId", recipeId);
+      formData.append("text", text);
+      formData.append("rating", rating.toString());
 
       const { data } = await axiosPrivate.post(
         `/api/recipes/${recipeId}/feedbacks`,
-        feedbackDetails,
+        formData,
         {
           //overriding the base header in axio.ts by the new header that accept files
           headers: {
             "Content-Type": "multipart/form-data",
-          },
-          params: {
-            text: text,
           },
         }
       );
