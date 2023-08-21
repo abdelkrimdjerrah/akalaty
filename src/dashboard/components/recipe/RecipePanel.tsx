@@ -39,7 +39,7 @@ function RecipePanel({filterStates}: RecipePanelProps) {
 
   return (
     <div className="w-full bg-white rounded-2xl relative px-3 py-4 sm:p-5 sm:py-6 flex flex-col xs:flex-row gap-2 xs:gap-6">
-      <div className="flex flex-col gap-3 min-w-fit">
+      <div className="flex flex-col gap-1 min-w-fit">
         <div className="flex gap-1 w-full">
           <Cookie size={21} />
           <p className="text-sm font-medium">Add recipe</p>
@@ -57,7 +57,7 @@ function RecipePanel({filterStates}: RecipePanelProps) {
 
       <div className=" w-[1px] bg-gray-200" />
 
-      <div className="flex flex-col gap-3 w-full">
+      <div className="flex flex-col gap-1 w-full">
         <div className="flex gap-1 w-full">
           <SlidersHorizontal size={21} />
           <p className="text-sm font-medium">Filters</p>

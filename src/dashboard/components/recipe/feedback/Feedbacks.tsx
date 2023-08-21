@@ -36,7 +36,7 @@ const Feedbacks = ({ recipeId }: FeedbacksProps) => {
 
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
       <div className="flex gap-1 w-full items-center">
         <PencilSimple size={26} />
         <p className=" font-medium text-lg">Feedbacks</p>

@@ -37,7 +37,7 @@ function FeedbackPanel({filterStates, recipeId}: FeedbackPanelProps) {
 
   return (
     <div className="w-full bg-white rounded-2xl relative flex flex-col xs:flex-row gap-2 xs:gap-6">
-      <div className="flex flex-col gap-3 min-w-fit">
+      <div className="flex flex-col gap-1 min-w-fit">
         <div className="flex gap-1 w-full">
           <PlusCircle size={21} />
           <p className="text-sm font-medium">Add feedback</p>
@@ -55,7 +55,7 @@ function FeedbackPanel({filterStates, recipeId}: FeedbackPanelProps) {
 
       <div className=" w-[1px] bg-gray-200" />
 
-      <div className="flex flex-col gap-3 w-full">
+      <div className="flex flex-col gap-1 w-full">
         <div className="flex gap-1 w-full">
           <SlidersHorizontal size={21} />
           <p className="text-sm font-medium">Filters</p>
