@@ -8,7 +8,7 @@ declare namespace Types {
     | "drink"
     | "vegan"
     | "other"
-    | "all";
+    | "";
 }
 
 declare namespace Entities {

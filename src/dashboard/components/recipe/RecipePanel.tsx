@@ -6,7 +6,7 @@ import Select from "../shared/Select";
 interface RecipePanelProps {
   filterStates: {
     optionSelectType: { value: string; label: string };
-    setOptionSelectType: React.Dispatch<React.SetStateAction<{ value: string; label: string }>>;
+    setOptionSelectType: React.Dispatch<React.SetStateAction<{ value: Types.IRecipeType; label: string }>>;
     optionOrderByRating: { value: string; label: string };
     setOptionOrderByRating: React.Dispatch<React.SetStateAction<{ value: string; label: string }>>;
   };
