@@ -9,6 +9,16 @@ declare namespace Types {
     | "vegan"
     | "other"
     | "";
+  export type IUnitType =
+    | "grams"
+    | "cups"
+    | "ounces"
+    | "kilograms"
+    | "tablespoons"
+    | "milliliters"
+    | "liters"
+    | "count"
+    | "teaspoons";
 }
 
 declare namespace Entities {

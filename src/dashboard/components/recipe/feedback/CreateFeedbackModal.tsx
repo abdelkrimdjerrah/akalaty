@@ -217,8 +217,8 @@ const CreateFeedbackModal = ({ closeModal, recipeId }: any) => {
                 <div className="relative w-fit">
                   {selectedFiles ? (
                     <ButtonSecondary>
-                      Selected {selectedFiles.length}{" "}
-                    </ButtonSecondary>
+                    Add more{"  ("}{selectedFiles.length}{")"}
+                  </ButtonSecondary>
                   ) : (
                     <ButtonSecondary>Upload image</ButtonSecondary>
                   )}
