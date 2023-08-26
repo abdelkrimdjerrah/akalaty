@@ -53,7 +53,7 @@ function Textarea({
             width +
             paddingRight +
             " " +
-            " text-sm rounded-md p-2 focus:shadow-border outline-none " +
+            " text-xs rounded-md p-2 focus:shadow-border outline-none " +
             className
           }
           onClick={onClick}
