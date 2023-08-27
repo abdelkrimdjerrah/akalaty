@@ -44,3 +44,6 @@ input[type="file"]{
   background: #FA7D7D !important;
 }
 
+textarea {
+  resize: none;
+}

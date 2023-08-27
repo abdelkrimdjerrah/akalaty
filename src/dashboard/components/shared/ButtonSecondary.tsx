@@ -32,6 +32,9 @@ export default function Button({
   if (color == "orange") {
     btn_style = " text-yellow-600 bg-orange-100 ";
   }
+  if (color == "blue") {
+    btn_style = " text-blue-500 bg-blue-100 ";
+  }
   return (
     <button
       disabled={loading || disabled}
