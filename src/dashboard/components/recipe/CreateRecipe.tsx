@@ -275,9 +275,9 @@ const CreateRecipe = () => {
           </div>
 
           <div className="flex flex-col gap-1">
-            <p className="text-sm font-medium">{`Prepatation time (minutes) :`}</p>
+            <p className="text-sm font-medium">{`Prepatation time (in minutes) :`}</p>
             <Input
-              text="in minutes"
+              text=""
               type="text"
               widthFull
               onChange={(v) =>
