@@ -3,8 +3,6 @@ import { Cookie, XCircle, X } from "phosphor-react";
 import Input from "../shared/Input";
 import Textarea from "../shared/Textarea";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import Lottie from "lottie-react";
-import addImageAnimation from "./addImageAnimation.json";
 import ButtonSecondary from "../shared/ButtonSecondary";
 
 const CreateRecipe = () => {
