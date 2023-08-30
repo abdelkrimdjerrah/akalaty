@@ -22,7 +22,7 @@ const CreateRecipe = () => {
   const [added, setAdded] = useState(false);
   const [error, setError] = useState("");
 
-  console.log(preparation)
+  console.log(preparation);
   const axiosPrivate = useAxiosPrivate();
 
   const addStep = () => {
@@ -30,13 +30,15 @@ const CreateRecipe = () => {
     setPreparation([...preparation, newStep]);
   };
 
-  const deleteStep = (step:{ step: number, description: string }) => {
-    const updatedPreparation = preparation.filter((s) => s.step !== step.step).map((s) => {
-      if (s.step > step.step) {
-        return { ...s, step: s.step - 1 };
-      }
-      return s;
-    });
+  const deleteStep = (step: { step: number; description: string }) => {
+    const updatedPreparation = preparation
+      .filter((s) => s.step !== step.step)
+      .map((s) => {
+        if (s.step > step.step) {
+          return { ...s, step: s.step - 1 };
+        }
+        return s;
+      });
     setPreparation(updatedPreparation);
   };
 
@@ -119,7 +121,6 @@ const CreateRecipe = () => {
       }
       setAdded(true);
     } catch (error) {
-      console.log("error");
     } finally {
       setLoading(false);
     }
@@ -233,32 +234,33 @@ const CreateRecipe = () => {
             <div className="flex flex-col gap-1">
               {preparation.map((step) => (
                 <div key={step.step} className="flex flex-col gap-2">
-                  {
-                    step.step !== 1 ? (
-                      <div>
-                        <div className="py-4">
-                          <hr />
-                        </div>
-                          <div className="w-full flex justify-between items-center">
-                            <p className="text-sm">Step {step.step}:</p>
-                            <div onClick={() => deleteStep(step)} className="flex items-center text-red-500 text-sm font-medium cursor-pointer w-fit">
-                              <X size={17} weight="bold" />
-                              <p>Delete</p>
-                            </div>
-                          </div>
+                  {step.step !== 1 ? (
+                    <div>
+                      <div className="py-4">
+                        <hr />
                       </div>
-                    ) : <p className="text-sm">Step {step.step}:</p>
-                  }
+                      <div className="w-full flex justify-between items-center">
+                        <p className="text-sm">Step {step.step}:</p>
+                        <div
+                          onClick={() => deleteStep(step)}
+                          className="flex items-center text-red-500 text-sm font-medium cursor-pointer w-fit"
+                        >
+                          <X size={17} weight="bold" />
+                          <p>Delete</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-sm">Step {step.step}:</p>
+                  )}
 
-              
                   <Textarea
                     text="Phase description"
                     type="text"
                     widthFull
                     onChange={(e: any) => {
                       const updatedPreparation = [...preparation];
-                      updatedPreparation[step.step - 1].description =
-                        e;
+                      updatedPreparation[step.step - 1].description = e;
                       setPreparation(updatedPreparation);
                     }}
                     value={step.description}
@@ -267,7 +269,9 @@ const CreateRecipe = () => {
                 </div>
               ))}
               <div className="pt-1">
-                <ButtonSecondary onClick={addStep} color="blue">Add more steps</ButtonSecondary>
+                <ButtonSecondary onClick={addStep} color="blue">
+                  Add more steps
+                </ButtonSecondary>
               </div>
             </div>
           </div>
