@@ -9,7 +9,7 @@ import { Route, Routes } from "react-router-dom";
 import { selectUserData } from "../redux/userSlice";
 import { useSelector } from "react-redux";
 import OneRecipe from "./recipe/OneRecipe";
-import CreateRecipe from "./recipe/CreateRecipe";
+import CreateRecipe from "./recipe/create/CreateRecipe";
 
 function Router() {
   const user = useSelector(selectUserData);

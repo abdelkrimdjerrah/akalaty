@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Cookie, XCircle, X } from "phosphor-react";
-import Input from "../shared/Input";
-import Textarea from "../shared/Textarea";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import ButtonSecondary from "../shared/ButtonSecondary";
-import BasicInformation from "./create/BasicInformation";
-import UploadImages from "./create/UploadImages";
-import Preparation from "./create/Preparation";
-import Ingredients from "./create/Ingredients";
+import Input from "../../shared/Input";
+import Textarea from "../../shared/Textarea";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import ButtonSecondary from "../../shared/ButtonSecondary";
+import BasicInformation from "./BasicInformation";
+import UploadImages from "./UploadImages";
+import Preparation from "./Preparation";
+import Ingredients from "./Ingredients";
 
 const CreateRecipe = () => {
   const [title, setTitle] = useState("");
