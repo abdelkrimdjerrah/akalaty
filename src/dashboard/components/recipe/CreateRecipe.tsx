@@ -8,9 +8,7 @@ import ButtonSecondary from "../shared/ButtonSecondary";
 const CreateRecipe = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [preparation, setPreparation] = useState([
-    { step: 1, description: "" },
-  ]);
+  const [preparation, setPreparation] = useState([{ step: 1, description: "" },]);
   const [preparationTime, SetPreparationTime] = useState(0);
   const [ingredients, setIngredients] = useState<
     [{ name: string; amount: number; unit: Types.IUnitType }]
