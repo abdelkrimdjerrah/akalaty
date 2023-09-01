@@ -59,6 +59,8 @@ useEffect(() => {
   };
 }, []);
 
+
+console.log(selectedOption)
  
   return (
     <div
