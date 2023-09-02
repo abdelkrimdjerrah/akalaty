@@ -59,8 +59,6 @@ useEffect(() => {
   };
 }, []);
 
-
-console.log(selectedOption)
  
   return (
     <div
@@ -71,7 +69,7 @@ console.log(selectedOption)
         setShow(false);
       }}
     >
-      <div className="flex gap-2 min-w-fit  justify-between items-center">
+      <div className="flex gap-2 min-w-fit  justify-between w-full items-center">
         <div>
           <p>{!selectedOption.value ? placeholder : selectedOption.label}</p>
         </div>

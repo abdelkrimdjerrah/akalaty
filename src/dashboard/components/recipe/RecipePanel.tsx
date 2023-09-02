@@ -48,7 +48,6 @@ function RecipePanel({filterStates}: RecipePanelProps) {
         <div className="flex gap-2 items-center">
           <ButtonSecondary
             onClick={() => navigate("/recipes/create")}
-            color="gray"
           >
             Create now
           </ButtonSecondary>

@@ -8,6 +8,8 @@ interface BtnProps {
   disabled?: boolean;
   className?: string;
   color?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
   outlined?: boolean;
 }
 
@@ -20,11 +22,13 @@ export default function Button({
   className,
   children,
   outlined,
+  primaryColor,
+  secondaryColor
 }: BtnProps) {
   const width = widthFull ? "w-full flex-1" : "";
   let btn_style = "";
   if (color == "red") {
-    btn_style = " text-red-400 bg-red-100";
+    btn_style = " text-[#FA7D7D] bg-[#FEE7E7]";
   }
   if (color == "yellow") {
     btn_style = " text-yellow-800 bg-yellow-100 ";
@@ -33,7 +37,13 @@ export default function Button({
     btn_style = " text-yellow-600 bg-orange-100 ";
   }
   if (color == "blue") {
-    btn_style = " text-blue-500 bg-blue-100 ";
+    btn_style = " text-[#7D82FA] bg-[#E0E1FF] ";
+  }
+  if(!color){
+    btn_style = " text-gray-600 bg-gray-100 "
+  }
+  if(primaryColor && secondaryColor){
+    btn_style = ` text-${primaryColor} bg-${secondaryColor} `
   }
   return (
     <button
@@ -42,7 +52,7 @@ export default function Button({
       className={
         width +
         btn_style +
-        " text-sm font-medium text-gray-600 bg-gray-100  relative py-1 px-5 rounded-md duration-200 disabled:opacity-60 disabled:cursor-not-allowed " +
+        " text-sm font-medium relative py-1 px-5 rounded-md duration-200 disabled:opacity-60 disabled:cursor-not-allowed " +
         className
       }
     >

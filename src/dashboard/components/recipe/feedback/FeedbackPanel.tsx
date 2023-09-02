@@ -46,7 +46,6 @@ function FeedbackPanel({filterStates, recipeId}: FeedbackPanelProps) {
         <div className="flex gap-2 items-center">
           <ButtonSecondary
             onClick={() => setShowModal(true)}
-            color="gray"
           >
             Create now
           </ButtonSecondary>
