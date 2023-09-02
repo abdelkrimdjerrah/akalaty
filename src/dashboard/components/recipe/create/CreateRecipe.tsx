@@ -12,6 +12,7 @@ import Ingredients from "./Ingredients";
 const CreateRecipe = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [optionSelectType, setOptionSelectType] = useState<{label:string,value:Types.IRecipeType}>({label: '', value: ''});
   const [preparation, setPreparation] = useState([{ step: 1, description: "" }]);
   const [preparationTime, SetPreparationTime] = useState(0);
   const [ingredients, setIngredients] = useState<
@@ -88,7 +89,7 @@ const CreateRecipe = () => {
           <p className="text-sm font-medium">Add recipe</p>
         </div>
         <div className="flex flex-col gap-3">
-            <BasicInformation title={title} setTitle={setTitle} description={description} setDescription={setDescription} />
+            <BasicInformation title={title} setTitle={setTitle} description={description} setDescription={setDescription} optionSelectType={optionSelectType} setOptionSelectType={setOptionSelectType}/>
             <UploadImages selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles} selectedFilesImg={selectedFilesImg} setSelectedFilesImg={setSelectedFilesImg} />
             <Preparation preparation={preparation} setPreparation={setPreparation} preparationTime={preparationTime} SetPreparationTime={SetPreparationTime} />
             <Ingredients ingredients={ingredients} setIngredients={setIngredients}/>
