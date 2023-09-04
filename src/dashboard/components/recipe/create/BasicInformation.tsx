@@ -15,9 +15,6 @@ interface PropsType {
 const BasicInformation = ({title, setTitle, description, setDescription, optionSelectType, setOptionSelectType}:PropsType) => {
 
 
-  // must handle if value is empty
-  // must handle if value is empty
-
   const optionsSelectBy = [
     { value: 'breakfast', label: 'Breakfast' },
     { value: 'appetizer', label: 'Appetizer' },
