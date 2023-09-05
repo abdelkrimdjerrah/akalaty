@@ -1,28 +1,12 @@
 import { useEffect, useState } from "react";
-import RecipeHeader from "./RecipeHeader";
-import { Clock, PencilSimple, Hamburger } from "phosphor-react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useGetUser from "../../hooks/useGetUser";
-import RecipeImages from "./RecipeImages";
-import Text from "../shared/Text";
-import Stars from "../shared/Stars";
-import Button from "../shared/Button";
 import useGetRecipe from "../../hooks/useGetRecipe";
 import { useParams } from "react-router-dom";
-import useGetPost from "../../hooks/useGetPost";
 import Ingredients from "./Ingredients";
 import Recipe from "./Recipe";
 import Feedbacks from "./feedback/Feedbacks";
 
-const recipeTypesColors: any = {
-  breakfast: { main: "#F5B657", second: "#FFF4E2" },
-  appetizer: { main: "#F557EF", second: "#FFE7FE" },
-  main: { main: "#7D82FA", second: "#E0E1FF" },
-  dessert: { main: "#FA7D7D", second: "#FEE7E7" },
-  drink: { main: "#AD4F4F", second: "#FFE7E7" },
-  vegan: { main: "#7AB675", second: "#F4FFF3" },
-  other: { main: "#404040", second: "#E8E8E8" },
-};
 
 function OneRecipe() {
   const { id } = useParams();
