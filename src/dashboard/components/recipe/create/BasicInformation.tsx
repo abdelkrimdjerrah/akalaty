@@ -32,7 +32,7 @@ const BasicInformation = ({title, setTitle, description, setDescription, optionS
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium">Title:</p>
             <Input
-              text="Write a title"
+              text="Write a title.."
               type="text"
               widthFull
               onChange={(v) => setTitle(v)}
@@ -42,7 +42,7 @@ const BasicInformation = ({title, setTitle, description, setDescription, optionS
           <div className="flex flex-col gap-1">
             <p className="text-sm font-medium">Description:</p>
             <Textarea
-              text="Write a description"
+              text="Write a description.."
               widthFull
               onChange={(v) => setDescription(v)}
               value={description}
